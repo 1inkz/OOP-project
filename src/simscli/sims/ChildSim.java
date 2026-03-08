@@ -1,15 +1,16 @@
 package simscli.sims;
 
+import simscli.game.Game;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
 public final class ChildSim extends Sim {
-    public ChildSim(String name) {
-        super(name, SimType.CHILD);
+    public ChildSim(String name, Game game) {
+        super(name, SimType.CHILD, game);
     }
 
     @Override
-    protected Effect hourlyDecay() {
+	public Effect hourlyDecay() {
         // Kids lose energy slower, lose fun slower, but bladder fills faster
         return Effect.none()
                 .plus(NeedType.HUNGER,  -4)

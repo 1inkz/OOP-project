@@ -1,25 +1,28 @@
 package simscli.location;
 
-import simscli.actions.Action;
-import simscli.actions.Socialise;
+import simscli.actions.*;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
-import simscli.stats.Effect;
-import simscli.stats.NeedType;
+import simscli.stats.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public final class Restaurant extends Location {
     @Override public String key() { return "restaurant"; }
     @Override public String name() { return "Restaurant"; }
 
     @Override
-    public List<Action> actions() {
-        return Arrays.asList(
+    public List<Action> actions(Sim sim) {
+    	 List<Action> baseActions = new ArrayList<>(Arrays.asList(
                 new DineOut(),      // special action only here
                 new Socialise()     // reuse existing action
-        );
+        ));
+    	 
+         if (sim != null && sim.getJob().canWork() 
+                 && sim.getJob().getWorkLocation().equals(this.key())) {
+             baseActions.add(ActionFactory.create(ActionType.WORK));
+         }
+         return baseActions;
     }
 
     /** Location-specific action: costs money, boosts hunger + social + fun. */
@@ -28,18 +31,19 @@ public final class Restaurant extends Location {
 
         @Override
         public String perform(Sim sim, GameContext ctx) {
-            if (sim.getMoney() < 25) {
+            if (sim.getSimcoin() < 25) {
                 return sim.getName() + " can't afford to dine out. (Need $25)";
             }
 
             // Pay money (controlled by Sim method)
-            sim.spendMoney(25);
+            sim.spendSimcoin(25);
             // We *must* manipulate via method where needed: add a spend method in Sim (see changes below)
             // For now this will call sim.spendMoney(25) once you add it.
             // (You will add spendMoney in Sim in the change section.)
 
             sim.applyEffect(Effect.none()
                     .plus(NeedType.HUNGER, +45)
+                    .plus(NeedType.ENERGY, +30)
                     .plus(NeedType.SOCIAL, +15)
                     .plus(NeedType.FUN, +10)
                     .plus(NeedType.HYGIENE, -2)

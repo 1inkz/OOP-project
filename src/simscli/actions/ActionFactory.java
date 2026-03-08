@@ -18,6 +18,7 @@ public final class ActionFactory {
             case EXERCISE: return new Exercise();
             case SOCIALISE: return new Socialise();
             case WORK: return new Work();
+            case CLEAN_PUBLIC: return new CleanPublic();
             default: throw new IllegalArgumentException("Unknown action: " + type);
         }
     }

@@ -22,6 +22,13 @@ public final class Needs {
     public int get(NeedType t) {
         return stats.get(t).get();
     }
+    
+    public void set(NeedType type, int value) {
+        BoundedStat stat = stats.get(type);
+        if (stat != null) {
+            stat.setValue(Math.max(0, Math.min(100, value)));
+        }
+    }
 
     public void add(NeedType t, int delta) {
         stats.get(t).add(delta);

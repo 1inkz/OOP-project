@@ -11,6 +11,10 @@ public final class BoundedStat {
     public int get() {
         return value;
     }
+    
+    public void setValue(int v) {
+        this.value = v;
+    }
 
     public void set(int v) {
         if (v < 0) value = 0;

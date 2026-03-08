@@ -6,15 +6,16 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
 public final class Sleep implements Action {
+	
     @Override public String name() { return "Sleep"; }
 
     @Override
     public String perform(Sim sim, GameContext ctx) {
+    	ctx.resetToNextDayMorning();
         sim.applyEffect(Effect.none()
-                .plus(NeedType.ENERGY, +45)
-                .plus(NeedType.HUNGER, -6)
-                .plus(NeedType.BLADDER, -6)
-                .plus(NeedType.FUN, +2));
-        return sim.getName() + " slept deeply.";
+                .plus(NeedType.ENERGY, 90)
+                .plus(NeedType.HUNGER, 30)
+                .plus(NeedType.BLADDER, -3));
+        return sim.getName() + " slept deeply. . Woke up the next day!";
     }
 }

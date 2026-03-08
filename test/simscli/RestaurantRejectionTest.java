@@ -27,9 +27,9 @@ public class RestaurantRejectionTest {
 
         // Make sure money is low
         // If you don't have a setter, just spend until low (safe approach)
-        while (g.activeSim().getMoney() > 0) {
+        while (g.activeSim().getSimcoin() > 0) {
             try {
-                g.activeSim().spendMoney(1);
+                g.activeSim().spendSimcoin(1);
             } catch (Exception ex) {
                 break;
             }

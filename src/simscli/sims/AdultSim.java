@@ -1,15 +1,16 @@
 package simscli.sims;
 
+import simscli.game.Game;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
 public final class AdultSim extends Sim {
-    public AdultSim(String name) {
-        super(name, SimType.ADULT);
+    public AdultSim(String name, Game game) {
+        super(name, SimType.ADULT, game);
     }
 
     @Override
-    protected Effect hourlyDecay() {
+	public Effect hourlyDecay() {
         return Effect.none()
                 .plus(NeedType.HUNGER,  -5)
                 .plus(NeedType.ENERGY,  -5)

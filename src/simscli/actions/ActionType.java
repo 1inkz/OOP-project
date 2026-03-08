@@ -13,5 +13,6 @@ public enum ActionType {
     READ_BOOK,
     EXERCISE,
     SOCIALISE,
-    WORK
+    WORK,
+    CLEAN_PUBLIC
 }

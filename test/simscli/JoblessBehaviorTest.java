@@ -30,9 +30,9 @@ public class JoblessBehaviorTest {
         g.createSim("Ava", SimType.ADULT);
         g.setActiveSim(0);
 
-        int before = g.activeSim().getMoney();
+        int before = g.activeSim().getSimcoin();
         String msg = g.performAction(ActionFactory.create(ActionType.WORK));
-        int after = g.activeSim().getMoney();
+        int after = g.activeSim().getSimcoin();
 
         assertEquals(before, after);
         assertTrue(msg.toLowerCase().contains("jobless"));

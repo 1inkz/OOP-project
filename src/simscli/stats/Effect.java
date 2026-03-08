@@ -32,4 +32,5 @@ public final class Effect {
     public String toString() {
         return deltas.toString();
     }
+
 }

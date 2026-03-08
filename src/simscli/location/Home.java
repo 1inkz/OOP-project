@@ -1,6 +1,7 @@
 package simscli.location;
 
 import simscli.actions.*;
+import simscli.sims.Sim;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +11,7 @@ public final class Home extends Location {
     @Override public String name() { return "Home"; }
 
     @Override
-    public List<Action> actions() {
+    public List<Action> actions(Sim sim) {
         return Arrays.asList(
                 ActionFactory.create(ActionType.EAT_MEAL),
                 ActionFactory.create(ActionType.EAT_SNACK),

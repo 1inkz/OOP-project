@@ -1,15 +1,16 @@
 package simscli.sims;
 
+import simscli.game.Game;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
 public final class ElderSim extends Sim {
-    public ElderSim(String name) {
-        super(name, SimType.ELDER);
+    public ElderSim(String name, Game game) {
+        super(name, SimType.ELDER, game);
     }
 
     @Override
-    protected Effect hourlyDecay() {
+	public Effect hourlyDecay() {
         // Elder loses energy faster, hygiene slightly faster
         return Effect.none()
                 .plus(NeedType.HUNGER,  -5)

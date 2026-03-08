@@ -9,15 +9,12 @@ public abstract class Location {
     public abstract String key();   // "home", "park", ...
     public abstract String name();  // "Home", "Park", ...
 
-    /** Which actions are available in this location. */
-    public abstract List<Action> actions();
+    public abstract List<Action> actions(Sim sim);
 
-    /** Optional rule hook: can Sim enter? */
     public boolean canEnter(Sim sim) {
         return sim != null && sim.isAlive();
     }
 
-    /** Optional message when entering. */
     public String onEnter(Sim sim) {
         return sim.getName() + " arrived at " + name() + ".";
     }

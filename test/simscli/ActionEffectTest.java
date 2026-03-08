@@ -16,11 +16,11 @@ public class ActionEffectTest {
         Sim s = g.createSim("Ava", SimType.ADULT);
         g.setActiveSim(0);
 
-        int moneyBefore = s.getMoney();
+        int moneyBefore = s.getSimcoin();
         String msg = g.performAction(ActionFactory.create(ActionType.WORK));
 
         assertNotNull(msg);
-        assertTrue(s.getMoney() > moneyBefore);
+        assertTrue(s.getSimcoin() > moneyBefore);
         g.shutdown();
     }
 }

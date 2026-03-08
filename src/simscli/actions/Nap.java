@@ -11,7 +11,7 @@ public final class Nap implements Action {
     @Override
     public String perform(Sim sim, GameContext ctx) {
         sim.applyEffect(Effect.none()
-                .plus(NeedType.ENERGY, +20)
+                .plus(NeedType.ENERGY, +30)
                 .plus(NeedType.HUNGER, -3)
                 .plus(NeedType.BLADDER, -3));
         return sim.getName() + " took a nap.";
