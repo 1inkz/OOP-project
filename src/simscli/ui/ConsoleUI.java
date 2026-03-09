@@ -33,9 +33,31 @@ public final class ConsoleUI {
             game.autoAdvanceRealTime(deltaSeconds);
 
             Sim activeSim = game.activeSim();
+
             if (activeSim == null || !activeSim.isAlive()) {
-                System.out.println(RED + "No active Sim! Game over." + RESET);
-                break;
+
+                System.out.println("\nYour Sim has left the simulation.");
+
+                // check if other sims still exist
+                boolean anyAlive = false;
+
+                for (Sim sim : game.sims()) {
+                    if (sim.isAlive()) {
+                        anyAlive = true;
+                        break;
+                    }
+                }
+
+                if (anyAlive) {
+                    System.out.println("Select another Sim to continue.");
+                } else {
+                    System.out.println("All Sims are gone. Create a new Sim.");
+                }
+
+                in.line("Press Enter to continue...");
+                showSimManagementMenu();
+
+                continue;
             }
 
         	clearScreen();
@@ -52,11 +74,11 @@ public final class ConsoleUI {
             menuOptions.add("View Sims Status");
             menuOptions.add("Travel to Location");
 
-            if (currentLocation != "Street") {
+            if (!currentLocation.equals("Street")) {
                 menuOptions.add(currentLocationOption); 
             }
             
-            if (jobless == "Jobless") {
+            if (jobless.equals("Jobless")) {
             	menuOptions.add("Find Job");
             }
             else {
@@ -82,7 +104,7 @@ public final class ConsoleUI {
             if (selectedOption == currentLocationOption) {
             	selectedOption = "Location Action Menu";
             }
-            else if (selectedOption == "Find Job" || selectedOption == "Change Job") {
+            else if (selectedOption.equals("Find Job") || selectedOption.equals("Change Job")) {
             	selectedOption = "Job";
             }
          
@@ -96,14 +118,26 @@ public final class ConsoleUI {
                 case "Pass Time (1 Hour)": game.advanceTimeForAction(); break; // Pass time (1 hour)
                 case "View FAQ": showFAQMenu(); break;
                 case "Back [To Sims Management Menu]": showSimManagementMenu(); break;
-                case "Quit Game": 
-                    SaveGame.saveGame(game);
+                case "Quit Game":
+
+                    String confirm = in.line("Save current progress before quitting? (y/n): ");
+
+                    if (confirm.equalsIgnoreCase("y")) {
+                        SaveGame.saveGame(game);
+                        System.out.println("Game saved.");
+                    }
+
                     game.shutdown();
-                    System.out.println(GREEN + "Game saved! Goodbye." + RESET);
+                    System.out.println("Goodbye.");
                     return;
             }
 
-            if (game.sims().isEmpty()) break;
+            if (game.sims().isEmpty()) {
+                System.out.println("\nAll Sims are gone.");
+                in.line("Press Enter to return to the Sims Management Menu...");
+                showSimManagementMenu();
+                continue;
+            }
         }
     }
         
@@ -280,8 +314,7 @@ public final class ConsoleUI {
             String selectedOption = menuOptions.get(optionIndex);
             
             switch (selectedOption) {
-                case "New Game": 
-                	SaveGame.clearSaveFile(); 
+                case "New Game":
                     game.resetGame(); 
                     System.out.println(GREEN + "New Game started!" + RESET);
                     showSimManagementMenu();
@@ -340,9 +373,14 @@ public final class ConsoleUI {
             String selectedOption = menuOptions.get(optionIndex);
          
             switch (selectedOption) {
-                case "Select Existing Sim":
-                    selectExistingSim(); 
-                    break;
+	            case "Select Existing Sim":
+	                selectExistingSim();
+	
+	                if (game.activeSim() != null) {
+	                    simMenuRunning = false;   // exit management menu
+	                }
+
+                break;
                 case "Create New Sim":
                     createNewSim();     
                     break;
