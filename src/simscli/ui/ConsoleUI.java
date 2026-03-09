@@ -606,49 +606,121 @@ public final class ConsoleUI {
     }
     
     private void showBankingOperationsMenu() {
+
         Sim activeSim = game.activeSim();
-        clearScreen();
-        printDynamicTitle("Banking Menu");
-        
-        System.out.println("Deposit: $" + activeSim.getBankingSystem().getDeposit() + " | Loan: $" + activeSim.getBankingSystem().getLoanAmount());
-        System.out.println("Simcoin: $" + activeSim.getSimcoin() + "\n");
 
-        System.out.println(BLUE + "1) Deposit Simcoin" + RESET);
-        System.out.println(BLUE + "2) Withdraw Simcoin" + RESET);
-        System.out.println(BLUE + "3) Apply for Loan" + RESET);
-        System.out.println(BLUE + "4) Repay Loan" + RESET);
-        System.out.println(BLUE + "5) Return to " + activeSim.getName() + " Main Menu" + RESET);
+        while (true) {
 
-        int choice = in.intRange("Choose: ", 1, 5);
-        switch (choice) {
-            case 1:
-                int depositAmt = in.intRange("Deposit amount: $", 1, activeSim.getSimcoin());
-                if (activeSim.getBankingSystem().deposit(depositAmt)) {
-                	activeSim.spendSimcoin(depositAmt);
-                    System.out.println(GREEN + "Deposited $" + depositAmt + "!" + RESET);
-                }
-                break;
-            case 2:
-                int withdrawAmt = in.intRange("Withdraw amount: $", 1, activeSim.getBankingSystem().getDeposit());
-                if (activeSim.getBankingSystem().withdraw(withdrawAmt)) {
-                	activeSim.earnSimcoin(withdrawAmt);
-                    System.out.println(GREEN + "Withdrew $" + withdrawAmt + "!" + RESET);
-                }
-                break;
-            case 3:
-                int loanAmt = in.intRange("Loan amount (max $" + simscli.bank.BankingSystem.getLoanLimit() + "): $", 1, (simscli.bank.BankingSystem.getLoanLimit()-activeSim.getBankingSystem().getLoanAmount()));
-                if (activeSim.getBankingSystem().applyLoan(loanAmt)) {
-                	activeSim.earnSimcoin(loanAmt);
-                    System.out.println(GREEN + "Loan approved! $" + loanAmt + " added to Simcoin." + RESET);
-                }
-                break;
-            case 4:
-                int repayAmt = in.intRange("Repay amount: $", 1, Math.min(activeSim.getSimcoin(), activeSim.getBankingSystem().getLoanAmount()));
-                if (activeSim.spendSimcoin(repayAmt)) {
-                	activeSim.getBankingSystem().repayLoan(repayAmt);
-                    System.out.println(GREEN + "Repaid $" + repayAmt + "! Remaining loan: $" + activeSim.getBankingSystem().getLoanAmount() + RESET);
-                }
-                break;
+            clearScreen();
+            printDynamicTitle("Banking Menu");
+
+            System.out.println("Deposit: $" + activeSim.getBankingSystem().getDeposit()
+                    + " | Loan: $" + activeSim.getBankingSystem().getLoanAmount());
+            System.out.println("Simcoin: $" + activeSim.getSimcoin() + "\n");
+
+            System.out.println(BLUE + "1) Deposit Simcoin" + RESET);
+            System.out.println(BLUE + "2) Withdraw Simcoin" + RESET);
+            System.out.println(BLUE + "3) Apply for Loan" + RESET);
+            System.out.println(BLUE + "4) Repay Loan" + RESET);
+            System.out.println(BLUE + "5) Return to Main Menu" + RESET);
+
+            int choice = in.intRange("Choose: ", 1, 5);
+
+            switch (choice) {
+
+                case 1:
+
+                    if (activeSim.getSimcoin() <= 0) {
+                        System.out.println(RED + "You have no Simcoin to deposit!" + RESET);
+                        in.line("Press Enter to continue...");
+                        break;
+                    }
+
+                    int depositAmt = in.intRange("Deposit amount: $", 1, activeSim.getSimcoin());
+
+                    if (activeSim.getBankingSystem().deposit(depositAmt)) {
+                        activeSim.spendSimcoin(depositAmt);
+                        System.out.println(GREEN + "Deposited $" + depositAmt + RESET);
+                    }
+
+                    in.line("Press Enter to continue...");
+                    break;
+
+
+                case 2:
+
+                    if (activeSim.getBankingSystem().getDeposit() <= 0) {
+                        System.out.println(RED + "No money available to withdraw!" + RESET);
+                        in.line("Press Enter to continue...");
+                        break;
+                    }
+
+                    int withdrawAmt = in.intRange("Withdraw amount: $", 1,
+                            activeSim.getBankingSystem().getDeposit());
+
+                    if (activeSim.getBankingSystem().withdraw(withdrawAmt)) {
+                        activeSim.earnSimcoin(withdrawAmt);
+                        System.out.println(GREEN + "Withdrew $" + withdrawAmt + RESET);
+                    }
+
+                    in.line("Press Enter to continue...");
+                    break;
+
+
+                case 3:
+
+                    int loanAmt = in.intRange(
+                            "Loan amount (max $" + simscli.bank.BankingSystem.getLoanLimit() + "): $",
+                            1,
+                            simscli.bank.BankingSystem.getLoanLimit()
+                                    - activeSim.getBankingSystem().getLoanAmount());
+
+                    if (activeSim.getBankingSystem().applyLoan(loanAmt)) {
+                        activeSim.earnSimcoin(loanAmt);
+                        System.out.println(GREEN + "Loan approved! $" + loanAmt + RESET);
+                    }
+
+                    in.line("Press Enter to continue...");
+                    break;
+
+
+                case 4:
+
+                	if (activeSim.getBankingSystem().getLoanAmount() <= 0) {
+                        System.out.println(RED + "No loan to repay." + RESET);
+                        in.line("Press Enter to continue...");
+                        break;
+                    }
+
+                    if (activeSim.getSimcoin() <= 0) {
+                        System.out.println(RED + "You do not have enough Simcoin to repay the loan." + RESET);
+                        in.line("Press Enter to continue...");
+                        break;
+                    }
+
+                    int maxRepay = Math.min(activeSim.getSimcoin(), activeSim.getBankingSystem().getLoanAmount());
+
+                    if (maxRepay <= 0) {
+                        System.out.println(RED + "You do not have enough Simcoin to repay the loan." + RESET);
+                        in.line("Press Enter to continue...");
+                        break;
+                    }
+
+                    int repayAmt = in.intRange("Repay amount: $", 1, maxRepay);
+
+                    if (activeSim.spendSimcoin(repayAmt)) {
+                        activeSim.getBankingSystem().repayLoan(repayAmt);
+                        System.out.println(GREEN + "Repaid $" + repayAmt
+                                + "! Remaining loan: $" + activeSim.getBankingSystem().getLoanAmount() + RESET);
+                    }
+
+                    in.line("Press Enter to continue...");
+                    break;
+
+
+                case 5:
+                    return;
+            }
         }
     }
     
