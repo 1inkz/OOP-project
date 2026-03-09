@@ -85,16 +85,32 @@ public final class Game {
     }
     
     private void removeDeadSims() {
-        sims.removeIf(sim -> {
+
+        boolean activeSimDied = false;
+
+        Iterator<Sim> it = sims.iterator();
+        int index = 0;
+
+        while (it.hasNext()) {
+            Sim sim = it.next();
+
             if (!sim.isAlive()) {
-                System.out.println(sim.getName() + " was eliminated (need hit 0)!");
-                SaveGame.saveGame(this); // Auto-save
-                return true;
+                System.out.println(sim.getName() + " was eliminated (needs hit 0)!");
+
+                if (index == activeIndex) {
+                    activeSimDied = true;
+                }
+
+                it.remove();
             }
-            return false;
-        });
+
+            index++;
+        }
+
+        if (activeSimDied) {
+            activeIndex = -1; // force player to pick another sim
+        }
     }
-    // End: Sims
     
     
     // Start: Time
@@ -114,21 +130,43 @@ public final class Game {
         return gameStartDay;
     }
     
+    private void advanceGameTime(int minutes) {
+
+        // 1. Advance the clock
+        clock.spendMinutes(minutes);
+
+        // 2. Convert minutes → hours for decay
+        int hours = minutes / 60;
+
+        // 3. Apply decay to all sims
+        for (Sim sim : sims) {
+            if (sim.isAlive()) {
+                for (int i = 0; i < hours; i++) {
+                    sim.applyEffect(sim.hourlyDecay());
+                }
+            }
+        }
+
+        // 4. Run time-based rules
+        checkTimeRules();
+
+        // 5. Remove dead sims
+        removeDeadSims();
+    }
+    
     public void advanceTimeForAction() {
-    	clock.spendMinutes(60);
-    	checkTimeRules();
+        advanceGameTime(60);
 
-        // 1) active sim ticks on main thread
-        //GameContext ctx = new GameContext(this);
-        Sim active = activeSim();
-
-        // 2) NPC sims tick in parallel (safe: each sim mutates only itself)
+        // NPC behaviour remains the same
         List<Callable<Void>> tasks = new ArrayList<>();
+
         for (int i = 0; i < sims.size(); i++) {
             if (i == activeIndex) continue;
+
             Sim sim = sims.get(i);
+
             tasks.add(() -> {
-                autoHelpIfCritical(sim); // NPC autonomy (simple)
+                autoHelpIfCritical(sim);
                 return null;
             });
         }
@@ -138,25 +176,17 @@ public final class Game {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
-        removeDeadSims(); // allow GC to reclaim removed sims
     }
     
     // Real-time auto-advance
     public void autoAdvanceRealTime(double deltaSeconds) {
+
         clock.advanceByRealTime(deltaSeconds);
-        checkTimeRules();
-        
+
         int hoursPassed = clock.getHoursPassedFromAccumulator();
+
         if (hoursPassed > 0) {
-            for (Sim sim : sims) {
-                if (sim.isAlive()) {
-                    for (int i = 0; i < hoursPassed; i++) {
-                        sim.applyEffect(sim.hourlyDecay());
-                    }
-                }
-            }
-            removeDeadSims(); 
+            advanceGameTime(hoursPassed * 60);
         }
     }
 
