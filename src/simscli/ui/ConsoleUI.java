@@ -63,7 +63,7 @@ public final class ConsoleUI {
         	clearScreen();
         	
         	String currentLocation = activeSim.getLocation().name();
-        	String currentLocationOption = "View [" + currentLocation + "] Action Menu";
+        	String currentLocationOption = "View [" + currentLocation + "] Actions Menu";
         	String jobless = activeSim.getJobName();
         	
             printDynamicTitle("SIMS GAME - " + activeSim.getName() + " Main Menu");
@@ -86,10 +86,9 @@ public final class ConsoleUI {
             }
             
             menuOptions.add("Asset Operations [Buy/Sell Car/House]");       
-            menuOptions.add("Bank Operations [Deposit/Withdraw/Loan/Repay/Check Balance]");
             menuOptions.add("Pass Time (1 Hour)");
             menuOptions.add("View FAQ");
-            menuOptions.add("Back [To Sims Management Menu]");
+            menuOptions.add("Return to Sims Management Menu");
             menuOptions.add("Quit Game");
             
             for (int i = 0; i < menuOptions.size(); i++) {
@@ -114,10 +113,9 @@ public final class ConsoleUI {
                 case "Location Action Menu": showDoLocationActionsMenu(activeSim.getLocation()); break;
                 case "Job": showChangeJobMenu(); break;
                 case "Asset Operations [Buy/Sell Car/House]": showAssetOperationsMenu(); break;
-                case "Bank Operations [Deposit/Withdraw/Loan/Repay/Check Balance]": showBankingOperationsMenu(); break;
                 case "Pass Time (1 Hour)": game.advanceTimeForAction(); break; // Pass time (1 hour)
                 case "View FAQ": showFAQMenu(); break;
-                case "Back [To Sims Management Menu]": showSimManagementMenu(); break;
+                case "Return To Sims Management Menu": showSimManagementMenu(); break;
                 case "Quit Game":
 
                     String confirm = in.line("Save current progress before quitting? (y/n): ");
@@ -200,29 +198,6 @@ public final class ConsoleUI {
     
     
     // Start: Sims
-    private void selectExistingSim() {
-        clearScreen();
-        
-        List<Sim> sims = game.sims();
-        printDynamicTitle("SIMS GAME - Select Existing Sims");
-
-        for (int i = 0; i < sims.size(); i++) {
-            Sim sim = sims.get(i);
-            String status = sim.isAlive() ? GREEN + "Alive" + RESET : RED + "Gone" + RESET;
-            System.out.println(BLUE + (i + 1) + ") " + sim.getName() + " (" + sim.getType() + ") - " + status + RESET);
-        }
-        System.out.println(BLUE + (sims.size() + 1) + ") Return to Sims Selection Menu" + RESET);
-
-        int choice = in.intRange("\nChoose Sims (1-" + (sims.size() + 1) + "): ", 1, sims.size() + 1);
-        if (choice == sims.size() + 1) {
-            return; 
-        }
-
-        int simIndex = choice - 1;
-        game.setActiveSim(simIndex);
-        System.out.println(GREEN + "Active Sims changed to: " + game.activeSim().getName() + RESET);
-    }
-    
     private void createNewSim() {
     	clearScreen();
     	
@@ -248,12 +223,16 @@ public final class ConsoleUI {
         int t = in.intRange("Choose: ", 1, 3);
         SimType type = (t == 1) ? SimType.CHILD : (t == 2) ? SimType.ADULT : SimType.ELDER;
 
-        Sim newSim = switch (type) {
-        	case CHILD -> new ChildSim(name, game);
-        	case ADULT -> new AdultSim(name, game);
-        	case ELDER -> new ElderSim(name, game);
-        };
         game.createSim(name, type);
+        
+        List<Sim> sims = game.sims();
+        for (int i = 0; i < sims.size(); i++) {
+        	Sim sim = sims.get(i);
+            if (sim.getName() == name) {
+            	game.setActiveSim(i);
+            };
+        }
+
         System.out.println(GREEN + "Created new Sim: " + name + " (" + type + ")" + RESET);
         
         // Show tutorial once when new sims created
@@ -263,9 +242,40 @@ public final class ConsoleUI {
         }
     }
     
+    private void selectExistingSim() {
+        clearScreen();
+        
+        List<Sim> sims = game.sims();
+        printDynamicTitle("SIMS GAME - Select Existing Sims");
+
+        for (int i = 0; i < sims.size(); i++) {
+            Sim sim = sims.get(i);
+            String status = sim.isAlive() ? GREEN + "Alive" + RESET : RED + "Gone" + RESET;
+            System.out.println(BLUE + (i + 1) + ") " + sim.getName() + " (" + sim.getType() + ") - " + status + RESET);
+        }
+        System.out.println(BLUE + (sims.size() + 1) + ") Return to Sims Selection Menu" + RESET);
+
+        int choice = in.intRange("\nChoose Sims (1-" + (sims.size() + 1) + "): ", 1, sims.size() + 1);
+        if (choice == sims.size() + 1) {
+            return; 
+        }
+
+        int simIndex = choice - 1;
+        game.setActiveSim(simIndex);
+        System.out.println(GREEN + "Active Sims changed to: " + game.activeSim().getName() + RESET);
+    }
+    
     private void printSimStatus(Sim sim) {
         clearScreen();
-        printDynamicTitle(sim.getName() + " - Status");
+        String needsOutput = "Hunger: " + getNeedColor(sim.getNeeds().get(NeedType.HUNGER)) + " | " +
+        					"Energy: " + getNeedColor(sim.getNeeds().get(NeedType.ENERGY)) + " | " +
+        					"Hygiene: " + getNeedColor(sim.getNeeds().get(NeedType.HYGIENE)) + " | " +
+        					"Social: " + getNeedColor(sim.getNeeds().get(NeedType.SOCIAL)) + " | " +
+        					"Fun: " + getNeedColor(sim.getNeeds().get(NeedType.FUN)) + " | " +
+        					"Bladder: " + getNeedColor(sim.getNeeds().get(NeedType.BLADDER));
+        int width = (needsOutput.length())/4;
+        
+        printDynamicTitle(" ".repeat(width) + sim.getName() + " - Status" + " ".repeat(width));
         
         System.out.println("Name: " + sim.getName() + " | Type: " + sim.getType());
         System.out.println("Job: " + sim.getJobName() + " (Level " + sim.getJobLevel() + ")");
@@ -273,14 +283,8 @@ public final class ConsoleUI {
         System.out.println("Simcoin: $" + sim.getSimcoin() + " | Bank Savings: $" + sim.getBankingSystem().getDeposit() + " | Loan: $" + sim.getBankingSystem().getLoanAmount());
         System.out.println("Assets: Car = " + (sim.getOwnedCar() != null ? "Yes" : "No") + " | House = " + (sim.getOwnedHouse() != null ? "Yes" : "No"));
         
-        System.out.print("Hunger: " + getNeedColor(sim.getNeeds().get(NeedType.HUNGER)) + " | ");
-        System.out.print("Energy: " + getNeedColor(sim.getNeeds().get(NeedType.ENERGY)) + " | ");
-        System.out.print("Hygiene: " + getNeedColor(sim.getNeeds().get(NeedType.HYGIENE)) + " | ");
-        System.out.print("Social: " + getNeedColor(sim.getNeeds().get(NeedType.SOCIAL)) + " | ");
-        System.out.print("Fun: " + getNeedColor(sim.getNeeds().get(NeedType.FUN)) + " | ");
-        System.out.println("Bladder: " + getNeedColor(sim.getNeeds().get(NeedType.BLADDER)));
-        
-        printDynamicTitle("End of Status");
+        System.out.println(needsOutput);
+        printDynamicTitle(" ".repeat(width) + "End of Status" + " ".repeat(width));
     }
     // End: Sims
     
@@ -350,14 +354,14 @@ public final class ConsoleUI {
 
             List<String> menuOptions = new ArrayList<>();
             
+            menuOptions.add("Create New Sim");
+            
             if (hasSims) {
                 menuOptions.add("Select Existing Sim"); 
             }
             
-            menuOptions.add("Create New Sim");
-            
             if (hasSims) {
-                menuOptions.add("Enter Action Menu");    
+                menuOptions.add("Enter [" + game.activeSim().getName() + "] Action Menu");    
             }
             
             menuOptions.add("Return to Start Menu");  
@@ -436,11 +440,17 @@ public final class ConsoleUI {
         for (int i = 0; i < availableLocations.size(); i++) {
             System.out.println(BLUE + (i + 1) + ") " + availableLocations.get(i).name() + RESET);
         }
-        System.out.println(BLUE + (availableLocations.size() + 1) + ") Cancel Travel" + RESET);
+        System.out.println(BLUE + (availableLocations.size() + 1) + ") View [" + activeSim.getLocation().name() + "] Actions Menu" + RESET);
+        System.out.println(BLUE + (availableLocations.size() + 2) + ") Return to [" + activeSim.getName() + "] Main Menu" + RESET);
 
-        int choice = in.intRange("\nChoose location (1-" + (availableLocations.size() + 1) + "): ", 1, availableLocations.size() + 1);
+        int choice = in.intRange("\nPlease choose (1-" + (availableLocations.size() + 2) + "): ", 1, availableLocations.size() + 2);
+        if (choice == availableLocations.size() + 2) {
+            System.out.println(BLUE + "Return to [" + activeSim.getName() + "] Main Menu" + RESET);
+            return;
+        }
+        
         if (choice == availableLocations.size() + 1) {
-            System.out.println(BLUE + "Return to " + activeSim.getName() + " Main Menu" + RESET);
+        	showDoLocationActionsMenu(activeSim.getLocation());
             return;
         }
         
@@ -466,13 +476,19 @@ public final class ConsoleUI {
             System.out.println(RED + "No actions available at " + location.name() + RESET);          
             return;
         }
+        
+        if (location.key().equalsIgnoreCase("bank")) {
+        	System.out.println("Deposit: $" + activeSim.getBankingSystem().getDeposit()
+        	        			+ " | Loan: $" + activeSim.getBankingSystem().getLoanAmount() +
+        	        			"\nSimcoin: $" + activeSim.getSimcoin() + "\n");
+        }
 
         for (int i = 0; i < actions.size(); i++) {
             System.out.println(BLUE + (i + 1) + ") " + actions.get(i).name() + RESET);
         }
-        System.out.println(BLUE + (actions.size() + 1) + ") Return to "+ activeSim.getName() + " Main Menu" + RESET);
+        System.out.println(BLUE + (actions.size() + 1) + ") Return to ["+ activeSim.getName() + "] Main Menu" + RESET);
 
-        int choice = in.intRange("\nChoose action (1-" + (actions.size() + 1) + "): ", 1, actions.size() + 1);
+        int choice = in.intRange("\nPlease choose (1-" + (actions.size() + 1) + "): ", 1, actions.size() + 1);
         if (choice == actions.size() + 1) {
             return;
         }
@@ -516,11 +532,11 @@ public final class ConsoleUI {
         for (int i = 0; i < availableJobs.size(); i++) {
             System.out.println(BLUE + (i + 1) + ") " + availableJobs.get(i) + RESET);
         }
-        System.out.println(BLUE + (availableJobs.size() + 1) + ") Cancel" + RESET);
+        System.out.println(BLUE + (availableJobs.size() + 1) + "Return to ["+ activeSim.getName() + "] Main Menu" + RESET);
 
-        int choice = in.intRange("\nChoose job (1-" + (availableJobs.size() + 1) + "): ", 1, availableJobs.size() + 1);
+        int choice = in.intRange("\nPlease choose (1-" + (availableJobs.size() + 1) + "): ", 1, availableJobs.size() + 1);
         if (choice == availableJobs.size() + 1) {
-            System.out.println(BLUE + "Return to " + activeSim.getName() + " Main Menu" + RESET);            
+            System.out.println(BLUE + "Return to [" + activeSim.getName() + "] Main Menu" + RESET);            
             return;
         }
 
@@ -547,9 +563,9 @@ public final class ConsoleUI {
         System.out.println(BLUE + "1) Buy Car ($2000 - 20% down payment: $400)" + RESET);
         System.out.println(BLUE + "2) Buy House ($5000 - 30% down payment: $1500)" + RESET);
         System.out.println(BLUE + "3) Sell Asset" + RESET);
-        System.out.println(BLUE + "4) Return to " + activeSim.getName() + " Main Menu" + RESET);
+        System.out.println(BLUE + "4) Return to [" + activeSim.getName() + "] Main Menu" + RESET);
 
-        int choice = in.intRange("\nChoose: ", 1, 4);
+        int choice = in.intRange("\nPlease choose (1-4): ", 1, 4);
         switch (choice) {
             case 1:
                 if (activeSim.getOwnedCar() != null) {
@@ -573,6 +589,7 @@ public final class ConsoleUI {
                 showSellAssetMenu(activeSim);
                 break;
             case 4:
+            	System.out.println(BLUE + "Return to [" + activeSim.getName() + "] Main Menu" + RESET);
                 return;
         }
     }
@@ -595,16 +612,20 @@ public final class ConsoleUI {
             Asset asset = assets.get(i);
             System.out.println(BLUE + (i + 1) + ") " + asset.getName() + " (Sell Value: $" + asset.sellValue() + ")" + RESET);
         }
-        System.out.println(BLUE + (assets.size() + 1) + ") Return to " + activeSim.getName() + "  Menu" + RESET);
+        System.out.println(BLUE + (assets.size() + 1) + ") Return to [" + activeSim.getName() + "]  Menu" + RESET);
 
-        int choice = in.intRange("\nChoose asset to sell: ", 1, assets.size() + 1);
-        if (choice == assets.size() + 1) return;
+        int choice = in.intRange("\nPlease choose (1-" + (assets.size() + 1) + "): ", 1, assets.size() + 1);
+        if (choice == assets.size() + 1) {
+        	System.out.println(BLUE + "Return to [" + activeSim.getName() + "] Main Menu" + RESET);
+        	return;
+        }
 
         Asset toSell = assets.get(choice - 1);
         String result = sim.sellAsset(toSell);
         System.out.println(GREEN + result + RESET);
     }
     
+    /*
     private void showBankingOperationsMenu() {
 
         Sim activeSim = game.activeSim();
@@ -723,17 +744,17 @@ public final class ConsoleUI {
             }
         }
     }
-    
+    */
     private void showFAQMenu() {
         clearScreen();
         printDynamicTitle("SIMS GAME - FAQ");
-        System.out.println("1. How to earn Simcoin? → Change job and work in the corresponding location (Chef→Restaurant, Doctor→Hospital, etc.)");
+        System.out.println("1. How to earn Simcoin? → Find job and work in the corresponding location (Chef→Restaurant, Doctor→Hospital, etc.)");
         System.out.println("2. How to restore Hygiene? → Use Clean Public (Park) if no house; Brush Teeth/Shower (Home) if house owner");
         System.out.println("3. How to buy Car/House? → Asset Operations → Choose down payment or full payment");
         System.out.println("4. Sleep Rule: 22:00 must be in Park (no house) or Home (house owner) → Else faint");
         System.out.println("5. Travel Cost: Walk (no Car) = Hunger+10/Energy-15; Drive (with Car) = No cost");
-        System.out.println("6. Loan Limit: Max $" + simscli.bank.BankingSystem.getLoanLimit() + " (one loan at a time)");
-        System.out.println("7. Interest: Bank deposit earns 0.05% interest per day (settled at midnight)");
+        System.out.println("6. Loan Limit: Max $" + simscli.bank.BankingSystem.getLoanLimit());
+        System.out.println("7. Interest: Bank deposit earns 0.05% interest per day");
         System.out.println("8. Sim Elimination: Any need hits 0 → Sim leaves the simulation");
         in.line("\n" + BLUE + "Press Enter to return..." + RESET);
     }

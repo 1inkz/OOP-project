@@ -19,6 +19,10 @@ public final class ActionFactory {
             case SOCIALISE: return new Socialise();
             case WORK: return new Work();
             case CLEAN_PUBLIC: return new CleanPublic();
+            case DEPOSIT: return new Deposit();
+            case WITHDRAW: return new Withdraw();
+            case APPLY_LOAN: return new ApplyLoan();
+            case REPAY_LOAN: return new RepayLoan();
             default: throw new IllegalArgumentException("Unknown action: " + type);
         }
     }

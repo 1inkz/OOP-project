@@ -36,6 +36,7 @@ public final class Game {
     public void resetGame() {
         this.sims.clear();
         this.activeIndex = -1;
+        clock.resetNewGame();
     }
 
     /** Must be called on quit to avoid thread leak (GC best practice). */
@@ -111,6 +112,7 @@ public final class Game {
             activeIndex = -1; // force player to pick another sim
         }
     }
+    // End: Sim
     
     
     // Start: Time
@@ -148,7 +150,7 @@ public final class Game {
         }
 
         // 4. Run time-based rules
-        checkTimeRules();
+        checkTimeRules(false);
 
         // 5. Remove dead sims
         removeDeadSims();
@@ -190,39 +192,35 @@ public final class Game {
         }
     }
 
-    private void checkTimeRules() {
-        // Midnight: settle bank interest
-        if (clock.isMidnight()) {
-            for (Sim sim : sims) {
-                sim.getBankingSystem().settleInterest();
-            }
-        }
-
-        Sim active = activeSim();
-        if (active == null) return;
-
+    public void checkTimeRules(boolean action) {
         int currentHour = clock.getHour(); 
-        
-        if (currentHour == 20) {
-            System.out.println("\nIt's 8pm, time to bed");
+       
+        if (currentHour == 20 && !action) {
+            System.out.println("\n[GAME] It's 8pm — all sims should head to bed!");
+        }
+		else if (currentHour == 21 && !action) {
+            System.out.println("\n[GAME] It's 9pm — sleep now!");
         }
 
-        if (currentHour == 21) {
-            System.out.println("\nSleep Now!");
+        if (currentHour == 22 || action) {
+        	clock.resetToNextDayMorning(); 
+        	for (Sim sim : sims) {
+                if (!sim.isAlive()) continue;
+                
+                boolean hasHouse = sim.getOwnedHouse() != null;
+                boolean inCorrectLocation = (hasHouse && sim.getLocation().key().equals("home"))
+                        || (!hasHouse && sim.getLocation().key().equals("park"));
+                if (!inCorrectLocation) {
+                    System.out.println("\nYou are too tired! Forced to sleep... See you next morning 8:00 AM!");
+                }     
+                
+                if (sim.isAlive()) {
+                	sim.getBankingSystem().settleInterest();
+                	sim.getNeeds().set(NeedType.ENERGY, 90); 
+                	sim.getNeeds().set(NeedType.HUNGER, 30);
+                }
+        	}
         }
-
-        if (currentHour == 22) {
-            boolean hasHouse = active.getOwnedHouse() != null;
-            boolean inCorrectLocation = (hasHouse && active.getLocation().key().equals("home"))
-                    || (!hasHouse && active.getLocation().key().equals("park"));
-            if (!inCorrectLocation) {
-                System.out.println("\n You are too tired!");
-                clock.resetToNextDayMorning(); 
-                active.getNeeds().set(NeedType.ENERGY, 90); 
-                active.getNeeds().set(NeedType.HUNGER, 30);
-            }
-        }
-
     }
     // End: Time
 

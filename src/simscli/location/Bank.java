@@ -21,11 +21,18 @@ public final class Bank extends Location {
                 && sim.getJob().getWorkLocation().equals(this.key())) {
             actions.add(ActionFactory.create(ActionType.WORK));
         }
+        
+        actions.add(ActionFactory.create(ActionType.DEPOSIT));
+        actions.add(ActionFactory.create(ActionType.WITHDRAW));
+        actions.add(ActionFactory.create(ActionType.APPLY_LOAN));
+        actions.add(ActionFactory.create(ActionType.REPAY_LOAN));
         return actions;
     }
 
     @Override
     public String onEnter(simscli.sims.Sim sim) {
-        return sim.getName() + " entered the bank. The air smells like paperwork.";
+        return "Deposit: $" + sim.getBankingSystem().getDeposit()
+                + " | Loan: $" + sim.getBankingSystem().getLoanAmount() +
+                "\nSimcoin: $" + sim.getSimcoin() + "\n";
     }
 }

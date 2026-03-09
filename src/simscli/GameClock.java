@@ -99,14 +99,15 @@ public final class GameClock {
         return Math.max(min, Math.min(max, value));
     }
 
-    // Midnight (for interest)
-    public boolean isMidnight() {
-        return minuteOfDay == 0;
-    }
-
     // Reset time to next day 8:00 AM (for faint rule)
     public void resetToNextDayMorning() {
         dayNumber++;
+        minuteOfDay = 480; // 8:00 AM
+    }
+    
+    // For new game
+    public void resetNewGame() {
+        dayNumber = 1;
         minuteOfDay = 480; // 8:00 AM
     }
 }

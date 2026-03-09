@@ -23,6 +23,8 @@ public final class Effect {
         copy.put(need, copy.getOrDefault(need, 0) + delta);
         return new Effect(copy);
     }
+    
+
 
     public Map<NeedType, Integer> deltas() {
         return new EnumMap<>(deltas);

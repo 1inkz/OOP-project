@@ -20,4 +20,7 @@ public final class GameContext {
         game.getClock().resetToNextDayMorning();
     }
 
+    public void checkTimeRules() {
+        game.checkTimeRules(true);
+    }
 }

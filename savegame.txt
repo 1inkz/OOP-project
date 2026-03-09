@@ -1,4 +1,4 @@
-79|165|0
-Jane|ADULT|Engineer|4|restaurant|975|2735|2901|7|1-White Audi-2000|1-Condominium-5000|100|100|76|81|68|81
-Jeff|ADULT|Jobless|1|park|50|0|2000|3|1-White Audi-2000|null|100|100|70|65|60|51
-Eddy|CHILD|Jobless|1|park|50|0|0|10|null|null|90|100|70|65|60|57
+80|555|2
+Jane|ADULT|Engineer|5|home|10|10000|0|7|1-White Audi-2000|1-Condominium-5000|30|90|61|81|58|81
+Jeff|ADULT|Jobless|1|park|50|0|2000|3|1-White Audi-2000|null|30|90|70|65|60|51
+Eddy|CHILD|Jobless|1|park|50|10000|0|10|null|null|30|90|70|65|60|57

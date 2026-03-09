@@ -10,9 +10,10 @@ General
 
 Time System
 1. Hour-based: All actions + 1 hour 
-2. Daily: 24:00 jump to next day, interest 0.05%/day
+2. Daily: Day start 0800, end 2200
 3. Needs: Needs increase/decrease every hour
 4. Sleep: 2000 msg to remind sleep, 2100 warning msg to sleep, 2200 force faint
+5. Everyone Sims start new day together.
 
 Needs System
 1. Status: ≥60 Green, 21-59 Yellow, ≤20 Red
@@ -21,7 +22,7 @@ Needs System
 Money
 1. Type: Simcoin(on hand), Bank acc
 2. Deposit/Withdraw: betweem bank acc and simcoin
-3. Loan: Max $3000, loan direct to simcoin
+3. Loan: Max $4500, loan direct to simcoin
 4. Pay loan: deduct from simcoin
 
 Asset
@@ -54,11 +55,10 @@ Time: Day X, XX:00
 3) View [Location] Action Menu
 4) Find Job/ Change Job
 5) Asset Operations [Buy/Sell Car/House]
-6) Bank Operations [Deposit/Withdraw/Loan/Repay/Check Balance]
-7) Pass Time (1 Hour)
-8) View FAQ
-9) Back [To Sims Management Menu]
-10) Quit Game 
+6) Pass Time (1 Hour)
+7) View FAQ
+8) Back [To Sims Management Menu]
+9) Quit Game 
 
 ============ SIMS GAME - Location Selection Menu ============
 Current Location: XXX | Own Car: Yes/No | Own House: Yes/No
@@ -70,7 +70,7 @@ N) Back [To Main Menu]
 Current Time: Day X, XX:00 | Needs: XXX 
 1) [Location-Specific Action 1]
 2) [Location-Specific Action 2]
-N) Back [To Location Selection Menu]
+N) Back [To Main Menu]
 
 ============ SIMS GAME - Change Sim's Job ============
 Current Job: XXX (Level X)
@@ -88,15 +88,14 @@ Current Asset: Own Car: Yes/No | Own House: Yes/No | Cash: $X | Loan: $X
 3) Sell Asset [Available if own Car/House]
 4) Back [To Main Menu]
 
-============ SIMS GAME - Bank Operations Menu ============
+============ SIMS GAME - Bank Action Menu ============
  Deposit: $X | Loan: $X | Simcoin: $X
-1) Open Bank Account [Cash ≥ $500]
-2) Deposit Cash
-3) Withdraw Cash
-4) Apply for Loan [Max $10000]
+1) Work
+2) Deposit Simcoin
+3) Withdraw Simcoin
+4) Apply Loan 
 5) Repay Loan
-6) Check Account Balance
-7) Back [To Main Menu]
+6) Back [To Main Menu]
 
 ============ SIMS GAME - FAQ ============
 1. How to earn money? → Find job, work in corresponding location

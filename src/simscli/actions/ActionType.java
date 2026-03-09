@@ -14,5 +14,9 @@ public enum ActionType {
     EXERCISE,
     SOCIALISE,
     WORK,
-    CLEAN_PUBLIC
+    CLEAN_PUBLIC,
+    DEPOSIT,
+    WITHDRAW,
+    APPLY_LOAN,
+    REPAY_LOAN
 }
