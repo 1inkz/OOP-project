@@ -11,7 +11,7 @@ public final class EatSnack implements Action {
     @Override
     public String perform(Sim sim, GameContext ctx) {
         sim.applyEffect(Effect.none()
-                .plus(NeedType.HUNGER, +18)
+                .plus(NeedType.HUNGER, 18)
                 .plus(NeedType.ENERGY, +3)
                 .plus(NeedType.HYGIENE, -1)
                 .plus(NeedType.BLADDER, -2));

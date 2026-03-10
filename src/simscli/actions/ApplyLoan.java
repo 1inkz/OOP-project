@@ -20,11 +20,11 @@ public final class ApplyLoan implements Action {
                 "Loan amount (max $" + simscli.bank.BankingSystem.getLoanLimit() + "): $",
                 1,
                 simscli.bank.BankingSystem.getLoanLimit()
-                        - sim.getBankingSystem().getLoanAmount());
+                        - sim.getLoanAmount());
 
         if (sim.getBankingSystem().applyLoan(loanAmt)) {
         	sim.earnSimcoin(loanAmt);
-        	output = GREEN + "Loan approved! $" + loanAmt + RESET;
+        	output = GREEN + "Loan approved! $" + loanAmt + " | Simcoin: $" + sim.getSimcoin() + " | Loan: $" + sim.getLoanAmount() + RESET;
         }
         
 		return output;

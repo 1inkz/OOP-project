@@ -115,7 +115,7 @@ public final class ConsoleUI {
                 case "Asset Operations [Buy/Sell Car/House]": showAssetOperationsMenu(); break;
                 case "Pass Time (1 Hour)": game.advanceTimeForAction(); break; // Pass time (1 hour)
                 case "View FAQ": showFAQMenu(); break;
-                case "Return To Sims Management Menu": showSimManagementMenu(); break;
+                case "Return to Sims Management Menu": showSimManagementMenu(); break;
                 case "Quit Game":
 
                     String confirm = in.line("Save current progress before quitting? (y/n): ");

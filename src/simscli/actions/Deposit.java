@@ -24,7 +24,7 @@ public final class Deposit implements Action {
 
             if (sim.getBankingSystem().deposit(depositAmt)) {
             	sim.spendSimcoin(depositAmt);
-            	output = GREEN + "Deposited $" + depositAmt + RESET;
+            	output = GREEN + "Deposited $" + depositAmt + " | Simcoin: $" + sim.getSimcoin() +" | Deposit: $" + sim.getBankDeposit() + RESET;
             }
         }
 		return output;

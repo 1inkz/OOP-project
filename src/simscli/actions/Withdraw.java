@@ -16,15 +16,15 @@ public final class Withdraw implements Action {
 
     @Override
     public String perform(Sim sim, GameContext ctx) {
-        if (sim.getBankingSystem().getDeposit() <= 0) {
+        if (sim.getBankDeposit() <= 0) {
         	output = RED + "No money available to withdraw!" + RESET;
         }
         else {
-            int withdrawAmt = in.intRange("Withdraw amount: $", 1, sim.getBankingSystem().getDeposit());
+            int withdrawAmt = in.intRange("Withdraw amount: $", 1, sim.getBankDeposit());
 
             if (sim.getBankingSystem().withdraw(withdrawAmt)) {
             	sim.earnSimcoin(withdrawAmt);
-            	output = GREEN + "Withdrew $" + withdrawAmt + RESET;
+            	output = GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
             }
         }
 

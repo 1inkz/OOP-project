@@ -14,6 +14,6 @@ public final class CleanPublic implements Action {
                 .plus(NeedType.HYGIENE, +15)
                 .plus(NeedType.ENERGY, -3)
         		.plus(NeedType.BLADDER, +15));
-        return sim.getName() + " cleaning in public";
+        return sim.getName() + " cleaning in public.";
     }
 }

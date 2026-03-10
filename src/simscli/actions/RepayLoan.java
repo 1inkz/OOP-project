@@ -16,9 +16,9 @@ public final class RepayLoan implements Action {
 
     @Override
     public String perform(Sim sim, GameContext ctx) {
-    	int maxRepay = Math.min(sim.getSimcoin(), sim.getBankingSystem().getLoanAmount());
+    	int maxRepay = Math.min(sim.getSimcoin(), sim.getLoanAmount());
     	
-    	if (sim.getBankingSystem().getLoanAmount() <= 0) {
+    	if (sim.getLoanAmount() <= 0) {
     		output = RED + "No loan to repay." + RESET;
     	}
     	else if (maxRepay <= 0) {
@@ -30,7 +30,8 @@ public final class RepayLoan implements Action {
             if (sim.spendSimcoin(repayAmt)) {
             	sim.getBankingSystem().repayLoan(repayAmt);
             	output = GREEN + "Repaid $" + repayAmt
-                        + "! Remaining loan: $" + sim.getBankingSystem().getLoanAmount() + RESET;
+            			+ "! | Simcoin: $" + sim.getSimcoin() 
+                        + " |  Remaining loan: $" + sim.getLoanAmount() + RESET;
             }
     	}
 
