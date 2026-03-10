@@ -31,8 +31,6 @@ public final class Bank extends Location {
 
     @Override
     public String onEnter(simscli.sims.Sim sim) {
-        return "Deposit: $" + sim.getBankingSystem().getDeposit()
-                + " | Loan: $" + sim.getBankingSystem().getLoanAmount() +
-                "\nSimcoin: $" + sim.getSimcoin() + "\n";
+        return sim.getName() + " entered the bank.";
     }
 }
