@@ -255,8 +255,8 @@ public final class ConsoleUI {
         }
 
         int simIndex = choice - 1;
-        System.out.println(GREEN + "Active Sims changed to: " + game.activeSim().getName() + RESET);
         game.setActiveSim(simIndex);
+        System.out.println(GREEN + "Active Sims changed to: " + game.activeSim().getName() + RESET);
     }
     
     private void printSimStatus(Sim sim) {
