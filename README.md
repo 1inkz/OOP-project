@@ -6,7 +6,7 @@ General
 4. Sims will start on a random street first
 5. Tutorial: tutorial for new game
 6. FAQ: option in main menu for gameplay review
-7. Die: Any needs = 0, Sims die(remove), all Sims die, game over
+7. Die: Any needs = 0, Sims die(remove instantly), all Sims die, game over
 
 Time System
 1. Hour-based: All actions + 1 hour 
@@ -22,14 +22,27 @@ Needs System
 Money
 1. Type: Simcoin(on hand), Bank acc
 2. Deposit/Withdraw: betweem bank acc and simcoin
-3. Loan: Max $4500, loan direct to simcoin
+3. Loan: Max $5000, loan direct to simcoin
 4. Pay loan: deduct from simcoin
 
 Asset
 1. Type: Car/House
 2. Car $2000, $400+$1600(loan) 
 3. House $5000, $1500+$3500(loan)
+4. Buy assests condition
+	a. if simcoin >= asset value = can buy (deduct simcoin)
+	b. if simcoin < asset value && simcoin >= down payment && loan < 5000 =  can buy (deduct simcoin, add loan)
+	c. if simcoin < asset value && simcoin > down payment && loan >= 5000 =  cannot buy
+	d. if simcoin < asset value && simcoin < down payment = cannot buy
 4. Sell: purchase value*depreciation rate (Car60%, House90%) (Clear loan first)
+
+Loan
+1. From the first day bought asset
+	a. after 60 days, loan > 2000 && have house && have car = repossess house & loan = 0
+	b. after 60 days, loan > 2000 && no house && have car = repossess car & loan = 0
+	c. after 60 days, loan < 2000 && have house && have car = repossess car & loan = 0
+	b. after 60 days, loan < 2000 && no house && have car = repossess car & loan = 0
+	d. after 80 days, deposit+simcoin < loan = die
 
 Location System
 1. Type: Street(only initial)/Park/Bank/Restaurant/Hospital/Home
@@ -38,15 +51,15 @@ Location System
 **Hierarchy**
 SIMS GAME - Start Menu
 1) New Game 
-	 SIMS GAME - Sims Management Menu 
-	 2) Create New Sim 
-		Input name → Select type (Child/Adult/Elder) → Create success
-		Trigger 3-screen Tutorial (Press Enter to proceed)
-		Enter Sim Main Menu
-		3) Back 
-	2) Continue Game 
-		Enter Sim Main Menu
-	3) Exit 
+2) Continue Game
+3) Quit Game
+
+SIMS GAME - Sims Management Menu
+1) Create New Sims
+2) Select Existing Sims
+3) Enter [Name] Main Menu
+4) Return to Start Menu
+5) Quit Game
 
 ============ SIMS GAME - [Name] Main Menu ============
 Time: Day X, XX:00

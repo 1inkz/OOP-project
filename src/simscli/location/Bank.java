@@ -23,9 +23,16 @@ public final class Bank extends Location {
         }
         
         actions.add(ActionFactory.create(ActionType.DEPOSIT));
-        actions.add(ActionFactory.create(ActionType.WITHDRAW));
+        
+        if (sim.getBankDeposit() > 0) {
+        	actions.add(ActionFactory.create(ActionType.WITHDRAW));
+        }
+        
         actions.add(ActionFactory.create(ActionType.APPLY_LOAN));
-        actions.add(ActionFactory.create(ActionType.REPAY_LOAN));
+        
+        if (sim.getLoanAmount() > 0) {
+        	actions.add(ActionFactory.create(ActionType.REPAY_LOAN));
+        }
         return actions;
     }
 

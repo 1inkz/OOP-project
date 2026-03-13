@@ -29,6 +29,9 @@ public final class RepayLoan implements Action {
 
             if (sim.spendSimcoin(repayAmt)) {
             	sim.getBankingSystem().repayLoan(repayAmt);
+                if (sim.getLoanAmount() == 0) {
+                    sim.setLoanStartDay(0);
+                }
             	output = GREEN + "Repaid $" + repayAmt
             			+ "! | Simcoin: $" + sim.getSimcoin() 
                         + " |  Remaining loan: $" + sim.getLoanAmount() + RESET;

@@ -2,7 +2,7 @@ package simscli.bank;
 
 public class BankingSystem {
     private static final double INTEREST_RATE = 0.0005; 
-    private static final int LOAN_LIMIT = 4500;
+    private static final int LOAN_LIMIT = 5000;
 
     private int deposit;
     private int loanAmount;

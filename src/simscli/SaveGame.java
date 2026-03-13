@@ -9,7 +9,9 @@ import simscli.stats.NeedType;
 import simscli.jobs.JobFactory;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class SaveGame {
     private static final String SAVE_FILE = "savegame.txt";
@@ -40,11 +42,25 @@ public final class SaveGame {
 
             // Save Sims status
             List<Sim> sims = game.sims();
+            
             for (Sim sim : sims) {
+            	
+                // Save Job level
+                Map<String, Integer> allJobLevels = sim.getAllJobLevels();
+                String jobLevelsStr = "";
+                for (Map.Entry<String, Integer> entry : allJobLevels.entrySet()) {
+                    String jobName = entry.getKey();
+                    if ("Jobless".equals(jobName)) continue; 
+                    jobLevelsStr += jobName + ":" + entry.getValue() + ",";
+                }
+                if (jobLevelsStr.endsWith(",")) {
+                    jobLevelsStr = jobLevelsStr.substring(0, jobLevelsStr.length() - 1);
+                }
+
                 writer.write(sim.getName() + "|" + sim.getType() + "|" + 
                         sim.getJobName() + "|" + sim.getJobLevel() + "|" + sim.getLocation().key() + "|" +
                 		sim.getSimcoin() + "|" + sim.getBankDeposit() + "|" + sim.getLoanAmount() + "|" +
-                		sim.getStartDay() + "|" +
+                		sim.getStartDay() + "|" + sim.getLoanStartDay() + "|" +
                 		
     					(sim.getOwnedCar() != null ? 
     							sim.getOwnedCar().getId() + "-" + sim.getOwnedCar().getName().replace("|", "").replace("-", "_") + "-" + sim.getOwnedCar().getValue() : "null") + "|" +
@@ -54,7 +70,8 @@ public final class SaveGame {
         
                 		sim.getNeeds().get(NeedType.HUNGER) + "|" + sim.getNeeds().get(NeedType.ENERGY) + "|" +
                         sim.getNeeds().get(NeedType.HYGIENE) + "|" + sim.getNeeds().get(NeedType.SOCIAL) + "|" +
-                        sim.getNeeds().get(NeedType.FUN) + "|" + sim.getNeeds().get(NeedType.BLADDER));
+                        sim.getNeeds().get(NeedType.FUN) + "|" + sim.getNeeds().get(NeedType.BLADDER) + "|" +
+                        jobLevelsStr);
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -77,6 +94,7 @@ public final class SaveGame {
             GameClock loadedClock = new GameClock(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
             game.setClock(loadedClock);
             int activeSimIndex = Integer.parseInt(timeParts[2]);
+            game.clearSimList();
 
             // Load Sims
             String line;
@@ -99,9 +117,10 @@ public final class SaveGame {
                 sim.setLoanAmount(Integer.parseInt(parts[7]));
                 
                 sim.setStartDay(Integer.parseInt(parts[8]));
+                sim.setLoanStartDay(Integer.parseInt(parts[9]));
                 
                 // Load Car 
-                String carData = parts[9];
+                String carData = parts[10];
                 if (!carData.equals("null")) {
                     String[] carParts = carData.split("-"); 
                     if (carParts.length == 3) { 
@@ -117,7 +136,7 @@ public final class SaveGame {
                 }
                 
                 // Load House 
-                String houseData = parts[10];
+                String houseData = parts[11];
                 if (!houseData.equals("null")) {
                     String[] houseParts = houseData.split("-");
                     if (houseParts.length == 3) {
@@ -133,13 +152,33 @@ public final class SaveGame {
                 }
                 
                 // Restore needs (single add method)
-                sim.getNeeds().add(NeedType.HUNGER, Integer.parseInt(parts[11]) - sim.getNeeds().get(NeedType.HUNGER));
-                sim.getNeeds().add(NeedType.ENERGY, Integer.parseInt(parts[12]) - sim.getNeeds().get(NeedType.ENERGY));
-                sim.getNeeds().add(NeedType.HYGIENE, Integer.parseInt(parts[13]) - sim.getNeeds().get(NeedType.HYGIENE));
-                sim.getNeeds().add(NeedType.SOCIAL, Integer.parseInt(parts[14]) - sim.getNeeds().get(NeedType.SOCIAL));
-                sim.getNeeds().add(NeedType.FUN, Integer.parseInt(parts[15]) - sim.getNeeds().get(NeedType.FUN));
-                sim.getNeeds().add(NeedType.BLADDER, Integer.parseInt(parts[16]) - sim.getNeeds().get(NeedType.BLADDER));
+                sim.getNeeds().add(NeedType.HUNGER, Integer.parseInt(parts[12]) - sim.getNeeds().get(NeedType.HUNGER));
+                sim.getNeeds().add(NeedType.ENERGY, Integer.parseInt(parts[13]) - sim.getNeeds().get(NeedType.ENERGY));
+                sim.getNeeds().add(NeedType.HYGIENE, Integer.parseInt(parts[14]) - sim.getNeeds().get(NeedType.HYGIENE));
+                sim.getNeeds().add(NeedType.SOCIAL, Integer.parseInt(parts[15]) - sim.getNeeds().get(NeedType.SOCIAL));
+                sim.getNeeds().add(NeedType.FUN, Integer.parseInt(parts[16]) - sim.getNeeds().get(NeedType.FUN));
+                sim.getNeeds().add(NeedType.BLADDER, Integer.parseInt(parts[17]) - sim.getNeeds().get(NeedType.BLADDER));
                 
+                // Load Job
+                Map<String, Integer> jobLevelsMap = new HashMap<>();
+                if (parts.length >= 19) { 
+                    String jobLevelsStr = parts[18];
+                    if (jobLevelsStr != null && !jobLevelsStr.trim().isEmpty()) {
+                        String[] jobLevelPairs = jobLevelsStr.split(",");
+                        for (String pair : jobLevelPairs) {
+                            String[] keyValue = pair.split(":");
+                            if (keyValue.length == 2) {
+                                String jobName = keyValue[0].trim();
+                                int level = Integer.parseInt(keyValue[1].trim());
+                                jobLevelsMap.put(jobName, level);
+                            }
+                        }
+                    }
+                }
+                sim.setAllJobLevels(jobLevelsMap);
+                if (!jobLevelsMap.containsKey("Jobless")) {
+                	jobLevelsMap.put("Jobless", 1);
+                }
                 game.addSim(sim);
             }
             

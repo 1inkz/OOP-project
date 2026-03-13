@@ -6,7 +6,6 @@ import simscli.sims.*;
 import simscli.stats.*;
 import simscli.world.*;
 import simscli.location.*;
-import simscli.asset.*;
 import simscli.*;
 
 import java.util.*;
@@ -59,6 +58,14 @@ public final class Game {
     public void setActiveSim(int index) {
         if (index < 0 || index >= sims.size()) throw new IllegalArgumentException("bad index");
         activeIndex = index;
+        
+        List<String> pendingMessages = activeSim().getAndClearPendingLoanMessages();
+        if (!pendingMessages.isEmpty()) {
+            System.out.println("\n\u001B[33m[Sims Reminder]\u001B[0m You have switched to " + activeSim().getName() + "，below is unread message");
+            for (String msg : pendingMessages) {
+                System.out.println(msg + "\n");
+            }
+        }
     }
     
     public void addSim(Sim sim) {
@@ -67,6 +74,11 @@ public final class Game {
 
     public int getActiveSimIndex() {
         return this.activeIndex;
+    }
+    
+    // Use for loading game data to avoid repeated data
+    public void clearSimList() {
+    	this.sims.clear();
     }
     
     public Sim createSim(String name, SimType type) {
@@ -80,6 +92,7 @@ public final class Game {
 
         sim.setLocation(locations.get("street"));
         sim.setJob(JobFactory.create("jobless"));
+        sim.setGame(this);
         sims.add(sim);
         if (activeIndex == -1) activeIndex = 0;
         return sim;
@@ -110,6 +123,7 @@ public final class Game {
 
         if (activeSimDied) {
             activeIndex = -1; // force player to pick another sim
+            SaveGame.saveGame(this);
         }
     }
     // End: Sim
@@ -151,6 +165,9 @@ public final class Game {
 
         // 4. Run time-based rules
         checkTimeRules(false);
+        
+        // Check loan day
+        checkLoanOverdueRules();
 
         // 5. Remove dead sims
         removeDeadSims();
@@ -347,6 +364,34 @@ public final class Game {
     // End: Action
 
 
+    // Start: Asset
+    private void checkLoanOverdueRules() {
+    	Sim activeSim = activeSim();
+    	
+        for (Sim sim : sims) {
+            if (!sim.isAlive() || !sim.hasAssetLoan()) {
+                continue; 
+            }
+            
+            int overdueDays = sim.getLoanOverdueDays(this);
+            
+            if (overdueDays >= 60 && overdueDays < 80) {
+            	     
+                if (sim == activeSim) {
+                	System.out.println(sim.repossessAsset());
+                } else {
+                    sim.addPendingLoanMessage(sim.repossessAsset());
+                }
+            }
+            
+            if (overdueDays >= 80 && sim.isInsolvent()) {
+            	sim.setAlive(false);
+                System.out.println("\u001B[31m[Insolvent]\u001B[0m " + sim.getName() + " die from bankrupt");
+                sim.clearPendingLoanMessages();
+            }
+        }
+    }
+    // End: Asset
 
 
 
