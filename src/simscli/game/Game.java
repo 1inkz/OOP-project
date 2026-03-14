@@ -1,15 +1,14 @@
 package simscli.game;
 
+import java.util.*;
+import java.util.concurrent.*;
+import simscli.*;
 import simscli.actions.*;
 import simscli.jobs.*;
+import simscli.location.*;
 import simscli.sims.*;
 import simscli.stats.*;
 import simscli.world.*;
-import simscli.location.*;
-import simscli.*;
-
-import java.util.*;
-import java.util.concurrent.*;
 
 public final class Game {
     private final List<Sim> sims = new ArrayList<>();
@@ -99,33 +98,69 @@ public final class Game {
     }
     
     private void removeDeadSims() {
+    String deadActiveSimName = null;
+    String deadReason = null;
 
-        boolean activeSimDied = false;
+    Iterator<Sim> it = sims.iterator();
+    int index = 0;
 
-        Iterator<Sim> it = sims.iterator();
-        int index = 0;
+    while (it.hasNext()) {
+        Sim sim = it.next();
 
-        while (it.hasNext()) {
-            Sim sim = it.next();
+        if (!sim.isAlive()) {
+            String reason = getZeroNeedReason(sim);
+            System.out.println(sim.getName() + " was eliminated because " + reason + " reached 0!");
 
-            if (!sim.isAlive()) {
-                System.out.println(sim.getName() + " was eliminated (needs hit 0)!");
-
-                if (index == activeIndex) {
-                    activeSimDied = true;
-                }
-
-                it.remove();
+            if (index == activeIndex) {
+                deadActiveSimName = sim.getName();
+                deadReason = reason;
             }
 
-            index++;
+            it.remove();
+            continue;
         }
 
-        if (activeSimDied) {
-            activeIndex = -1; // force player to pick another sim
-            SaveGame.saveGame(this);
-        }
+        index++;
     }
+
+    if (sims.isEmpty()) {
+        activeIndex = -1;
+        SaveGame.saveGame(this);
+        return;
+    }
+
+    if (deadActiveSimName != null) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        activeIndex = 0;
+
+        System.out.println("\n[Eliminated] " + deadActiveSimName + " can no longer be played because "
+                + deadReason + " reached 0.");
+        System.out.println("Switching to " + activeSim().getName() + "...\n");
+
+        SaveGame.saveGame(this);
+    } else if (activeIndex >= sims.size()) {
+        activeIndex = 0;
+        SaveGame.saveGame(this);
+    }
+}
+
+private String getZeroNeedReason(Sim sim) {
+    if (sim.getNeeds().get(NeedType.HUNGER) <= 0) return "HUNGER";
+    if (sim.getNeeds().get(NeedType.ENERGY) <= 0) return "ENERGY";
+    if (sim.getNeeds().get(NeedType.HYGIENE) <= 0) return "HYGIENE";
+    if (sim.getNeeds().get(NeedType.SOCIAL) <= 0) return "SOCIAL";
+    if (sim.getNeeds().get(NeedType.FUN) <= 0) return "FUN";
+    if (sim.getNeeds().get(NeedType.BLADDER) <= 0) return "BLADDER";
+    return "an unknown need";
+}
+
+
+
     // End: Sim
     
     
@@ -340,6 +375,9 @@ public final class Game {
         if (!s.isAlive()) return s.getName() + " is no longer in the simulation.";
 
         String msg = action.perform(s, new GameContext(this));
+
+        removeDeadSims();
+        
         return msg;
     }
     
@@ -390,6 +428,8 @@ public final class Game {
                 sim.clearPendingLoanMessages();
             }
         }
+
+        removeDeadSims();
     }
     // End: Asset
 

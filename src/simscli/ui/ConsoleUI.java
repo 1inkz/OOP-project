@@ -1,16 +1,15 @@
 package simscli.ui;
 
-import simscli.actions.*;
-import simscli.asset.*;
-import simscli.location.*;
-import simscli.sims.*;
-import simscli.game.*;
-import simscli.stats.*;
-import simscli.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import simscli.*;
+import simscli.actions.*;
+import simscli.asset.*;
+import simscli.game.*;
+import simscli.location.*;
+import simscli.sims.*;
+import simscli.stats.*;
 
 public final class ConsoleUI {
 	
@@ -125,6 +124,7 @@ public final class ConsoleUI {
                         System.out.println("Game saved.");
                     }
 
+                    ExitGuard.markNormalExit();
                     System.out.println(DARK_RED + "Goodbye!" + RESET);
                     game.shutdown();
                     return;
@@ -341,6 +341,7 @@ public final class ConsoleUI {
                         SaveGame.saveGame(game);
                         System.out.println("Game saved.");
                     }
+                    ExitGuard.markNormalExit();
                     System.out.println(DARK_RED + "Goodbye!" + RESET);
                     System.exit(0);
                     break;
@@ -371,7 +372,7 @@ public final class ConsoleUI {
             
             String activeSimsOption = "";
             if (game.activeSim() != null) {
-            	activeSimsOption = "Enter [" + game.activeSim().getName() + "] Main Menu";
+            	activeSimsOption = "Enter [" + game.activeSim().getName() + "] Main Menu (Last Played SIM)";
             	if (hasSims) {
             		menuOptions.add(activeSimsOption);    
             	}
@@ -421,6 +422,7 @@ public final class ConsoleUI {
                         SaveGame.saveGame(game);
                         System.out.println("Game saved.");
                     }
+                    ExitGuard.markNormalExit();
                     System.out.println(DARK_RED + "Goodbye!" + RESET);
                     System.exit(0);
                     break;

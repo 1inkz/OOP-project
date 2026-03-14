@@ -1,4 +1,3 @@
-81|1001|-1
-Jane|ADULT|Doctor|3|hospital|240|0|0|7|0|null|null|60|30|66|71|32|59|Chef:3,Doctor:3
-Jeff|ADULT|Jobless|1|park|50|0|2000|3|0|1-White Audi-2000|null|10|70|52|53|42|33|Chef:10,Doctor:2
-Eddy|CHILD|Engineer|2|bank|190|10005|0|10|0|null|null|4|34|43|53|38|33|Engineer:2
+1|1051|0
+ergedrg|ADULT|Jobless|1|street|50|0|0|1|0|null|null|35|35|49|51|39|39|
+fghdrf|ADULT|Jobless|1|street|50|0|0|1|0|null|null|35|35|49|51|39|39|
