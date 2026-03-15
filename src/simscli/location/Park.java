@@ -1,10 +1,10 @@
 package simscli.location;
 
-import simscli.actions.*;
-import simscli.sims.Sim;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import simscli.actions.*;
+import simscli.sims.Sim;
 
 public final class Park extends Location {
     @Override public String key() { return "park"; }
@@ -12,13 +12,27 @@ public final class Park extends Location {
 
     @Override
     public List<Action> actions(Sim sim) {
-        return Arrays.asList(
+        List<Action> actions = new ArrayList<>(Arrays.asList(
                 ActionFactory.create(ActionType.SOCIALISE),
                 ActionFactory.create(ActionType.EXERCISE),
-                ActionFactory.create(ActionType.NAP), // nap on bench lol
-                ActionFactory.create(ActionType.SLEEP), // nap on bench lol
+                ActionFactory.create(ActionType.NAP),
+                ActionFactory.create(ActionType.SLEEP),
                 ActionFactory.create(ActionType.CLEAN_PUBLIC)
-        );
+        ));
+
+        if (sim != null && sim.getJob().canWork() && canWorkHere(sim)) {
+            actions.add(ActionFactory.create(ActionType.WORK));
+        }
+
+        return actions;
     }
-    
+
+    private boolean canWorkHere(Sim sim) {
+        for (String location : sim.getJob().getWorkLocations()) {
+            if (this.key().equalsIgnoreCase(location)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -1,9 +1,20 @@
 package simscli.jobs;
 
+import simscli.stats.SkillType;
+
 public final class DoctorJob implements Job {
     @Override public String name() { return "Doctor"; }
     @Override public double salary(int level) { return 120 + level * 35; }
     @Override public boolean canWork() { return true; }
-    
-    @Override public String getWorkLocation() { return "hospital"; }
+    @Override public String[] getWorkLocations() {return new String[] { "hospital" };}
+
+
+    @Override
+    public SkillType[] primarySkills() {
+        return new SkillType[] {
+            SkillType.INTELLIGENCE,
+            SkillType.CHARISMA,
+            SkillType.WORK_ETHIC
+        };
+    }
 }

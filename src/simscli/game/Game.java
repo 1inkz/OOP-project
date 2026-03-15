@@ -257,21 +257,21 @@ private String getZeroNeedReason(Sim sim) {
         if (currentHour == 22 || action) {
         	clock.resetToNextDayMorning(); 
         	for (Sim sim : sims) {
-                if (!sim.isAlive()) continue;
-                
-                boolean hasHouse = sim.getOwnedHouse() != null;
-                boolean inCorrectLocation = (hasHouse && sim.getLocation().key().equals("home"))
-                        || (!hasHouse && sim.getLocation().key().equals("park"));
-                if (!inCorrectLocation) {
-                    System.out.println("\nYou are too tired! Forced to sleep... See you next morning 8:00 AM!");
-                }     
-                
-                if (sim.isAlive()) {
-                	sim.getBankingSystem().settleInterest();
-                	sim.getNeeds().set(NeedType.ENERGY, 90); 
-                	sim.getNeeds().set(NeedType.HUNGER, 30);
-                }
-        	}
+    if (!sim.isAlive()) continue;
+
+    boolean hasHouse = sim.getOwnedHouse() != null;
+    boolean inCorrectLocation =
+            (hasHouse && sim.getLocation().key().equals("home")) ||
+            (!hasHouse && sim.getLocation().key().equals("park"));
+
+    if (!inCorrectLocation && sim == activeSim()) {
+        System.out.println("\nYou are too tired! Forced to sleep... See you next morning 8:00 AM!");
+    }
+
+    sim.getBankingSystem().settleInterest();
+    sim.getNeeds().set(NeedType.ENERGY, 90);
+    sim.getNeeds().set(NeedType.HUNGER, 30);
+           }
         }
     }
     // End: Time
@@ -356,15 +356,51 @@ private String getZeroNeedReason(Sim sim) {
 
     // Start: Job
     public String changeJob(String jobName) {
-        Sim s = activeSim();
-        if (s == null) return "No active sim.";
-        try {
-            s.setJob(JobFactory.create(jobName));
+    Sim s = activeSim();
+    if (s == null) return "No active sim.";
+
+    try {
+        s.setJob(JobFactory.create(jobName));
+
+        String[] workLocations = s.getJob().getWorkLocations();
+        if (workLocations == null || workLocations.length == 0) {
             return s.getName() + " is now a " + s.getJobName() + ".";
-        } catch (IllegalArgumentException e) {
-            return "Unknown job. Try: Chef / Doctor / Engineer / Influencer";
         }
+
+        return s.getName() + " is now a " + s.getJobName()
+                + ". You can work at: " + formatLocationList(workLocations) + ".";
+    } catch (IllegalArgumentException e) {
+        return "Unknown job. Try: Chef / Doctor / Engineer / Influencer";
     }
+}
+
+private String formatLocationList(String[] keys) {
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = 0; i < keys.length; i++) {
+        if (i > 0) {
+            sb.append(" or ");
+        }
+        sb.append(formatLocationName(keys[i]));
+    }
+
+    return sb.toString();
+}
+
+private String formatLocationName(String key) {
+    return switch (key.toLowerCase()) {
+        case "restaurant" -> "Restaurant";
+        case "hospital" -> "Hospital";
+        case "bank" -> "Bank";
+        case "park" -> "Park";
+        case "home" -> "Home";
+        case "street" -> "Street";
+        default -> key.substring(0, 1).toUpperCase() + key.substring(1);
+    };
+}
+
+
+
     // End: Job
 
     
@@ -433,6 +469,9 @@ private String getZeroNeedReason(Sim sim) {
     }
     // End: Asset
 
+   public void cleanupDeadSims() {
+    removeDeadSims();
+}
 
 
 

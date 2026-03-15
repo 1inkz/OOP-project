@@ -1,13 +1,11 @@
 package simscli.location;
 
+import java.util.ArrayList;
+import java.util.List;
 import simscli.actions.Action;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.sims.Sim;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public final class Bank extends Location {
     @Override public String key() { return "bank"; }
@@ -15,25 +13,34 @@ public final class Bank extends Location {
 
     @Override
     public List<Action> actions(Sim sim) {
-        // Keep it simple: bank is mostly "work" and (optional) later add deposit/withdraw actions.
-    	List<Action> actions = new ArrayList<>();
-        if (sim != null && sim.getJob().canWork() 
-                && sim.getJob().getWorkLocation().equals(this.key())) {
+        List<Action> actions = new ArrayList<>();
+
+        if (sim != null && sim.getJob().canWork() && canWorkHere(sim)) {
             actions.add(ActionFactory.create(ActionType.WORK));
         }
-        
+
         actions.add(ActionFactory.create(ActionType.DEPOSIT));
-        
+
         if (sim.getBankDeposit() > 0) {
-        	actions.add(ActionFactory.create(ActionType.WITHDRAW));
+            actions.add(ActionFactory.create(ActionType.WITHDRAW));
         }
-        
+
         actions.add(ActionFactory.create(ActionType.APPLY_LOAN));
-        
+
         if (sim.getLoanAmount() > 0) {
-        	actions.add(ActionFactory.create(ActionType.REPAY_LOAN));
+            actions.add(ActionFactory.create(ActionType.REPAY_LOAN));
         }
+
         return actions;
+    }
+
+    private boolean canWorkHere(Sim sim) {
+        for (String location : sim.getJob().getWorkLocations()) {
+            if (this.key().equalsIgnoreCase(location)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

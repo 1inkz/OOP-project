@@ -4,6 +4,7 @@ import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
+import simscli.stats.SkillType;
 
 public final class PlayGame implements Action {
     @Override public String name() { return "Play Game"; }
@@ -15,6 +16,9 @@ public final class PlayGame implements Action {
                 .plus(NeedType.SOCIAL, -2)
                 .plus(NeedType.ENERGY, -4)
                 .plus(NeedType.BLADDER, -4));
-        return sim.getName() + " played games and yelled at pixels.";
+
+        sim.gainSkill(SkillType.GAMING, 6);
+
+        return sim.getName() + " played games and improved Gaming.";
     }
 }

@@ -4,6 +4,7 @@ import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
+import simscli.stats.SkillType;
 
 public final class Socialise implements Action {
     @Override public String name() { return "Socialise"; }
@@ -16,6 +17,9 @@ public final class Socialise implements Action {
                 .plus(NeedType.ENERGY, -4)
                 .plus(NeedType.HUNGER, -3)
                 .plus(NeedType.BLADDER, -3));
-        return sim.getName() + " socialised. Drama avoided... this time.";
+
+        sim.gainSkill(SkillType.CHARISMA, 6);
+
+        return sim.getName() + " socialised and improved Charisma.";
     }
 }

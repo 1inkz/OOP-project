@@ -11,6 +11,7 @@ import simscli.location.*;
 import simscli.sims.*;
 import simscli.stats.*;
 
+
 public final class ConsoleUI {
 	
     private final Game game;
@@ -19,6 +20,7 @@ public final class ConsoleUI {
     private boolean isGameLoaded = false;
     public boolean isGameReset = false;
     public ConsoleUI(Game game) { this.game = game; }
+
     
     public void run() {
         showInitialMenu();
@@ -146,6 +148,8 @@ public final class ConsoleUI {
     private static final String BLUE = "\u001B[34m";      
     private static final String PURPLE = "\u001B[35m";      
     private static final String DARK_RED = "\u001B[91m";  
+    private static final String CYAN = "\u001B[36m";
+
     private static final String RESET = "\u001B[0m";
     
     private void showTutorial() {
@@ -240,6 +244,8 @@ public final class ConsoleUI {
         List<Sim> sims = game.sims();
         printDynamicTitle("SIMS GAME - Select Existing Sims");
 
+        game.cleanupDeadSims();
+
         for (int i = 0; i < sims.size(); i++) {
             Sim sim = sims.get(i);
             String status = sim.isAlive() ? GREEN + "Alive" + RESET : RED + "Gone" + RESET;
@@ -259,27 +265,44 @@ public final class ConsoleUI {
         System.out.println(GREEN + "Active Sims changed to: " + game.activeSim().getName() + RESET);
     }
     
-    private void printSimStatus(Sim sim) {
-        
-        String needsOutput = "Hunger: " + getNeedColor(sim.getNeeds().get(NeedType.HUNGER)) + " | " +
-        					"Energy: " + getNeedColor(sim.getNeeds().get(NeedType.ENERGY)) + " | " +
-        					"Hygiene: " + getNeedColor(sim.getNeeds().get(NeedType.HYGIENE)) + " | " +
-        					"Social: " + getNeedColor(sim.getNeeds().get(NeedType.SOCIAL)) + " | " +
-        					"Fun: " + getNeedColor(sim.getNeeds().get(NeedType.FUN)) + " | " +
-        					"Bladder: " + getNeedColor(sim.getNeeds().get(NeedType.BLADDER));
-        int width = (needsOutput.length())/4;
-        
-        printDynamicTitle(" ".repeat(width) + sim.getName() + " - Status" + " ".repeat(width));
-        
-        System.out.println("Name: " + sim.getName() + " | Type: " + sim.getType());
-        System.out.println("Job: " + sim.getJobName() + " (Level " + sim.getJobLevel() + ")");
-        System.out.println("Location: " + sim.getLocation().name());
-        System.out.println("Simcoin: $" + sim.getSimcoin() + " | Bank Savings: $" + sim.getBankingSystem().getDeposit() + " | Loan: $" + sim.getBankingSystem().getLoanAmount());
-        System.out.println("Assets: Car = " + (sim.getOwnedCar() != null ? "Yes" : "No") + " | House = " + (sim.getOwnedHouse() != null ? "Yes" : "No") + " | Assets Loan Day: Day " + sim.getLoanOverdueDays(game));
-        
-        System.out.println(needsOutput);
-        printDynamicTitle(" ".repeat(width) + "End of Status" + " ".repeat(width));
-    }
+   private void printSimStatus(Sim sim) {
+
+    String needsOutput = "Hunger: " + getNeedColor(sim.getNeeds().get(NeedType.HUNGER)) + " | " +
+                        "Energy: " + getNeedColor(sim.getNeeds().get(NeedType.ENERGY)) + " | " +
+                        "Hygiene: " + getNeedColor(sim.getNeeds().get(NeedType.HYGIENE)) + " | " +
+                        "Social: " + getNeedColor(sim.getNeeds().get(NeedType.SOCIAL)) + " | " +
+                        "Fun: " + getNeedColor(sim.getNeeds().get(NeedType.FUN)) + " | " +
+                        "Bladder: " + getNeedColor(sim.getNeeds().get(NeedType.BLADDER));
+
+    String skillsOutput =
+            "Cooking: " + sim.getSkillLevel(SkillType.COOKING) + " | " +
+            "Cleaning: " + sim.getSkillLevel(SkillType.CLEANING) + " | " +
+            "Charisma: " + sim.getSkillLevel(SkillType.CHARISMA) + " | " +
+            "Fitness: " + sim.getSkillLevel(SkillType.FITNESS) + "\n" +
+            "Intelligence: " + sim.getSkillLevel(SkillType.INTELLIGENCE) + " | " +
+            "Creativity: " + sim.getSkillLevel(SkillType.CREATIVITY) + " | " +
+            "Gaming: " + sim.getSkillLevel(SkillType.GAMING) + " | " +
+            "Work Ethic: " + sim.getSkillLevel(SkillType.WORK_ETHIC);
+
+    int width = (needsOutput.length()) / 4;
+
+    printDynamicTitle(" ".repeat(width) + sim.getName() + " - Status" + " ".repeat(width));
+
+    System.out.println("Name: " + sim.getName() + " | Type: " + sim.getType());
+    System.out.println("Job: " + sim.getJobName() + " (Level " + sim.getJobLevel() + ")");
+    System.out.println("Location: " + sim.getLocation().name());
+    System.out.println("Simcoin: $" + sim.getSimcoin() + " | Bank Savings: $" + sim.getBankingSystem().getDeposit() + " | Loan: $" + sim.getBankingSystem().getLoanAmount());
+    System.out.println("Assets: Car = " + (sim.getOwnedCar() != null ? "Yes" : "No") + " | House = " + (sim.getOwnedHouse() != null ? "Yes" : "No") + " | Assets Loan Day: Day " + sim.getLoanOverdueDays(game));
+
+    System.out.println(needsOutput);
+    System.out.println("\n" + CYAN + "========== SKILLS PROGRESSION ==========" + RESET);
+    System.out.println(skillsOutput);
+
+
+
+    printDynamicTitle(" ".repeat(width) + "End of Status" + " ".repeat(width));
+}
+
     // End: Sims
     
     

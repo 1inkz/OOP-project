@@ -1,11 +1,10 @@
 package simscli.location;
 
+import java.util.*;
 import simscli.actions.*;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.*;
-
-import java.util.*;
 
 public final class Restaurant extends Location {
     @Override public String key() { return "restaurant"; }
@@ -13,19 +12,27 @@ public final class Restaurant extends Location {
 
     @Override
     public List<Action> actions(Sim sim) {
-    	 List<Action> baseActions = new ArrayList<>(Arrays.asList(
-                new DineOut(),      // special action only here
-                new Socialise()     // reuse existing action
+        List<Action> baseActions = new ArrayList<>(Arrays.asList(
+                new DineOut(),
+                new Socialise()
         ));
-    	 
-         if (sim != null && sim.getJob().canWork() 
-                 && sim.getJob().getWorkLocation().equals(this.key())) {
-             baseActions.add(ActionFactory.create(ActionType.WORK));
-         }
-         return baseActions;
+
+        if (sim != null && sim.getJob().canWork() && canWorkHere(sim)) {
+            baseActions.add(ActionFactory.create(ActionType.WORK));
+        }
+
+        return baseActions;
     }
 
-    /** Location-specific action: costs money, boosts hunger + social + fun. */
+    private boolean canWorkHere(Sim sim) {
+        for (String location : sim.getJob().getWorkLocations()) {
+            if (this.key().equalsIgnoreCase(location)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static final class DineOut implements Action {
         @Override public String name() { return "Dine Out ($25)"; }
 
@@ -35,11 +42,7 @@ public final class Restaurant extends Location {
                 return sim.getName() + " can't afford to dine out. (Need $25)";
             }
 
-            // Pay money (controlled by Sim method)
             sim.spendSimcoin(25);
-            // We *must* manipulate via method where needed: add a spend method in Sim (see changes below)
-            // For now this will call sim.spendMoney(25) once you add it.
-            // (You will add spendMoney in Sim in the change section.)
 
             sim.applyEffect(Effect.none()
                     .plus(NeedType.HUNGER, +45)

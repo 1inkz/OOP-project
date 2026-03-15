@@ -1,6 +1,7 @@
 package simscli;
 
 import java.io.*;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import simscli.game.Game;
 import simscli.jobs.JobFactory;
 import simscli.sims.*;
 import simscli.stats.NeedType;
+import simscli.stats.SkillType;
 
 public final class SaveGame {
     private static final String SAVE_FILE = "savegame.txt";
@@ -63,6 +65,14 @@ public final class SaveGame {
                     jobLevelsStr.append(jobName).append(":").append(entry.getValue());
                 }
 
+                StringBuilder skillLevelsStr = new StringBuilder();
+                for (SkillType skillType : SkillType.values()) {
+                    if (skillLevelsStr.length() > 0) skillLevelsStr.append(",");
+                    skillLevelsStr.append(skillType.name())
+                                  .append(":")
+                                  .append(sim.getSkillLevel(skillType));
+                }
+
                 writer.write(
                     sim.getName() + "|" +
                     sim.getType() + "|" +
@@ -90,7 +100,8 @@ public final class SaveGame {
                     sim.getNeeds().get(NeedType.SOCIAL) + "|" +
                     sim.getNeeds().get(NeedType.FUN) + "|" +
                     sim.getNeeds().get(NeedType.BLADDER) + "|" +
-                    jobLevelsStr
+                    jobLevelsStr + "|" +
+                    skillLevelsStr
                 );
                 writer.newLine();
             }
@@ -132,7 +143,7 @@ public final class SaveGame {
                 if (line.trim().isEmpty()) continue;
 
                 String[] parts = line.split("\\|");
-                if (parts.length < 18) continue;
+                if (parts.length < 20) continue;
 
                 Sim sim = switch (SimType.valueOf(parts[1])) {
                     case CHILD -> new ChildSim(parts[0], game);
@@ -214,6 +225,23 @@ public final class SaveGame {
                     jobLevelsMap.put("Jobless", 1);
                 }
                 sim.setAllJobLevels(jobLevelsMap);
+
+                Map<SkillType, Integer> skillLevelsMap = new EnumMap<>(SkillType.class);
+                if (parts.length >= 20) {
+                    String skillsRaw = parts[19];
+                    if (skillsRaw != null && !skillsRaw.trim().isEmpty()) {
+                        String[] skillPairs = skillsRaw.split(",");
+                        for (String pair : skillPairs) {
+                            String[] keyValue = pair.split(":");
+                            if (keyValue.length == 2) {
+                                SkillType skillType = SkillType.valueOf(keyValue[0].trim());
+                                int value = Integer.parseInt(keyValue[1].trim());
+                                skillLevelsMap.put(skillType, value);
+                            }
+                        }
+                    }
+                }
+                sim.setAllSkillLevels(skillLevelsMap);
 
                 game.addSim(sim);
             }

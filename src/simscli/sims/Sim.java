@@ -1,10 +1,5 @@
 package simscli.sims;
 
-import simscli.jobs.*;
-import simscli.stats.Effect;
-import simscli.stats.NeedType;
-import simscli.location.Location;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +9,13 @@ import simscli.asset.Car;
 import simscli.asset.House;
 import simscli.bank.BankingSystem;
 import simscli.game.Game;
+import simscli.jobs.*;
+import simscli.location.Location;
+import simscli.stats.Effect;
+import simscli.stats.NeedType;
+import simscli.stats.SkillType;
+import simscli.stats.Skills;
+
 
 public abstract class Sim {
     private final String name;
@@ -51,6 +53,8 @@ public abstract class Sim {
     public final boolean isAlive() { return alive; }
     public void setAlive(boolean alive) { this.alive = alive; }
     public Needs getNeeds() { return needs; }
+    private final Skills skills = new Skills();
+
    
     /** Each subtype defines its decay pace. */
     public abstract Effect hourlyDecay();
@@ -82,7 +86,28 @@ public abstract class Sim {
     }
     // End: Time
     
-    
+        // Start: Skills
+    public final Skills getSkills() {
+        return skills;
+    }
+
+    public final int getSkillLevel(SkillType type) {
+        return skills.get(type);
+    }
+
+    public final int gainSkill(SkillType type, int amount) {
+        return skills.gain(type, amount);
+    }
+
+    public final Map<SkillType, Integer> getAllSkillLevels() {
+        return new java.util.EnumMap<>(skills.snapshot());
+    }
+
+    public final void setAllSkillLevels(Map<SkillType, Integer> values) {
+        skills.loadFrom(values);
+    }
+    // End: Skills
+
     // Start: Job
     public Map<String, Integer> getAllJobLevels() { return new HashMap<>(jobLevels); }
     public final String getJobName() { return job.name(); }

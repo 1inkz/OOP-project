@@ -4,6 +4,7 @@ import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
+import simscli.stats.SkillType;
 
 public final class EatMeal implements Action {
     @Override public String name() { return "Eat Meal"; }
@@ -16,6 +17,9 @@ public final class EatMeal implements Action {
                 .plus(NeedType.HYGIENE, -2)
                 .plus(NeedType.BLADDER, -4)
                 .plus(NeedType.FUN, +2));
-        return sim.getName() + " ate a proper meal.";
+
+        sim.gainSkill(SkillType.COOKING, 4);
+
+        return sim.getName() + " ate a proper meal and improved Cooking.";
     }
 }
