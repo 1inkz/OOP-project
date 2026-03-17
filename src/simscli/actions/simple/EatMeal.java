@@ -1,5 +1,6 @@
-package simscli.actions;
+package simscli.actions.simple;
 
+import simscli.actions.Action;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.Effect;
@@ -16,7 +17,7 @@ public final class EatMeal implements Action {
                 .plus(NeedType.ENERGY, +15)
                 .plus(NeedType.HYGIENE, -2)
                 .plus(NeedType.BLADDER, -4)
-                .plus(NeedType.FUN, +2));
+                .plus(NeedType.FUN, +3));
 
         sim.gainSkill(SkillType.COOKING, 4);
 

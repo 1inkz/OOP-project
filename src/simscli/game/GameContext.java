@@ -1,7 +1,8 @@
 package simscli.game;
-import simscli.GameClock;
 
-public final class GameContext {
+import simscli.actions.ActionUIAdapter;
+
+public final class GameContext implements ActionUIAdapter {
     private final Game game;
 
     public GameContext(Game game) {
@@ -22,5 +23,15 @@ public final class GameContext {
 
     public void checkTimeRules() {
         game.checkTimeRules(true);
+    }
+    
+    @Override
+    public int intRange(String prompt, int min, int max) {
+        return game.getUIInput().intRange(prompt, min, max);
+    }
+    
+    @Override
+    public String line(String prompt) {
+        return game.getUIInput().line(prompt);
     }
 }

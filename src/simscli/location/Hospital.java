@@ -22,6 +22,7 @@ public final class Hospital extends Location {
     @Override
     public List<Action> actions(Sim sim) {
         List<Action> baseActions = new ArrayList<>(Arrays.asList(
+                ActionFactory.create(ActionType.GET_CHECKUP),
                 ActionFactory.create(ActionType.NAP),
                 ActionFactory.create(ActionType.USE_TOILET)
         ));

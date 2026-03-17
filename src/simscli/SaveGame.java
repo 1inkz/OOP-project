@@ -8,7 +8,9 @@ import java.util.Map;
 import simscli.asset.Car;
 import simscli.asset.House;
 import simscli.game.Game;
+import simscli.game.GameClock;
 import simscli.jobs.JobFactory;
+import simscli.pets.Pet;
 import simscli.sims.*;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
@@ -73,6 +75,17 @@ public final class SaveGame {
                                   .append(sim.getSkillLevel(skillType));
                 }
 
+                // Serialize pets
+                StringBuilder petsStr = new StringBuilder();
+                for (Pet pet : sim.getPets()) {
+                    if (petsStr.length() > 0) petsStr.append(",");
+                    petsStr.append(pet.serialize());
+                    System.out.println("[SaveGame] Saving pet: " + pet.getName() + " for Sim: " + sim.getName());
+                }
+                if (petsStr.length() == 0) {
+                    System.out.println("[SaveGame] No pets to save for Sim: " + sim.getName());
+                }
+
                 writer.write(
                     sim.getName() + "|" +
                     sim.getType() + "|" +
@@ -101,7 +114,8 @@ public final class SaveGame {
                     sim.getNeeds().get(NeedType.FUN) + "|" +
                     sim.getNeeds().get(NeedType.BLADDER) + "|" +
                     jobLevelsStr + "|" +
-                    skillLevelsStr
+                    skillLevelsStr + "|" +
+                    petsStr
                 );
                 writer.newLine();
             }
@@ -242,6 +256,28 @@ public final class SaveGame {
                     }
                 }
                 sim.setAllSkillLevels(skillLevelsMap);
+
+                // Deserialize pets
+                if (parts.length >= 21) {
+                    String petsRaw = parts[20];
+                    if (petsRaw != null && !petsRaw.trim().isEmpty()) {
+                        String[] petDatas = petsRaw.split(",");
+                        System.out.println("[LoadGame] Loading " + petDatas.length + " pets for Sim: " + sim.getName());
+                        for (String petData : petDatas) {
+                            Pet pet = Pet.deserialize(petData);
+                            if (pet != null) {
+                                sim.adoptPet(pet);
+                                System.out.println("[LoadGame] Loaded pet: " + pet.getName() + " for Sim: " + sim.getName());
+                            } else {
+                                System.err.println("[LoadGame] Failed to deserialize pet: " + petData);
+                            }
+                        }
+                    } else {
+                        System.out.println("[LoadGame] No pets saved for Sim: " + sim.getName());
+                    }
+                } else {
+                    System.out.println("[LoadGame] No pets field for Sim: " + sim.getName() + " (parts.length=" + parts.length + ")");
+                }
 
                 game.addSim(sim);
             }

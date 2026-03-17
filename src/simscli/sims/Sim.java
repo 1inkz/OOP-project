@@ -11,7 +11,9 @@ import simscli.bank.BankingSystem;
 import simscli.game.Game;
 import simscli.jobs.*;
 import simscli.location.Location;
+import simscli.pets.Pet;
 import simscli.stats.Effect;
+import simscli.stats.Needs;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 import simscli.stats.Skills;
@@ -31,6 +33,7 @@ public abstract class Sim {
     private final BankingSystem bankingSystem = new BankingSystem();
     private Asset ownedCar;
     private Asset ownedHouse;
+    private final List<Pet> pets = new ArrayList<>();
     
     private int startDay; 
     private int loanStartDay = 0;
@@ -381,4 +384,37 @@ public abstract class Sim {
         pendingLoanMessages.clear();
     }
     // End: Output message management
+
+    // Start: Pets
+    public List<Pet> getPets() {
+        return new ArrayList<>(pets);
+    }
+
+    public void adoptPet(Pet pet) {
+        if (pet != null && !pets.contains(pet)) {
+            pets.add(pet);
+        }
+    }
+
+    public void updatePetsHourly() {
+        List<Pet> deadPets = new ArrayList<>();
+        for (Pet pet : pets) {
+            if (pet.isAlive()) {
+                pet.ageOneHour();
+                if (!pet.isAlive()) {
+                    deadPets.add(pet);
+                }
+            }
+        }
+        // Remove dead pets after iteration
+        for (Pet pet : deadPets) {
+            pets.remove(pet);
+            System.out.println(name + "'s beloved " + pet.getName() + " (" + pet.getType().getDisplayName() + ") has passed away...");
+        }
+    }
+
+    public void addSimcoin(int amount) {
+        earnSimcoin(amount);
+    }
+    // End: Pets
 }

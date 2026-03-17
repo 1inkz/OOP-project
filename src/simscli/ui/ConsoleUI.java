@@ -3,13 +3,18 @@ package simscli.ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import simscli.*;
-import simscli.actions.*;
-import simscli.asset.*;
-import simscli.game.*;
-import simscli.location.*;
-import simscli.sims.*;
-import simscli.stats.*;
+import simscli.ExitGuard;
+import simscli.SaveGame;
+import simscli.actions.Action;
+import simscli.asset.Asset;
+import simscli.asset.Car;
+import simscli.asset.House;
+import simscli.game.Game;
+import simscli.location.Location;
+import simscli.sims.Sim;
+import simscli.sims.SimType;
+import simscli.stats.NeedType;
+import simscli.stats.SkillType;
 
 public final class ConsoleUI {
 
@@ -21,6 +26,7 @@ public final class ConsoleUI {
 
     public ConsoleUI(Game game) {
         this.game = game;
+        this.game.setUIInput(in);  // Inject UI input for action DI
     }
 
     public void run() {
@@ -323,6 +329,16 @@ public final class ConsoleUI {
         System.out.println("\n" + CYAN + "========== SKILLS PROGRESSION ==========" + RESET);
         System.out.println(skillsOutput);
 
+        // Display pets
+        if (!sim.getPets().isEmpty()) {
+            System.out.println("\n" + CYAN + "========== PETS ==========" + RESET);
+            for (simscli.pets.Pet pet : sim.getPets()) {
+                System.out.println(pet.getStatusSummary());
+            }
+        } else {
+            System.out.println("\n" + YELLOW + "No pets yet. Visit the Pet Store to get one!" + RESET);
+        }
+
         printDynamicTitle(" ".repeat(width) + "End of Status" + " ".repeat(width));
     }
 
@@ -497,10 +513,6 @@ public final class ConsoleUI {
 
         for (Location loc : allLocations) {
             if (loc.key().equalsIgnoreCase("street")) {
-                continue;
-            }
-
-            if (loc.key().equalsIgnoreCase("home") && activeSim.getOwnedHouse() == null) {
                 continue;
             }
 

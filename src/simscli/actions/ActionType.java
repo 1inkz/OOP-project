@@ -18,5 +18,10 @@ public enum ActionType {
     DEPOSIT,
     WITHDRAW,
     APPLY_LOAN,
-    REPAY_LOAN
+    REPAY_LOAN,
+    BUY_PET,
+    FEED_PET,
+    SHOWER_PET,
+    PLAY_WITH_PET,
+    GET_CHECKUP
 }

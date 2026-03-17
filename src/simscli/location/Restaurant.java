@@ -2,6 +2,7 @@ package simscli.location;
 
 import java.util.*;
 import simscli.actions.*;
+import simscli.actions.simple.*;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.*;

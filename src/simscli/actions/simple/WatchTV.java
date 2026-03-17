@@ -1,5 +1,6 @@
-package simscli.actions;
+package simscli.actions.simple;
 
+import simscli.actions.Action;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.Effect;

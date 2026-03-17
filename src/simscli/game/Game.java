@@ -2,12 +2,13 @@ package simscli.game;
 
 import java.util.*;
 import java.util.concurrent.*;
-import simscli.*;
+import simscli.SaveGame;
 import simscli.actions.*;
 import simscli.jobs.*;
 import simscli.location.*;
 import simscli.sims.*;
 import simscli.stats.*;
+import simscli.ui.Input;
 import simscli.world.*;
 
 public final class Game {
@@ -17,6 +18,7 @@ public final class Game {
     private GameClock clock; 
     private final Map<String, Location> locations = new LinkedHashMap<>();
     private final int gameStartDay;
+    private Input uiInput;  // Injected by ConsoleUI
 
     // Multithreading: used only to update NPC sims in parallel (not forced, but clean).
     private final ExecutorService npcPool = Executors.newFixedThreadPool(
@@ -177,6 +179,14 @@ private String getZeroNeedReason(Sim sim) {
         this.clock = clock;
     }
     
+    public void setUIInput(Input input) {
+        this.uiInput = input;
+    }
+    
+    public Input getUIInput() {
+        return uiInput;
+    }
+    
     public int getGameStartDay() {
         return gameStartDay;
     }
@@ -194,6 +204,7 @@ private String getZeroNeedReason(Sim sim) {
             if (sim.isAlive()) {
                 for (int i = 0; i < hours; i++) {
                     sim.applyEffect(sim.hourlyDecay());
+                    sim.updatePetsHourly();
                 }
             }
         }
@@ -289,6 +300,7 @@ private String getZeroNeedReason(Sim sim) {
         addLocation(new Bank());
         addLocation(new Restaurant());
         addLocation(new Hospital());
+        addLocation(new PetStore());
     }
 
     private void addLocation(Location loc) {

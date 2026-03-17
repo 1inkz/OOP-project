@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import simscli.actions.*;
+import simscli.actions.interactive.*;
 import simscli.sims.Sim;
 
 public final class Park extends Location {
@@ -15,10 +16,16 @@ public final class Park extends Location {
         List<Action> actions = new ArrayList<>(Arrays.asList(
                 ActionFactory.create(ActionType.SOCIALISE),
                 ActionFactory.create(ActionType.EXERCISE),
+                ActionFactory.create(ActionType.EAT_SNACK),
                 ActionFactory.create(ActionType.NAP),
                 ActionFactory.create(ActionType.SLEEP),
                 ActionFactory.create(ActionType.CLEAN_PUBLIC)
         ));
+
+        // Add pet menu if Sim has pets
+        if (sim != null && !sim.getPets().isEmpty()) {
+            actions.add(new PlayWithPetMenu());
+        }
 
         if (sim != null && sim.getJob().canWork() && canWorkHere(sim)) {
             actions.add(ActionFactory.create(ActionType.WORK));

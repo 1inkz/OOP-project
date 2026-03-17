@@ -1,14 +1,13 @@
-package simscli.actions;
+package simscli.actions.simple;
 
 
+import simscli.actions.Action;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
-import simscli.stats.Effect;
-import simscli.stats.NeedType;
 
 public final class Sleep implements Action {
 	 
-    @Override public String name() { return "Sleep"; }
+    @Override public String name() { return "Deep Sleep"; }
 
     @Override
     public String perform(Sim sim, GameContext ctx) {
