@@ -1,4 +1,4 @@
-package simscli.simscli.bank;
+package simscli.bank;
 
 public class SimpleInterestPolicy implements InterestPolicy {
     private static final double RATE = 0.0005;

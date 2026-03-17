@@ -1,4 +1,4 @@
-package simscli.simscli.bank;
+package simscli.bank;
 
 public class Money {
     private int amount;
