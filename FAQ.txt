@@ -1,672 +1,241 @@
-═══════════════════════════════════════════════════════════════════════════════
-                    THE SIMS - CONSOLE EDITION
-                    FREQUENTLY ASKED QUESTIONS (FAQ)
-═══════════════════════════════════════════════════════════════════════════════
+## Frequently Asked Questions (FAQ)
 
-TABLE OF CONTENTS
-  A. Game Basics
-  B. Needs & Health
-  C. Jobs & Career
-  D. Money & Banking
-  E. Assets & Property
-  F. Locations & Travel
-  G. Saving & Loading
-  H. Troubleshooting
-  I. Advanced Mechanics
-  J. Strategy Tips
+Got questions? Good. Your Sim probably does too.
 
+This FAQ is here for quick answers about gameplay, money, assets, needs, travel, and survival.
 
-═══════════════════════════════════════════════════════════════════════════════
-A. GAME BASICS
-═══════════════════════════════════════════════════════════════════════════════
+---
 
-Q: What is The Sims Console Edition?
-A: It's a text-based life simulation game where you create and manage virtual 
-   characters (Sims), control their daily lives, manage their finances, and 
-   help them achieve their goals.
+## A. General Questions
 
-Q: Can I play with multiple characters?
-A: Yes! You can create multiple Sims and manage them individually. However, 
-   only one Sim is active at a time. You switch between them from the Sims 
-   Management Menu.
+**Q: What kind of game is this?**
+A: It’s a text-based life simulation game where you manage Sims, their needs, jobs, money, assets, and daily decisions.
 
-Q: How do I switch between Sims?
-A: From the Sims Management Menu, select "Select Existing Sims" to choose a 
-   different character to control. Each Sim can be managed independently.
+**Q: Is there a win condition?**
+A: Not exactly. The game is open-ended. You can set your own goals, like getting rich, maxing a career, buying a house, or keeping multiple Sims alive.
 
-Q: How long is a typical game session?
-A: A single day takes roughly 14 in-game hours (08:00 to 22:00), which 
-   translates to about 15-30 minutes of actual gameplay depending on your pace.
+**Q: How do I lose?**
+A: A Sim dies if any need reaches 0. If all Sims die, the game ends.
 
-Q: What's the goal of the game?
-A: There's no single win condition. The game is open-ended - you set your own 
-   goals: build wealth, advance careers, create a dream home, etc. You lose 
-   if your Sim dies (needs reach zero).
+**Q: Can I play with more than one Sim?**
+A: Yes. You can create multiple Sims, but only one is controlled at a time.
 
-Q: How do I win?
-A: You set your own win conditions! Common user goals include:
-   • Accumulate $50,000+ in wealth
-   • Reach maximum job skill level (10)
-   • Own multiple properties
-   • Support multiple Sims
-   • Pay off all debts
+**Q: How do I switch Sims?**
+A: Go back to the Sims Management Menu and select another existing Sim.
 
-Q: Is there a story mode?
-A: No, the game is sandbox/simulation-based. You create your own story by 
-   making decisions and managing your Sims' lives.
+---
 
-Q: Can I customize my Sim's appearance?
-A: The console version focuses on gameplay mechanics rather than visual 
-   customization. Appearance is text-based (age type: Child/Adult/Elder).
+## B. Needs and Survival
 
+**Q: What needs do I have to manage?**
+A: Hunger, Energy, Hygiene, Bladder, and Mood.
 
-═══════════════════════════════════════════════════════════════════════════════
-B. NEEDS & HEALTH
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: What are needs?
-A: Needs are basic requirements your Sim must maintain to stay alive:
-   • Hunger - Need to eat regularly
-   • Energy - Need to rest and sleep
-   • Hygiene - Need to shower and stay clean
-   • Bladder - Need to use the toilet
-   • Mood - Need entertainment and comfort
-
-Q: What happens if a need reaches zero?
-A: Your Sim DIES instantly. This is game over! Always monitor your needs, 
-   especially the red (≤20) status ones.
-
-Q: How do I manage needs?
-A: Each need has associated actions at specific locations:
-   • Hunger → Eat at Restaurant
-   • Energy → Sleep at Home
-   • Hygiene → Shower at Home
-   • Bladder → Use Toilet at Home
-   • Mood → Play at Park or socialize
-
-Q: How often do needs increase?
-A: Needs change every in-game hour. Each action your Sim takes consumes 1 hour 
-   of time and affects needs differently.
-
-Q: Can I check my needs without viewing full status?
-A: Currently, you must view full status to see exact need levels. The location 
-   action menu shows needs but not specific values.
-
-Q: What does the need color mean?
-A: 
-   • GREEN (≥60) - Excellent, no immediate action needed
-   • YELLOW (21-59) - Warning, address soon
-   • RED (≤20) - Critical, needs immediate attention!
-
-Q: What's the sleep schedule?
-A: 
-   • 20:00 - Sleep reminder message
-   • 21:00 - Sleep warning message
-   • 22:00 - Forced faint (Sim collapses to sleep, advances to next day)
-
-Q: Can I sleep during the day?
-A: No, sleep only happens at night at home. Your Sim will be forced to sleep 
-   at 22:00 regardless of location or activity.
-
-Q: What happens after sleep?
-A: Your Sim advances to the next day and all Sims in your household also move 
-   to the next day. This synchronizes the game world.
-
-Q: Do needs change while I'm not actively playing?
-A: No. Needs only change when you perform actions (which consume time). Idle 
-   time doesn't affect needs.
-
-Q: Can I die from something other than needs?
-A: Yes, two other death conditions:
-   1. Loan default: After day 80, if (Bank + Simcoin) < Loan, Sim dies
-   2. Repossession: Assets can be taken if loan is too high after day 60
-
-
-═══════════════════════════════════════════════════════════════════════════════
-C. JOBS & CAREER
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: How do I get a job?
-A: From the Main Menu, select "Find Job / Change Job" and choose from available 
-   positions. You're hired immediately.
-
-Q: What jobs are available?
+**Q: What do the colors mean?**
 A:
-   1. Chef - Work at Restaurant
-   2. Doctor - Work at Hospital
-   3. Engineer - Technical work
-   4. Influencer - Social media work
-   5. Jobless (default job)- No income, no work
 
-Q: Can I have multiple jobs?
-A: You can only have one job at a time. Switching jobs replaces your 
-   previous job immediately.
+* Green = good
+* Yellow = warning
+* Red = critical
 
-Q: Is there a penalty for switching jobs?
-A: You lose your skill level (resets to 1) but can switch freely without 
-   financial penalty.
+**Q: What happens if a need becomes 0?**
+A: Your Sim dies instantly.
 
-Q: How much money do I earn per job?
-A: Job pay varies by job type and skill level:
-   • Base salary ranges from $200-$800 per work session
-   • Skill levels 1-10 increase pay incrementally
-   • Higher skill = higher income
+**Q: How do I restore needs?**
+A: Use location-based actions:
 
-Q: How do I advance my job skill?
-A: Work repeatedly at your job. Each work session at the job location increases 
-   your skill level by small increments. Progression is gradual (weeks of work).
+* Hunger → eat at Restaurant
+* Energy → sleep at Home
+* Hygiene → shower at Home
+* Bladder → use toilet at Home
+* Mood → play or relax at Park
 
-Q: What's the maximum job skill?
-A: Level 10 is the maximum. Once you reach it, you've achieved full mastery and 
-   earn the maximum salary for that job.
+**Q: Do needs change automatically?**
+A: Needs change as time passes. Since actions take time, your needs will keep shifting during gameplay.
 
-Q: Can I have a job without going to a specific location?
-A: Most jobs require location-based work. Some jobs may have different mechanics, 
-   so check job descriptions at their locations.
+**Q: Can I ignore sleep?**
+A: No. At night the game warns you, and at 22:00 your Sim will faint and move to the next day.
 
-Q: What does "Jobless" do?
-A: Jobless provides no income but also has no job responsibilities. You're free 
-   to pursue other goals without job time commitments.
+---
 
-Q: How is job income different from other income sources?
-A: Job income is the primary steady income source. It's reliable and increases 
-   with skill. Other income sources may exist but are limited.
+## C. Time and Daily Flow
 
-Q: Can a child Sim have the same jobs as an adult?
-A: Yes, but Child Sims may have different income scaling or restrictions. Check 
-   the game for age-specific job differences.
+**Q: What time does the day start and end?**
+A: The day starts at 08:00 and ends at 22:00.
 
-Q: Do I need specific skills to get a job?
-A: No prerequisites. You can get any job immediately. However, some jobs may be 
-   unavailable at certain life stages (child vs. adult vs. elder).
+**Q: How much time does one action use?**
+A: Every action uses 1 in-game hour.
 
+**Q: Does traveling also take time?**
+A: Yes. Traveling also costs 1 hour.
 
-═══════════════════════════════════════════════════════════════════════════════
-D. MONEY & BANKING
-═══════════════════════════════════════════════════════════════════════════════
+**Q: What happens when I sleep?**
+A: Your Sim moves to the next day.
 
-Q: Where do I get money?
-A: Primary sources:
-   1. Starting money (given at game start)
-   2. Job income (earned per work session)
-   3. Selling assets (return partial value)
-   4. Finding money (if applicable)
+**Q: Do all Sims move to the next day together?**
+A: Yes. The world stays synchronized.
 
-Q: What's the difference between Simcoin and Bank Account?
+---
+
+## D. Jobs and Money
+
+**Q: How do I get a job?**
+A: From the Main Menu, choose **Find Job / Change Job**.
+
+**Q: What jobs are available?**
+A: Chef, Doctor, Engineer, Influencer, and Jobless.
+
+**Q: How do I earn money?**
+A: The main way is by getting a job and working.
+
+**Q: Can I have more than one job?**
+A: No. One Sim can only hold one job at a time.
+
+**Q: How do I improve my pay?**
+A: Work more often to increase your skill level. Higher skill usually means better earnings.
+
+**Q: What does Jobless do?**
+A: No income, but no job responsibilities either.
+
+---
+
+## E. Bank, Simcoin, and Loans
+
+**Q: What’s the difference between Simcoin and bank money?**
+A: Simcoin is money on hand. Bank money is stored in your account.
+
+**Q: How do I deposit or withdraw money?**
+A: Go to the Bank and choose Deposit or Withdraw.
+
+**Q: What is the maximum loan?**
+A: $5000.
+
+**Q: Where does loan money go?**
+A: Directly into your Simcoin.
+
+**Q: How do I repay a loan?**
+A: Go to the Bank and choose Repay Loan. Repayment is deducted from Simcoin.
+
+**Q: What happens if I ignore my loan for too long?**
+A: You risk repossession after day 60, and death after day 80 if your funds are still too low.
+
+---
+
+## F. House and Car
+
+**Q: What assets can I buy?**
+A: A car and a house.
+
+**Q: How much does a car cost?**
+A: $2000 full price, or $400 down payment with loan support.
+
+**Q: How much does a house cost?**
+A: $5000 full price, or $1500 down payment with loan support.
+
+**Q: Which should I buy first?**
+A: House first. It is much more important for survival.
+
+**Q: Why is the house so important?**
+A: Because Home gives you access to key actions like sleeping, showering, and toilet use.
+
+**Q: What does the car do?**
+A: It makes travel less costly on your needs.
+
+**Q: Can I sell assets?**
+A: Yes, but they sell at reduced value.
+
+**Q: What are the resale values?**
 A:
-   • Simcoin = Cash on hand (visible, easy to spend)
-   • Bank Account = Savings (stored safely, earns interest potentially)
-
-Q: How do I deposit money?
-A: Visit the Bank → Select "Deposit" → Enter amount. Money moves from Simcoin 
-   to Bank Account.
-
-Q: How do I withdraw money?
-A: Visit the Bank → Select "Withdraw" → Enter amount. Money moves from Bank 
-   Account to Simcoin.
-
-Q: Do I lose money over time?
-A: No, your money stays safe unless you spend it or pay loans. No automatic 
-   deductions exist.
-
-Q: Can I go negative on money?
-A: No. If you don't have enough Simcoin, you can't perform that purchase or 
-   action. You could take a loan instead.
-
-Q: What's a loan?
-A: A loan is borrowed money from the game's bank. You must repay it with 
-   interest. Used primarily for down payments on major purchases.
-
-Q: How much can I borrow?
-A: Maximum $5000 total loan amount. You can't exceed this limit.
-
-Q: How do I repay a loan?
-A: Visit the Bank → Select "Repay Loan" → Enter amount to repay. Money deducted 
-   from Simcoin.
-
-Q: What happens if I don't repay my loan?
-A: After day 80:
-   • If (Bank Balance + Simcoin) < Loan Amount = Your Sim DIES (Game Over)
-   This is a fail condition, so manage loans carefully!
-
-Q: Can assets be taken if I owe money?
-A: Yes. After day 60, if your loan is unmanageable:
-   • If loan > $2000: Lose House (if owned), Loan cleared, but Car may remain
-   • If loan < $2000: Lose Car, Loan cleared
-   • Repossession is automatic - no warning!
-
-Q: Are there hidden costs?
-A: Yes - each location action costs time (1 hour), which affects needs:
-   • Travel: -15 energy (walking), -5 energy (driving), +10 hunger (walking)
-   • Work: Varies by job type
-   • Eating: Reduces hunger but costs time
-   
-   Plan your budget carefully!
-
-Q: What's a good starting financial strategy?
-A: 
-   1. Get a job immediately (establish income)
-   2. Work 2-3 times to build capital
-   3. Save $1500 for house down payment
-   4. Buy house ASAP (essential for sleep)
-   5. Then save for car ($400 down payment)
-   6. Build emergency fund in bank
-
-
-═══════════════════════════════════════════════════════════════════════════════
-E. ASSETS & PROPERTY
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: What are assets?
-A: Major purchases that provide benefits and represent wealth:
-   • Car - Faster travel, reduced energy cost
-   • House - Place to sleep, shower, rest
-
-Q: How much does a car cost?
-A: $2000 full price or $400 down payment (with $1600 loan).
-
-Q: How much does a house cost?
-A: $5000 full price or $1500 down payment (with $3500 loan).
-
-Q: Which should I buy first, car or house?
-A: HOUSE FIRST! You cannot sleep without a house, which means:
-   • You can't restore energy (death inevitable)
-   • You can't progress in the game
-   • House is mandatory to survive
-
-Q: Can I buy both at once?
-A: Depends on your money. Typically, buy house first (day 2-4), then car later 
-   (day 10-15) once you've earned more income.
-
-Q: How do I buy an asset?
-A: From Main Menu → Asset Operations → Choose to Buy Car or House → Confirm 
-   purchase (if you have funds).
-
-Q: What are the purchase conditions?
-A:
-   a) Simcoin ≥ Full Price → Buy immediately (no loan needed)
-   b) Down Payment ≤ Simcoin AND Remaining Loan ≤ $5000 → Buy with loan
-   c) Otherwise → Cannot buy (insufficient funds)
-
-Q: Can I sell my house or car?
-A: Yes. From Main Menu → Asset Operations → Sell Car/House → Receive 
-   depreciated value.
-
-Q: How much do I get when I sell?
-A: Depreciated value:
-   • Car: 60% of purchase price ($2000 car sells for $1200)
-   • House: 90% of purchase price ($5000 house sells for $4500)
-
-Q: Do I need to pay off the loan before selling?
-A: YES! You must clear any associated loan first. Loan deducted from sale 
-   proceeds automatically.
-
-Q: What if I can't afford the full down payment?
-A: You cannot buy without the down payment. Save money first, or approach a 
-   career that pays better.
-
-Q: Can I own multiple cars or houses?
-A: The current system appears to support one of each. Owning a second property 
-   would require different mechanics not yet implemented.
-
-Q: What's depreciation?
-A: It's the loss of value over time. Assets you purchase are worth less if sold:
-   • Car loses 40% value
-   • House loses 10% value
-   • This represents wear and tear
-
-
-═══════════════════════════════════════════════════════════════════════════════
-F. LOCATIONS & TRAVEL
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: What locations can I visit?
-A:
-   1. Street - Starting location (limited actions)
-   2. Park - Recreation and play
-   3. Bank - Financial transactions
-   4. Restaurant - Food and work
-   5. Hospital - Health and work
-   6. Home - Sleep, shower, rest (must own)
-
-Q: Where do I start the game?
-A: On a random Street on Day 1. From there, you travel to other locations.
-
-Q: How do I travel to a location?
-A: From Main Menu → "Travel to Location" → Select your destination → Confirm. 
-   Takes 1 hour and affects your Sim.
-
-Q: What's the difference between walking and driving?
-A:
-   WALKING:
-   • Energy cost: -15 per trip
-   • Hunger cost: +10 per hunger
-   • Speed: 1 hour
-   
-   DRIVING (requires car):
-   • Energy cost: -5 per trip
-   • Hunger cost: +0
-   • Speed: 1 hour
-   • Uses car (doesn't deplete it)
-
-Q: Can I fast travel?
-A: No, all travel takes 1 hour regardless of distance or method. Plan accordingly!
-
-Q: What can I do at each location?
-
-STREET (Starting location):
-   • Limited actions available
-   • Low income opportunities
-   • Free to exist here
-
-PARK:
-   • Play (improve mood)
-   • Socialize
-   • Recreation activities
-
-BANK:
-   • Deposit money
-   • Withdraw money
-   • Apply for loans
-   • Repay loans
-
-RESTAURANT:
-   • Eat (reduce hunger)
-   • Work as Chef (if employed)
-   • Different meal options
-
-HOSPITAL:
-   • Get checkup (medical)
-   • Work as Doctor (if employed)
-   • Emergency services
-
-HOME (once purchased):
-   • Sleep (restore energy, advance day)
-   • Shower (improve hygiene)
-   • Use toilet (reduce bladder)
-   • Rest (general wellness)
-   • Relax
-
-Q: Can I visit the same location twice in one day?
-A: Yes, you can visit any location as many times as you want, but each visit 
-   takes 1 hour.
-
-Q: What happens if I run out of time to travel?
-A: If it's late in the day, you might not have time to travel and return home 
-   before 22:00 (forced sleep time). Plan your schedule carefully!
-
-Q: Do I need a house to live in the game?
-A: Yes! Without a house, you cannot sleep, which means you cannot restore Energy 
-   and will eventually die. Housing is mandatory.
-
-Q: What if I sell my house?
-A: You'll have the money but nowhere to sleep. This is a bad idea! Always have 
-   housing before selling your house.
-
-Q: Can I own a house and a car at the same time?
-A: Absolutely! In fact, it's optimal to own both. The car helps you manage 
-   energy costs, and the house is non-negotiable.
-
-Q: Do locations have limited hours?
-A: No, all locations are available all day. However, you might be forced to 
-   sleep at 22:00 regardless of location.
-
-
-═══════════════════════════════════════════════════════════════════════════════
-G. SAVING & LOADING
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: How do I save my game?
-A: The game saves automatically when you quit via the Quit Game option in any 
-   menu. Look for "Save in progress..." messages.
-
-Q: Can I save mid-game without quitting?
-A: No, automatic saves only happen on quit. However, you can return to the Start 
-   Menu and it preserves your game state.
-
-Q: How do I load a saved game?
-A: From the Start Menu, select "Continue Game" to load your last saved position.
-
-Q: Can I have multiple save files?
-A: The current system uses one save slot. If you want multiple games, you must 
-   choose "New Game" (which overwrites the previous save).
-
-Q: Where is the save file located?
-A: The save file is likely stored in the project directory as "savegame.txt" 
-   or similar.
-
-Q: What happens if I quit without saving?
-A: Using "Quit Game" from any menu saves automatically. If you force-quit the 
-   application, you may lose progress.
-
-Q: Can I export my save file?
-A: The game supports textual save files. You can backup "savegame.txt" from 
-   the project directory.
-
-Q: What does "Reset all on New Game" mean?
-A: Choosing "New Game" completely resets your progress - all Sims, money, 
-   assets, and game state are deleted. You start fresh.
-
-Q: Is there a way to undo actions?
-A: No, there's no undo feature. All actions are permanent, so think carefully 
-   before making major decisions!
-
-
-═══════════════════════════════════════════════════════════════════════════════
-H. TROUBLESHOOTING
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: My Sim died! How do I continue?
-A: When a Sim dies, they're removed from the game. You can:
-   1. Continue with other Sims (if you have multiple)
-   2. Create new Sims from Sims Management Menu
-   3. Start a "New Game" if all Sims are dead
-
-Q: Why can't I buy a house?
-A: Possible reasons:
-   • Insufficient funds (need $5000 or $1500 + loan availability)
-   • Loan limit reached (max $5000 total)
-   • Already own a house (system might limit to one)
-
-Q: Why can't I get a job?
-A: Possible reasons:
-   • Already employed in another job
-   • That job unavailable for your Sim type (age)
-   • Location-specific jobs require being at that location
-
-Q: My money disappeared!
-A: You likely:
-   • Spent it on purchases (house, car, meals)
-   • Paid loans or down payments
-   • Money deducted for travel/activities
-   • Review your status history to track spending
-
-Q: Why does my Sim keep dying?
-A: Most likely causes:
-   1. Needs reaching zero (especially hunger/energy)
-   2. Forgetting to sleep (forced at 22:00, but energy depletes fast)
-   3. Loan default (after day 80 if debt exceeds assets)
-
-   Solution: Check needs constantly, sleep daily, manage loans carefully.
-
-Q: Can't find an expected location?
-A: Some locations might be:
-   • Unlocked after certain conditions
-   • Available only after purchasing assets
-   • Not yet implemented in the build
-   
-   Refer to the in-game menus for available locations.
-
-Q: Why does the menu look different?
-A: The game might display:
-   • Different options based on your assets (owns car/house?)
-   • Different actions available per location
-   • Context-specific menus based on your Sim's state
-
-Q: Is there a walkthrough?
-A: Refer to TUTORIAL.txt for detailed step-by-step guidance!
-
-Q: I'm stuck, what do I do?
-A: 
-   1. Check your current needs (especially red ones)
-   2. Head to nearest location that addresses critical needs
-   3. If Sim is jobless, get a job ASAP
-   4. If homeless, make house your priority
-   5. Read TUTORIAL.txt for detailed guidance
-
-
-═══════════════════════════════════════════════════════════════════════════════
-I. ADVANCED MECHANICS
-═══════════════════════════════════════════════════════════════════════════════
-
-Q: What is the in-game calendar?
-A: The game tracks:
-   • Days (Days 1, 2, 3, etc.)
-   • Hours (08:00 to 22:00, 24-hour format)
-   • Days reset at midnight (22:00 → next day 08:00)
-   • All Sims advance together
-
-Q: What happens on special days?
-A: The game doesn't currently feature special days or holidays. Every day 
-   follows the same schedule.
-
-Q: Can I speed up time?
-A: No, each action advances time by 1 hour naturally. You can't skip ahead or 
-   pause time.
-
-Q: How does skill progression work?
-A: 
-   • Each job starts at skill level 1
-   • Repeated work sessions increase skill slowly
-   • Levels go from 1-10
-   • Higher levels unlock higher salaries
-   • Skill progression is gradual (weeks of work to advance)
-
-Q: Are there hidden stat systems?
-A: Yes, there's a complex system being tracked including:
-   • Individual need tracking
-   • Job experience/skill levels
-   • Asset ownership data
-   • Loan/financial data
-   • Location history
-   • Age-based modifiers
-
-Q: What age types exist?
-A: Three Sim types:
-   • Child Sim - Different income/needs scaling
-   • Adult Sim - Standard gameplay
-   • Elder Sim - May have different mechanics/wisdom bonuses
-
-Q: Do different Sims age?
-A: The current system classifies Sims by type but aging mechanics may be limited.
-
-Q: Can Sims interact with each other?
-A: Sims can share resources (money, house, car) but direct interactions appear 
-   limited in the console version.
-
-Q: Is there a relationship system?
-A: Not currently visible. Sims can coexist in the same household but 
-   relationships aren't tracked in detail.
-
-Q: What's the maximum game length?
-A: No maximum. You can play indefinitely across multiple in-game years!
-
-Q: Is there a time limit to objectives?
-A: No hard time limits, but:
-   • Loans have day 60 (repossession) and day 80 (death) limits
-   • Otherwise, play at your own pace
-
-Q: Can I play forever?
-A: Theoretically yes, but game-overs occur from:
-   • Sim death (needs zero or loan default)
-   • Running out of Sims (all dead)
-   
-   Manage carefully to sustain length!
-
-
-═══════════════════════════════════════════════════════════════════════════════
-J. STRATEGY TIPS
-═══════════════════════════════════════════════════════════════════════════════
-
-BEGINNER STRATEGY (Days 1-10):
-   1. Create a Sim, immediately get a job
-   2. Work repeatedly to build $1500 for house
-   3. Buy house ASAP (essential for sleep)
-   4. Work more for additional income
-   5. Establish daily routine: Work → Eat → Rest → Sleep
-
-INTERMEDIATE STRATEGY (Days 10-30):
-   1. You have a house, stable income
-   2. Start saving for car ($400 down, $1600 loan)
-   3. Once car acquired, travel costs drop significantly
-   4. Build skill levels (higher pay)
-   5. Accumulate bank savings ($5000+)
-
-ADVANCED STRATEGY (Day 30+):
-   1. Multiple job options if desired (switch for better pay)
-   2. Explore higher-paying careers as skills max out
-   3. Create additional Sims (share house/car)
-   4. Coordinate household operation
-   5. Build wealth ($20,000+ in assets + savings)
-
-WEALTH BUILDING:
-   • Monthly income: $1000-$2000+ per Sim per in-game month
-   • Minimize unnecessary spending
-   • Use car to reduce travel energy costs
-   • Bank extra funds for security
-   • Plan major purchases
-
-DAILY OPTIMIZATION:
-   • Minimize travel (plan location visits)
-   • Stack activities (eat at work location if possible)
-   • Sleep early to avoid forced sleep at 22:00
-   • Schedule jobs during optimal hours
-   • Keep needs in yellow to minimize actions
-
-AVOIDING DEATH:
-   ✓ Monitor needs daily (check status often)
-   ✓ Maintain green status on critical needs
-   ✓ Sleep every night before 22:00
-   ✓ Eat regularly (hunger kills fast)
-   ✓ Own a house (no house = no sleep = death)
-   ✓ Manage loans (avoid day 80 default)
-   ✓ Build emergency fund ($2000+ in bank)
-
-JOB SELECTION:
-   • Chef: Steady income, work-life balance
-   • Doctor: Higher pay, important looking career
-   • Engineer: Strong income potential
-   • Influencer: Unique career path
-   • Jobless: Maximum free time (no income though)
-
-ASSET PRIORITY:
-   1. House (mandatory)
-   2. Car (reduces travel costs)
-   3. Nest egg savings (emergency fund)
-
-COMMON MISTAKES:
-   ✗ Ignoring needs until critical
-   ✗ Not sleeping daily (you WILL be forced)
-   ✗ Overspending on non-essentials
-   ✗ Taking loans without repayment plan
-   ✗ Selling house without replacement
-   ✗ Not saving income
-   ✗ Forgetting to eat
-
-SUCCESS INDICATORS:
-   ✓ Stable daily income (job acquired)
-   ✓ House acquired (sleeping regularly)
-   ✓ Needs maintained in yellow/green
-   ✓ Growing savings account
-   ✓ Skill levels increasing
-   ✓ Car acquired (travel efficiency)
-
-
-═══════════════════════════════════════════════════════════════════════════════
-
-For detailed step-by-step guidance, see TUTORIAL.txt
-For game map and structure, see README.md
-
-Good luck, Sim!
-
-═══════════════════════════════════════════════════════════════════════════════
+
+* Car = 60% of purchase value
+* House = 90% of purchase value
+
+**Q: Can I sell if I still have a loan?**
+A: You must clear the loan first.
+
+---
+
+## G. Travel and Locations
+
+**Q: Where do Sims start?**
+A: On a random street.
+
+**Q: What locations can I visit?**
+A: Street, Park, Bank, Restaurant, Hospital, and Home.
+
+**Q: What’s the difference between walking and driving?**
+A: Walking costs more Energy and Hunger. Driving is more efficient, but you need a car.
+
+**Q: Does driving save time?**
+A: No. Both walking and driving still take 1 hour.
+
+**Q: Can I travel as many times as I want in one day?**
+A: Yes, as long as you still have enough time and your needs can handle it.
+
+**Q: What happens if I’m far from home at night?**
+A: You still risk reaching the forced sleep time at 22:00, so plan carefully.
+
+---
+
+## H. Saving and Loading
+
+**Q: How do I save the game?**
+A: The game saves when you choose **Quit Game**.
+
+**Q: How do I load the game again?**
+A: Use **Continue Game** from the Start Menu.
+
+**Q: Does New Game keep my old progress?**
+A: No. New Game resets everything.
+
+**Q: Can I have multiple save files?**
+A: Not in the current system. It uses one save state.
+
+---
+
+## I. Common Problems
+
+**Q: Why can’t I buy a house or car?**
+A: Usually because:
+
+* you don’t have enough Simcoin
+* you don’t have enough for the down payment
+* your loan limit is already too high
+
+**Q: Why does my Sim keep dying?**
+A: Most likely because a need reached 0, or you failed to manage sleep, hunger, or debt.
+
+**Q: Why can’t I sleep?**
+A: You need access to Home.
+
+**Q: Why can’t I work?**
+A: Make sure your Sim has a job and is at the correct location for that job.
+
+**Q: Why did my asset disappear?**
+A: It may have been repossessed due to unpaid loan conditions.
+
+---
+
+## J. Quick Tips
+
+**Q: What should I do first in a new game?**
+A: Get a job, earn money, and work toward buying a house.
+
+**Q: Should I get a car early?**
+A: Only after your house situation is secure.
+
+**Q: What is the safest strategy?**
+A: Keep needs out of red, avoid bad loans, and always plan your time before night.
+
+**Q: What should I check often?**
+A: Your status screen. It helps prevent stupid deaths.
+
+---
+
+## Final Tip
+
+If you are new, read the **Tutorial** first.
+If you are stuck on one rule or mechanic, use this **FAQ**.
+
+Good luck keeping your Sim alive.
+
+---
