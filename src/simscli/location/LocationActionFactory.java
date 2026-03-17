@@ -4,6 +4,7 @@ import simscli.actions.*;
 import simscli.actions.banking.*;
 import simscli.actions.interactive.*;
 import simscli.actions.simple.*;
+import simscli.actions.pet.BuyPet;
 
 /**
  * Factory for creating actions available at specific locations.
