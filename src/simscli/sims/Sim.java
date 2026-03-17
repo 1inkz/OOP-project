@@ -57,7 +57,7 @@ public abstract class Sim {
         
         // Initialize components
         this.stats = new SimStatsComponent();
-        this.banking = new SimBankingComponent(50);
+        this.banking = new SimBankingComponent(200);
         this.employment = new SimEmploymentComponent();
         this.assets = new SimAssetsComponent();
         this.pets = new SimPetsComponent(this.name, logger);
