@@ -136,14 +136,14 @@ A:
    2. Doctor - Work at Hospital
    3. Engineer - Technical work
    4. Influencer - Social media work
-   5. Jobless - No income, no work
+   5. Jobless (default job)- No income, no work
 
 Q: Can I have multiple jobs?
-A: No, you can only have one job at a time. Switching jobs replaces your 
+A: You can only have one job at a time. Switching jobs replaces your 
    previous job immediately.
 
 Q: Is there a penalty for switching jobs?
-A: No. You lose your skill level (resets to 1) but can switch freely without 
+A: You lose your skill level (resets to 1) but can switch freely without 
    financial penalty.
 
 Q: How much money do I earn per job?
