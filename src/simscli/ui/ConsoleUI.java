@@ -94,7 +94,6 @@ public final class ConsoleUI {
 
             menuOptions.add("Asset Operations [Buy/Sell Car/House]");
             menuOptions.add("Pass Time (1 Hour)");
-            menuOptions.add("View FAQ");
             menuOptions.add("Return to Sims Management Menu");
             menuOptions.add("Quit Game");
 
@@ -132,9 +131,6 @@ public final class ConsoleUI {
                 case "Pass Time (1 Hour)":
                     game.advanceTimeForAction();
                     break; // Pass time (1 hour)
-                case "View FAQ":
-                    showFAQMenu();
-                    break;
                 case "Return to Sims Management Menu":
                     showSimManagementMenu();
                     break;
@@ -852,18 +848,5 @@ public final class ConsoleUI {
         }
     }
      */
-    private void showFAQMenu() {
-
-        printDynamicTitle("SIMS GAME - FAQ");
-        System.out.println("1. How to earn Simcoin? → Find job and work in the corresponding location (Chef→Restaurant, Doctor→Hospital, etc.)");
-        System.out.println("2. How to restore Hygiene? → Use Clean Public (Park) if no house; Brush Teeth/Shower (Home) if house owner");
-        System.out.println("3. How to buy Car/House? → Asset Operations → Choose down payment or full payment");
-        System.out.println("4. Sleep Rule: 22:00 must be in Park (no house) or Home (house owner) → Else faint");
-        System.out.println("5. Travel Cost: Walk (no Car) = Hunger+10/Energy-15; Drive (with Car) = No cost");
-        System.out.println("6. Loan Limit: Max $" + simscli.bank.BankingSystem.getLoanLimit());
-        System.out.println("7. Interest: Bank deposit earns 0.05% interest per day");
-        System.out.println("8. Sim Elimination: Any need hits 0 → Sim leaves the simulation");
-        in.line("\n" + BLUE + "Press Enter to return..." + RESET);
-    }
     // End: Menu
 }
