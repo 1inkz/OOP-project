@@ -124,6 +124,12 @@ public class TimeManager {
                     logger.warn("\n" + sim.getName() + " is too tired! Forced to sleep... See you next morning 8:00 AM!");
                 }
 
+                int hotelIncome = sim.calculateDailyHotelIncome();
+                if (hotelIncome > 0) {
+                    sim.earnSimcoin(hotelIncome);
+                    logger.info(sim.getName() + " earned $" + hotelIncome + " passive income from the hotel.");
+                }
+
                 sim.settleBankInterest();
                 sim.getNeeds().set(NeedType.ENERGY, 90);
                 sim.getNeeds().set(NeedType.HUNGER, 30);

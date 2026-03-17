@@ -13,6 +13,11 @@ public final class Home extends Location {
     @Override public String name() { return "Home"; }
 
     @Override
+    public boolean canEnter(Sim sim) {
+        return sim != null && sim.isAlive() && sim.getOwnedHouse() != null;
+    }
+    
+    @Override
     public List<Action> actions(Sim sim) {
         List<Action> actions = new ArrayList<>();
 

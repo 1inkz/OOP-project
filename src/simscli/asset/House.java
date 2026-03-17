@@ -15,6 +15,6 @@ public class House extends Asset {
             System.out.println("Invalid purchase value for House.");
             return 0;
         }
-        return (int) (purchaseValue * 0.9); 
+        return (int) (purchaseValue * 0.9); // Houses can be sold for 90% of their purchase value
     }
 }

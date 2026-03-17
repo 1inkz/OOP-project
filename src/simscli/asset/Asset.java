@@ -25,12 +25,16 @@ public abstract class Asset implements Ownable, Sellable {
 
     public boolean isCar() { return this instanceof Car; }
     public boolean isHouse() { return this instanceof House; }
+    public boolean isHotel() { return this instanceof Hotel; }
 
     @Override
     public int getValue() { return purchaseValue; }
 
     @Override
     public int getId() { return id; }
+
     @Override
     public String getName() { return name; }
+
+    public abstract String getAssetType();
 }

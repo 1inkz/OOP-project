@@ -6,6 +6,7 @@ import java.util.Map;
 import simscli.asset.Asset;
 import simscli.asset.Car;
 import simscli.asset.House;
+import simscli.asset.Hotel;
 import simscli.bank.BankingSystem;
 import simscli.game.Game;
 import simscli.game.GameLogger;
@@ -57,7 +58,7 @@ public abstract class Sim {
         
         // Initialize components
         this.stats = new SimStatsComponent();
-        this.banking = new SimBankingComponent(200);
+        this.banking = new SimBankingComponent(300);
         this.employment = new SimEmploymentComponent();
         this.assets = new SimAssetsComponent();
         this.pets = new SimPetsComponent(this.name, logger);
@@ -255,8 +256,16 @@ public abstract class Sim {
     
     public Asset getOwnedCar() { return assets.getOwnedCar(); }    
     public void setOwnedCar(Car car) { assets.setOwnedCar(car); }
+
     public Asset getOwnedHouse() { return assets.getOwnedHouse(); }    
     public void setOwnedHouse(House house) { assets.setOwnedHouse(house); }
+
+    public Asset getOwnedHotel() { return assets.getOwnedHotel(); }    
+    public void setOwnedHotel(Hotel hotel) { assets.setOwnedHotel(hotel); }
+
+    public int calculateDailyHotelIncome() {
+        return assets.calculateDailyHotelIncome();
+    }
 
     // ==================== Banking Management ====================
     public BankingSystem getBankingSystem() { 

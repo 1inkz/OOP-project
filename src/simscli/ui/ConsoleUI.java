@@ -9,6 +9,7 @@ import simscli.actions.Action;
 import simscli.asset.Asset;
 import simscli.asset.Car;
 import simscli.asset.House;
+import simscli.asset.Hotel;
 import simscli.game.Game;
 import simscli.location.Location;
 import simscli.sims.Sim;
@@ -92,7 +93,7 @@ public final class ConsoleUI {
                 menuOptions.add("Change Job");
             }
 
-            menuOptions.add("Asset Operations [Buy/Sell Car/House]");
+            menuOptions.add("Asset Operations [Buy/Sell Car/House/Hotel]");
             menuOptions.add("Pass Time (1 Hour)");
             menuOptions.add("Return to Sims Management Menu");
             menuOptions.add("Quit Game");
@@ -125,7 +126,7 @@ public final class ConsoleUI {
                 case "Job":
                     showChangeJobMenu();
                     break;
-                case "Asset Operations [Buy/Sell Car/House]":
+                case "Asset Operations [Buy/Sell Car/House/Hotel]":
                     showAssetOperationsMenu();
                     break;
                 case "Pass Time (1 Hour)":
@@ -179,8 +180,8 @@ public final class ConsoleUI {
 
         printDynamicTitle("Tutorial 2/3");
         System.out.println("1. Buy a Car to avoid travel costs (Hunger/Energy loss)");
-        System.out.println("2. Buy a House to unlock Home hygiene actions (Shower/Brush Teeth)");
-        System.out.println("3. 22:00: Must be in Park (no house) or Home (house) to avoid fainting");
+        System.out.println("2. Buy a House to unlock Home actions like sleep and hygiene");
+        System.out.println("3. Buy a Hotel to earn passive income at the end of each day");
         in.line("\nPress Enter to continue...\n");
 
         printDynamicTitle("Tutorial 3/3");
@@ -259,7 +260,7 @@ public final class ConsoleUI {
             Sim sim = sims.get(i);
             if (sim.getName() == name) {
                 game.setActiveSim(i);
-            };
+            }
         }
 
         System.out.println(GREEN + "Created new Sim: " + name + " (" + type + ")" + RESET);
@@ -277,7 +278,7 @@ public final class ConsoleUI {
             Sim sim = sims.get(i);
             String status = sim.isAlive() ? GREEN + "Alive" + RESET : RED + "Gone" + RESET;
             System.out.println(BLUE + (i + 1) + ") " + sim.getName() + " (" + sim.getType() + ") - " + status + RESET);
-        };
+        }
 
         System.out.println(BLUE + (sims.size() + 1) + ") Return to Sims Management Menu" + RESET);
 
@@ -319,7 +320,10 @@ public final class ConsoleUI {
         System.out.println("Job: " + sim.getJobName() + " (Level " + sim.getJobLevel() + ")");
         System.out.println("Location: " + sim.getLocation().name());
         System.out.println("Simcoin: $" + sim.getSimcoin() + " | Bank Savings: $" + sim.getBankingSystem().getDeposit() + " | Loan: $" + sim.getBankingSystem().getLoanAmount());
-        System.out.println("Assets: Car = " + (sim.getOwnedCar() != null ? "Yes" : "No") + " | House = " + (sim.getOwnedHouse() != null ? "Yes" : "No") + " | Assets Loan Day: Day " + sim.getLoanOverdueDays(game));
+        System.out.println("Assets: Car = " + (sim.getOwnedCar() != null ? "Yes" : "No")
+                + " | House = " + (sim.getOwnedHouse() != null ? "Yes" : "No")
+                + " | Hotel = " + (sim.getOwnedHotel() != null ? "Yes" : "No")
+                + " | Assets Loan Day: Day " + sim.getLoanOverdueDays(game));
 
         System.out.println(needsOutput);
         System.out.println("\n" + CYAN + "========== SKILLS PROGRESSION ==========" + RESET);
@@ -656,15 +660,18 @@ public final class ConsoleUI {
         Sim activeSim = game.activeSim();
 
         printDynamicTitle("SIMS GAME - Asset Operations");
-        System.out.println("Current Assets: Car = " + (activeSim.getOwnedCar() != null ? "Yes" : "No") + " | House = " + (activeSim.getOwnedHouse() != null ? "Yes" : "No"));
+        System.out.println("Current Assets: Car = " + (activeSim.getOwnedCar() != null ? "Yes" : "No")
+                + " | House = " + (activeSim.getOwnedHouse() != null ? "Yes" : "No")
+                + " | Hotel = " + (activeSim.getOwnedHotel() != null ? "Yes" : "No"));
         System.out.println("Simcoin: $" + activeSim.getSimcoin() + " | Loan: $" + activeSim.getLoanAmount() + "\n");
 
         System.out.println(BLUE + "1) Buy Car ($2000 - 20% down payment: $400)" + RESET);
-        System.out.println(BLUE + "2) Buy House ($5000 - 30% down payment: $1500)" + RESET);
-        System.out.println(BLUE + "3) Sell Asset" + RESET);
-        System.out.println(BLUE + "4) Return to [" + activeSim.getName() + "] Main Menu" + RESET);
+        System.out.println(BLUE + "2) Buy House ($4000 - 25% down payment: $1000)" + RESET);
+        System.out.println(BLUE + "3) Buy Hotel ($7000 - 40% down payment: $2800)" + RESET);
+        System.out.println(BLUE + "4) Sell Asset" + RESET);
+        System.out.println(BLUE + "5) Return to [" + activeSim.getName() + "] Main Menu" + RESET);
 
-        int choice = in.intRange("\nPlease choose (1-4): ", 1, 4);
+        int choice = in.intRange("\nPlease choose (1-5): ", 1, 5);
         switch (choice) {
             case 1:
                 if (activeSim.getOwnedCar() != null) {
@@ -672,22 +679,31 @@ public final class ConsoleUI {
                     break;
                 }
                 Asset car = new Car(1, "White Audi", 2000, 1.0);
-                boolean bought = activeSim.buyAsset(car);
-                System.out.println(bought ? GREEN + "Successfully bought " + car.getName() + "!" + RESET : RED + "Failed to buy Car." + RESET);
+                boolean boughtCar = activeSim.buyAsset(car);
+                System.out.println(boughtCar ? GREEN + "Successfully bought " + car.getName() + "!" + RESET : RED + "Failed to buy Car." + RESET);
                 break;
             case 2:
                 if (activeSim.getOwnedHouse() != null) {
                     System.out.println(RED + "You already own a House!" + RESET);
                     break;
                 }
-                Asset house = new House(1, "Condominium", 5000);
+                Asset house = new House(1, "Condominium", 4000);
                 boolean boughtHouse = activeSim.buyAsset(house);
                 System.out.println(boughtHouse ? GREEN + "Successfully bought " + house.getName() + "!" + RESET : RED + "Failed to buy House." + RESET);
                 break;
             case 3:
-                showSellAssetMenu(activeSim);
+                if (activeSim.getOwnedHotel() != null) {
+                    System.out.println(RED + "You already own a Hotel!" + RESET);
+                    break;
+                }
+                Asset hotel = new Hotel(1, "Intercontinental Hotel", 7000);
+                boolean boughtHotel = activeSim.buyAsset(hotel);
+                System.out.println(boughtHotel ? GREEN + "Successfully bought " + hotel.getName() + "!" + RESET : RED + "Failed to buy Hotel." + RESET);
                 break;
             case 4:
+                showSellAssetMenu(activeSim);
+                break;
+            case 5:
                 System.out.println(BLUE + "Return to [" + activeSim.getName() + "] Main Menu" + RESET);
                 return;
         }
@@ -704,6 +720,9 @@ public final class ConsoleUI {
         }
         if (sim.getOwnedHouse() != null) {
             assets.add(sim.getOwnedHouse());
+        }
+        if (sim.getOwnedHotel() != null) {
+            assets.add(sim.getOwnedHotel());
         }
 
         if (assets.isEmpty()) {

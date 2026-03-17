@@ -3,22 +3,25 @@ package simscli.sims;
 import simscli.asset.Asset;
 import simscli.asset.Car;
 import simscli.asset.House;
+import simscli.asset.Hotel;
 import simscli.game.Game;
 import simscli.location.Location;
 
 /**
- * Manages Sim assets: cars, houses, and repossession logic.
+ * Manages Sim assets: cars, houses, hotels and repossession logic.
  * Encapsulates asset ownership and related rules.
  */
 public class SimAssetsComponent {
     private Asset ownedCar;
     private Asset ownedHouse;
+    private Asset ownedHotel;
     private int loanStartDay = 0;
 
     public SimAssetsComponent() {
     }
 
     // Assets
+    // Car
     public Asset getOwnedCar() {
         return ownedCar;
     }
@@ -27,12 +30,26 @@ public class SimAssetsComponent {
         this.ownedCar = car;
     }
 
+    // House
     public Asset getOwnedHouse() {
         return ownedHouse;
     }
 
     public void setOwnedHouse(House house) {
         this.ownedHouse = house;
+    }
+
+    // Hotel
+    public Asset getOwnedHotel() {
+        return ownedHotel;
+    }
+
+    public void setOwnedHotel(Hotel hotel) {
+        this.ownedHotel = hotel;
+    }
+
+    public int calculateDailyHotelIncome() {
+        return ownedHotel != null ? 250 : 0;
     }
 
     // Loan timing
@@ -59,6 +76,18 @@ public class SimAssetsComponent {
      * Returns purchase result with message and amount financed.
      */
     public PurchaseResult buyAsset(Asset asset, int currentSimcoin, int loanLimit) {
+        if (asset.isCar() && ownedCar != null) {
+            return new PurchaseResult(false, "You already own a car!");
+        }
+
+        if (asset.isHouse() && ownedHouse != null) {
+            return new PurchaseResult(false, "You already own a house!");
+        }
+
+        if (asset.isHotel() && ownedHotel != null) {
+            return new PurchaseResult(false, "You already own a hotel!");
+        }
+
         int totalCost = asset.getValue();
         int downPayment = asset.isCar() ? 400 : 1500;
         int loanAmount = totalCost - downPayment;
@@ -86,17 +115,21 @@ public class SimAssetsComponent {
             ownedCar = asset;
         } else if (asset.isHouse()) {
             ownedHouse = asset;
+        } else if (asset.isHotel()) {
+            ownedHotel = asset;
         }
     }
 
     /**
-     * Sells an asset and returns sale value.
+     * Sells an asset and removes ownership.
      */
     public void sellAsset(Asset asset) {
         if (asset.isCar()) {
             ownedCar = null;
         } else if (asset.isHouse()) {
             ownedHouse = null;
+        } else if (asset.isHotel()) {
+            ownedHotel = null;
         }
     }
 
@@ -115,11 +148,9 @@ public class SimAssetsComponent {
                 if (game != null && currentLocation.key().equalsIgnoreCase("home")) {
                     currentLocation = game.location().get("street");
                 }
-            } else {
-                if (ownedCar != null) {
-                    repossessMsg = simName + "'s car was repossessed due to overdue loan";
-                    ownedCar = null;
-                }
+            } else if (ownedCar != null) {
+                repossessMsg = simName + "'s car was repossessed due to overdue loan";
+                ownedCar = null;
             }
         } else {
             if (ownedCar != null) {
