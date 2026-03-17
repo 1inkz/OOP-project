@@ -3,7 +3,6 @@ package simscli.game;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.sims.Sim;
-import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import java.util.List;
 import java.util.ArrayList;

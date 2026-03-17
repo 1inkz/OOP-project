@@ -24,13 +24,11 @@ import java.util.List;
 public class LocationManager {
     private final Map<String, Location> locations;
     private final Map<String, Usable> objects;
-    private final GameLogger logger;
     private Game game;
 
     public LocationManager(GameLogger logger) {
         this.locations = new LinkedHashMap<>();
         this.objects = new LinkedHashMap<>();
-        this.logger = logger;
         this.game = null; // Will be set after Game initialization
     }
 

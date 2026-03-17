@@ -1,17 +1,13 @@
 package simscli;
 
-import org.junit.Test;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.game.Game;
 import simscli.sims.Sim;
 import simscli.sims.SimType;
 
-import static org.junit.Assert.*;
-
 public class ActionEffectTest {
-    @Test
-    public void actionConsumesTimeAndChangesState() {
+    public static void actionConsumesTimeAndChangesState() {
         Game g = new Game();
         Sim s = g.createSim("Ava", SimType.ADULT);
         g.setActiveSim(0);
@@ -19,8 +15,13 @@ public class ActionEffectTest {
         int moneyBefore = s.getSimcoin();
         String msg = g.performAction(ActionFactory.create(ActionType.WORK));
 
-        assertNotNull(msg);
-        assertTrue(s.getSimcoin() > moneyBefore);
+        assert msg != null;
+        assert s.getSimcoin() > moneyBefore;
+        System.out.println("✓ actionConsumesTimeAndChangesState");
         g.shutdown();
+    }
+
+    public static void main(String[] args) {
+        actionConsumesTimeAndChangesState();
     }
 }

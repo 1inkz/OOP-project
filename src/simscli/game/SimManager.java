@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import simscli.SaveGame;
 import simscli.jobs.JobFactory;
-import simscli.location.Location;
 import simscli.sims.AdultSim;
 import simscli.sims.ChildSim;
 import simscli.sims.ElderSim;

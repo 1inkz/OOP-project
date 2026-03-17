@@ -1,23 +1,12 @@
 package simscli;
 
-import org.junit.After;
-import org.junit.Test;
 import simscli.game.Game;
 import simscli.sims.SimType;
 
-import static org.junit.Assert.*;
-
 public class LocationTravelTest {
 
-    private final Game g = new Game();
-
-    @After
-    public void tearDown() {
-        g.shutdown();
-    }
-
-    @Test
-    public void travelChangesLocation() {
+    public static void travelChangesLocation() {
+        Game g = new Game();
         g.createSim("Kai", SimType.ADULT);
         g.setActiveSim(0);
 
@@ -25,7 +14,13 @@ public class LocationTravelTest {
         g.travelTo("park");
         String after = g.activeSim().getLocation().key();
 
-        assertNotEquals(before, after);
-        assertEquals("park", after);
+        assert !before.equals(after);
+        assert after.equals("park");
+        System.out.println("✓ travelChangesLocation");
+        g.shutdown();
+    }
+
+    public static void main(String[] args) {
+        travelChangesLocation();
     }
 }

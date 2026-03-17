@@ -8,10 +8,7 @@ import simscli.sims.Sim;
  * Encapsulates action execution logic and dead sim cleanup.
  */
 public class ActionExecutor {
-    private final GameLogger logger;
-
-    public ActionExecutor(GameLogger logger) {
-        this.logger = logger;
+    public ActionExecutor() {
     }
 
     /**

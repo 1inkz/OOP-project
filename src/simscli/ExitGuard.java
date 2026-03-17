@@ -24,11 +24,12 @@ public final class ExitGuard {
             try {
                 System.out.println("\n[System] The game is closing unexpectedly.");
                 System.out.print("Save current progress before exit? (y/n): ");
-                Scanner scanner = new Scanner(System.in);
-                String answer = scanner.nextLine().trim();
-                if (answer.equalsIgnoreCase("y")) {
-                    SaveGame.saveGame(game);
-                    System.out.println("Game saved.");
+                try (Scanner scanner = new Scanner(System.in)) {
+                    String answer = scanner.nextLine().trim();
+                    if (answer.equalsIgnoreCase("y")) {
+                        SaveGame.saveGame(game);
+                        System.out.println("Game saved.");
+                    }
                 }
             } catch (Exception e) {
                 try {

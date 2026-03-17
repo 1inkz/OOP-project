@@ -3,7 +3,6 @@ package simscli.sims;
 import java.util.HashMap;
 import java.util.Map;
 import simscli.jobs.Job;
-import simscli.jobs.JobFactory;
 import simscli.jobs.JoblessJob;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;

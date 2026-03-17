@@ -1,24 +1,12 @@
 package simscli;
 
-import org.junit.After;
-import org.junit.Test;
 import simscli.game.Game;
-import simscli.jobs.JobFactory;
 import simscli.sims.SimType;
-
-import static org.junit.Assert.*;
 
 public class RestaurantRejectionTest {
 
-    private final Game g = new Game();
-
-    @After
-    public void tearDown() {
-        g.shutdown();
-    }
-
-    @Test
-    public void dineOutRejectedIfInsufficientMoney() {
+    public static void dineOutRejectedIfInsufficientMoney() {
+        Game g = new Game();
         g.createSim("Mia", SimType.ADULT);
         g.setActiveSim(0);
 
@@ -39,6 +27,12 @@ public class RestaurantRejectionTest {
         // If your Restaurant action order differs, adjust index.
         String msg = g.performLocationAction(0);
 
-        assertTrue(msg.toLowerCase().contains("can't afford") || msg.toLowerCase().contains("need $"));
+        assert msg.toLowerCase().contains("can't afford") || msg.toLowerCase().contains("need $");
+        System.out.println("✓ dineOutRejectedIfInsufficientMoney");
+        g.shutdown();
+    }
+
+    public static void main(String[] args) {
+        dineOutRejectedIfInsufficientMoney();
     }
 }

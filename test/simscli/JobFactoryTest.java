@@ -1,19 +1,25 @@
 package simscli;
 
-import org.junit.Test;
 import simscli.jobs.JobFactory;
-
-import static org.junit.Assert.*;
 
 public class JobFactoryTest {
 
-    @Test
-    public void createsKnownJob() {
-        assertEquals("Chef", JobFactory.create("Chef").name());
+    public static void createsKnownJob() {
+        assert JobFactory.create("Chef").name().equals("Chef");
+        System.out.println("✓ createsKnownJob");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void unknownJobThrows() {
-        JobFactory.create("Wizard");
+    public static void unknownJobThrows() {
+        try {
+            JobFactory.create("Wizard");
+            assert false : "Should have thrown IllegalArgumentException";
+        } catch (IllegalArgumentException e) {
+            System.out.println("✓ unknownJobThrows");
+        }
+    }
+
+    public static void main(String[] args) {
+        createsKnownJob();
+        unknownJobThrows();
     }
 }

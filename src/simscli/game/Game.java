@@ -1,13 +1,10 @@
 package simscli.game;
 
 import java.util.*;
-import simscli.SaveGame;
 import simscli.actions.Action;
-import simscli.jobs.JobFactory;
 import simscli.location.Location;
 import simscli.sims.Sim;
 import simscli.sims.SimType;
-import simscli.stats.NeedType;
 import simscli.ui.Input;
 
 /**
@@ -43,7 +40,7 @@ public final class Game {
         this.simManager = new SimManager(logger);
         this.locationManager = new LocationManager(logger);
         this.timeManager = new TimeManager(new GameClock(1, 480), logger);
-        this.actionExecutor = new ActionExecutor(logger);
+        this.actionExecutor = new ActionExecutor();
         this.loanManager = new LoanManager(logger);
         
         // Initialize game state
