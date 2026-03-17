@@ -22,10 +22,9 @@ public final class GetCheckup implements Action {
         sim.addSimcoin(-CHECKUP_COST);
 
         sim.applyEffect(Effect.none()
-                .plus(NeedType.HUNGER, +20)
+                .plus(NeedType.HUNGER, -10)
                 .plus(NeedType.ENERGY, +20)
                 .plus(NeedType.HYGIENE, +20)
-                .plus(NeedType.SOCIAL, -10)
                 .plus(NeedType.FUN, -10));
 
         return sim.getName() + " got a checkup and is feeling much better! (-$" + CHECKUP_COST + ")";

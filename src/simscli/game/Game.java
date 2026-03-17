@@ -49,6 +49,9 @@ public final class Game {
         // Initialize game state
         this.gameStartDay = timeManager.getClock().getDayNumber();
         this.locationManager.initialize();
+        
+        // Inject Game instance into LocationManager after full initialization
+        this.locationManager.setGame(this);
     }
 
     // ==================== Lifecycle ====================

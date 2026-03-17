@@ -25,11 +25,17 @@ public class LocationManager {
     private final Map<String, Location> locations;
     private final Map<String, Usable> objects;
     private final GameLogger logger;
+    private Game game;
 
     public LocationManager(GameLogger logger) {
         this.locations = new LinkedHashMap<>();
         this.objects = new LinkedHashMap<>();
         this.logger = logger;
+        this.game = null; // Will be set after Game initialization
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public void initialize() {
@@ -104,12 +110,13 @@ public class LocationManager {
      */
     public String performLocationAction(Sim activeSim, int actionIndex) {
         if (activeSim == null) return "No active sim.";
+        if (game == null) return "Game context not initialized.";
 
         List<simscli.actions.Action> acts = activeSim.getLocation().actions(activeSim);
         if (actionIndex < 0 || actionIndex >= acts.size()) return "Invalid action index.";
 
         simscli.actions.Action action = acts.get(actionIndex);
-        String msg = action.perform(activeSim, new GameContext(new Game()));
+        String msg = action.perform(activeSim, new GameContext(game));
         
         return "[" + activeSim.getLocation().name() + "] " + msg;
     }
@@ -120,7 +127,8 @@ public class LocationManager {
     public String useObject(String objectKey) {
         Usable u = objects.get(objectKey.toLowerCase());
         if (u == null) return "Unknown object. Try: " + objects.keySet();
+        if (game == null) return "Game context not initialized.";
         
-        return u.action().perform(null, new GameContext(new Game())).toString();
+        return u.action().perform(null, new GameContext(game)).toString();
     }
 }
