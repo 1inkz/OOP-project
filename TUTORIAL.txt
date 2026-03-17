@@ -1,0 +1,407 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    THE SIMS - CONSOLE EDITION
+                         TUTORIAL & QUICK START
+═══════════════════════════════════════════════════════════════════════════════
+
+TABLE OF CONTENTS
+1. Getting Started
+2. Creating Your First Sim
+3. Understanding the Main Menu
+4. Managing Your Sim's Needs
+5. Making Money & Getting a Job
+6. Managing Assets (Cars & Houses)
+7. Banking & Loans
+8. Traveling to Locations
+9. Working with Locations
+10. Advanced Tips
+
+
+═══════════════════════════════════════════════════════════════════════════════
+1. GETTING STARTED
+═══════════════════════════════════════════════════════════════════════════════
+
+When you start the game, you'll see the Start Menu with three options:
+  • New Game - Start a fresh game with new Sims
+  • Continue Game - Load your previously saved game
+  • Quit Game - Exit the application
+
+Your first time playing? Choose "New Game"!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+2. CREATING YOUR FIRST SIM
+═══════════════════════════════════════════════════════════════════════════════
+
+After selecting New Game, you'll enter the Sims Management Menu:
+  1. Select "Create New Sims"
+  2. You can create Sims of different ages:
+     • Child Sim - Lower income from jobs, different skill development
+     • Adult Sim - Standard gameplay with full job options
+     • Elder Sim - Can have wisdom bonuses, different needs
+
+  3. Enter your Sim's name
+  4. Select the Sim you just created to enter the Main Menu
+
+TIP: Creating multiple Sims allows complex household interactions and 
+     shared resources. You can manage them one at a time!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+3. UNDERSTANDING THE MAIN MENU
+═══════════════════════════════════════════════════════════════════════════════
+
+Once inside your Sim's menu, you'll see options like:
+
+  1) View [Name] status
+     └─ Shows your Sim's current status:
+        • Current time (Day and Hour)
+        • All needs levels (represented by status bars)
+        • Current job and level
+        • Assets owned (car/house)
+        • Money on hand (Simcoin)
+        • Loan balance
+        
+  2) Travel to Location
+     └─ Choose where your Sim will go (see Section 7)
+     
+  3) View [Location] Action Menu
+     └─ Perform location-specific actions
+     
+  4) Find Job / Change Job
+     └─ Get employment or switch jobs (see Section 5)
+     
+  5) Asset Operations [Buy/Sell Car/House]
+     └─ Purchase or sell vehicles and properties (see Section 6)
+     
+  6) Pass Time (1 Hour)
+     └─ Advance time by 1 hour. ALL ACTIONS cost 1 hour in this game!
+     
+  7) View FAQ
+     └─ Quick reference guide for gameplay questions
+     
+  8) Back [To Sims Management Menu]
+  9) Quit Game
+
+
+═══════════════════════════════════════════════════════════════════════════════
+4. MANAGING YOUR SIM'S NEEDS
+═══════════════════════════════════════════════════════════════════════════════
+
+Your Sim has several needs that must be maintained:
+  • Hunger - Increases when not eating
+  • Energy - Decreases from physical activities
+  • Hygiene - Decreases from daily activities
+  • Bladder - Increases over time
+  • Mood - Affected by needs and activities
+
+NEED STATUS COLORS:
+  • Green (≥60) - Excellent, no action needed
+  • Yellow (21-59) - Warning, address soon
+  • Red (≤20) - Critical, needs immediate attention!
+
+WHAT HAPPENS IF A NEED REACHES ZERO:
+  Your Sim will DIE instantly! Game Over!
+
+BASIC NEED MANAGEMENT:
+  1. Check your status regularly (View [Name] status)
+  2. Visit locations to fulfill needs:
+     • Restaurant → Eat (reduces Hunger)
+     • Home → Sleep (restores Energy)
+     • Home → Shower (improves Hygiene)
+     • Home → Toilet (reduces Bladder)
+     • Park → Play (improves Mood)
+
+SLEEP SCHEDULE:
+  • 20:00 (8 PM) - Sleep reminder message
+  • 21:00 (9 PM) - Sleep warning message
+  • 22:00 (10 PM) - Forced faint (your Sim collapses to sleep)
+  
+  NOTE: After sleeping, your Sim advances to the next day!
+
+DAILY SCHEDULE REMINDER:
+  • Day starts at 08:00 (8 AM)
+  • Day ends at 22:00 (10 PM)
+  • All Sims advance to the next day together
+
+
+═══════════════════════════════════════════════════════════════════════════════
+5. MAKING MONEY & GETTING A JOB
+═══════════════════════════════════════════════════════════════════════════════
+
+You start with a small amount of Simcoin. To earn more money, you need a job!
+
+AVAILABLE JOBS:
+  1) Chef - Earn Simcoin through cooking
+  2) Doctor - Earn Simcoin through healthcare
+  3) Engineer - Earn Simcoin through technical work
+  4) Influencer - Earn Simcoin through social media
+  5) Jobless - No income, but no job stress
+
+HOW TO GET A JOB:
+  1. From Main Menu, select "Find Job / Change Job"
+  2. Choose your desired job from the list
+  3. Once hired, you earn money each time you work
+  4. Jobs are location-based (find them at appropriate locations)
+
+JOB LEVELS:
+  • Each job has a skill level (1-10)
+  • Higher skill = higher pay per work session
+  • Gain skill by repeatedly performing job actions
+  • Progress visible in your status menu
+
+INCOME TIPS:
+  • Different jobs offer different salary rates
+  • You can change jobs anytime (no penalty)
+  • Jobless gives no income but gives more free time
+  • Career progression through skill levels increases earnings
+
+
+═══════════════════════════════════════════════════════════════════════════════
+6. MANAGING ASSETS (CARS & HOUSES)
+═══════════════════════════════════════════════════════════════════════════════
+
+Assets are major purchases that provide convenience and can increase in value.
+
+BASIC CAR:
+  • Cost: $2000 (full purchase) or $400 (down payment with loan)
+  • Benefit: Faster travel between locations
+  • Travel cost: Consume time but use less energy
+  • Depreciation: Sells for 60% of purchase value
+
+BASIC HOUSE:
+  • Cost: $5000 (full purchase) or $1500 (down payment with loan)
+  • Benefit: Place to sleep, shower, use toilet, rest
+  • Depreciation: Sells for 90% of purchase value
+
+HOW TO BUY AN ASSET:
+  From Main Menu → Asset Operations → Choose Buy Car or Buy House
+  
+  Purchase Rules (in order of priority):
+  a) If you have enough Simcoin for full price → Can buy immediately
+  b) If you have down payment AND loan available → Can buy with loan
+  c) Otherwise → Cannot buy (insufficient funds)
+  
+  LOAN LIMITS:
+  • Maximum total loan: $5000
+  • Down payment required if using loan
+
+HOW TO SELL AN ASSET:
+  From Main Menu → Asset Operations → Choose Sell Car or Sell House
+  
+  Before selling:
+  1. Must pay off any associated loan first
+  2. You'll receive: Purchase Value × Depreciation Rate
+  3. Proceeds go to your Simcoin account
+
+DEPRECIATION:
+  • Car: 60% value (sell for $1200 if bought at $2000)
+  • House: 90% value (sell for $4500 if bought at $5000)
+
+ASSET TIPS:
+  • House is essential for sleep (can't sleep on street!)
+  • Car reduces travel energy costs
+  • Start with house if choosing between the two
+  • Selling assets with loans: clear debt before selling
+
+
+═══════════════════════════════════════════════════════════════════════════════
+7. BANKING & LOANS
+═══════════════════════════════════════════════════════════════════════════════
+
+The Banking System helps you manage money and debts.
+
+ACCOUNT TYPES:
+  • Simcoin (on-hand cash) - Easy to spend, visible balance
+  • Bank Account - Secure savings
+
+BANKING ACTIONS:
+  1. Deposit - Move money from hand to bank (earn interest)
+  2. Withdraw - Move money from bank to hand (spend freely)
+  3. Apply Loan - Borrow up to $5000 for purchases
+  4. Repay Loan - Pay back borrowed money (from Simcoin)
+
+LOAN MECHANICS:
+  • Max Loan: $5000 total
+  • Usage: Typically for down payments on cars/houses
+  • Interest: Accumulates over time (check daily!)
+  • Repayment: Deducted from Simcoin only
+
+LOAN DEFAULT CONSEQUENCES:
+  After day 80:
+  • If (Bank Deposit + Simcoin) < Loan Amount → Your Sim DIES!
+  
+  This is a fail condition, so manage loans carefully!
+
+REPOSSESSION DETAILS:
+  After day 60:
+  • If Loan > $2000:
+    - With house AND car → Lose house, loan cleared
+    - Without house → Lose car, loan cleared
+  • If Loan < $2000:
+    - Loss priority: Car first, then house
+    - Loan is cleared upon repossession
+
+BANKING TIPS:
+  • Keep an eye on your loan balance
+  • Deposit extra money to be safe
+  • Early repayment is always smart
+  • Plan asset purchases to minimize long-term debt
+
+
+═══════════════════════════════════════════════════════════════════════════════
+8. TRAVELING TO LOCATIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+Your Sim starts on a random street on Day 1. To accomplish things, you must 
+travel to different locations.
+
+AVAILABLE LOCATIONS:
+  1. Street - Starting location, limited actions
+  2. Park - Recreation and mood improvement
+  3. Bank - Money and loan operations
+  4. Restaurant - Eating to reduce hunger
+  5. Hospital - Medical checkups and health services
+  6. Home - Sleep, shower, personal hygiene, rest
+
+TRAVEL METHODS:
+  
+  WITHOUT A CAR (Walking):
+    • Energy cost: -15 per travel
+    • Hunger increase: +10 per travel
+    • Takes same time as driving (1 hour)
+  
+  WITH A CAR (Driving):
+    • Energy cost: -5 per travel
+    • Hunger increase: +0 per travel
+    • Takes same time as walking (1 hour)
+  
+  TRAVEL TIPS:
+    • Car makes frequent travel much more feasible
+    • Always account for energy/hunger when planning trips
+    • Multiple locations = multiple travels = multiple energy costs
+
+LOCATION SELECTION MENU:
+  When traveling, you'll see current status:
+  • Current Location: Where you are now
+  • Own Car: Yes/No (affects travel availability)
+  • Own House: Yes/No (affects available actions)
+  • Time remaining in day
+  
+  Choose your destination and press Enter!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+9. WORKING WITH LOCATIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+Each location offers unique actions. Here's what you can do at each one:
+
+STREET:
+  • Limited actions available
+  • Good starting point
+  • Walk to other locations
+
+PARK:
+  • Play - Improves mood and recreation
+  • Walk dogs/pets (if owned)
+  • Relax outdoors
+
+BANK:
+  • Deposit money to bank account
+  • Withdraw money for spending
+  • Apply for loans
+  • Repay existing loans
+
+RESTAURANT:
+  • Eat - Reduces hunger
+  • Work as Chef (if employed)
+  • Different meal options available
+
+HOSPITAL:
+  • Get checkup - Maintains health
+  • Work as Doctor (if employed)
+  • Emergency medical services
+
+HOME (Once purchased):
+  • Sleep - Restores energy (moves to next day!)
+  • Shower - Improves hygiene
+  • Use Toilet - Reduces bladder need
+  • Rest - General wellness
+  • Work on career goals
+  
+  NOTE: Homeless Sims cannot sleep properly!
+
+PET STORE:
+  • Buy pets (cats, dogs, bunnies)
+  • Pet supplies and care
+
+LOCATION ACTION TIPS:
+  • Each action takes 1 hour
+  • Plan your daily schedule carefully
+  • Some actions require specific items/conditions
+  • Job-related actions vary by job type
+
+
+═══════════════════════════════════════════════════════════════════════════════
+10. ADVANCED TIPS
+═══════════════════════════════════════════════════════════════════════════════
+
+OPTIMAL DAILY SCHEDULE EXAMPLE (Adult Sim):
+  08:00 - Wake up, check status
+  09:00 - Work at job (1 hour)
+  10:00 - Work at job (1 hour)
+  11:00 - Eat at restaurant
+  12:00 - Work at job (1 hour)
+  13:00 - Travel to park
+  14:00 - Relax at park (mood boost)
+  15:00 - Travel home
+  16:00 - Rest at home
+  17:00 - Work at job (1 hour)
+  18:00 - Eat at restaurant
+  19:00 - Travel home
+  20:00 - (Sleep warning)
+  21:00 - Shower at home
+  22:00 - Sleep at home (advances to next day)
+
+SURVIVAL STRATEGIES:
+  1. Prioritize house purchase (you MUST sleep)
+  2. Get a job early (income is essential)
+  3. Monitor all needs - red needs are deadly!
+  4. Reserve evening hours for sleep
+  5. Keep loan balance low
+  6. Save regularly (Quit Game saves automatically)
+
+SKILL PROGRESSION:
+  • Repeated job actions increase skill level
+  • Higher skills = higher pay
+  • Takes multiple days/weeks of work to advance
+  • Can't skip the grind - career progression is gradual
+
+MONEY MANAGEMENT:
+  • Start small - basic needs first
+  • Save for house down payment ($1500)
+  • Car is secondary to house
+  • Banking offers safety for excess funds
+  • Plan major purchases weeks in advance
+
+MULTI-SIM HOUSEHOLDS:
+  • Create multiple Sims to share resources
+  • Only one Sim is active at a time
+  • Shared assets (house, car, money in storage)
+  • Switch between Sims from management menu
+  • Coordinate schedules and responsibilities
+
+COMMON MISTAKES TO AVOID:
+  ✗ Ignoring red-level needs (instant death!)
+  ✗ Forgetting to sleep (forced at 22:00)
+  ✗ Overspending on non-essentials
+  ✗ Taking huge loans (repossession risk)
+  ✗ Not visiting locations with your Sim
+  ✗ Forgetting to save progress regularly
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Good luck with your Sims! Visit the FAQ file for answers to specific questions.
+
+═══════════════════════════════════════════════════════════════════════════════

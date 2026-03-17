@@ -1,3 +1,25 @@
+═══════════════════════════════════════════════════════════════════════════════
+                  THE SIMS - CONSOLE EDITION
+═══════════════════════════════════════════════════════════════════════════════
+
+QUICK START GUIDE
+─────────────────────────────────────────────────────────────────────────────
+
+📖 NEW TO THE GAME?
+   Start here: Read TUTORIAL.txt for a comprehensive step-by-step walkthrough
+   of all game mechanics, systems, and strategies.
+
+❓ HAVE QUESTIONS?
+   Check: FAQ.txt for answers to common questions about gameplay, mechanics, 
+   saving, troubleshooting, and advanced strategies.
+
+📋 GAME OVERVIEW
+   The Sims is a life simulation game where you create and manage virtual 
+   characters. Control their daily activities, manage finances, pursue careers, 
+   and maintain their needs to keep them alive and successful.
+
+═══════════════════════════════════════════════════════════════════════════════
+
 **Features**
 
 General
