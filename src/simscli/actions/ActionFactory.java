@@ -5,6 +5,10 @@ import simscli.actions.pet.*;
 import simscli.actions.simple.*;
 import simscli.pets.Pet;
 
+// Factory for creating Action instances based on ActionType or Pet. 
+// Encapsulates all action instantiation logic in one place for maintainability and separation of concerns.
+// This design allows for easy addition of new actions without modifying existing code, 
+// adhering to the Open/Closed Principle.
 public final class ActionFactory {
     private ActionFactory() {}
 

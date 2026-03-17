@@ -1,5 +1,6 @@
 package simscli.actions;
 
+// Enum representing all possible action types in the game.
 public enum ActionType {
     EAT_SNACK,
     EAT_MEAL,
