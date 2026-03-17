@@ -22,9 +22,12 @@ public final class Deposit implements Action {
         	output = RED + "You have no Simcoin to deposit!" + RESET;
         }
         else {
-            int depositAmt = ui.intRange("Deposit amount: $", 1, sim.getSimcoin());
+            int depositAmt = ui.intRange("Enter deposit amount or press '0' to cancel: $", 0, sim.getSimcoin());
 
-            if (sim.getBankingSystem().deposit(depositAmt)) {
+            if (depositAmt == 0) {
+            	output = GREEN + "Transaction Cancelled";
+            }
+            else if (sim.getBankingSystem().deposit(depositAmt)) {
             	sim.spendSimcoin(depositAmt);
             	output = GREEN + "Deposited $" + depositAmt + " | Simcoin: $" + sim.getSimcoin() +" | Deposit: $" + sim.getBankDeposit() + RESET;
             }

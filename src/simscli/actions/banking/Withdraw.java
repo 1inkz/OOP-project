@@ -22,9 +22,12 @@ public final class Withdraw implements Action {
         	output = RED + "No money available to withdraw!" + RESET;
         }
         else {
-            int withdrawAmt = ui.intRange("Withdraw amount: $", 1, sim.getBankDeposit());
+            int withdrawAmt = ui.intRange("Enter withdraw amount or press '0' to cancel: $", 0, sim.getBankDeposit());
 
-            if (sim.getBankingSystem().withdraw(withdrawAmt)) {
+            if (withdrawAmt == 0) {
+            	output = GREEN + "Transaction Cancelled";
+            }
+            else if (sim.getBankingSystem().withdraw(withdrawAmt)) {
             	sim.earnSimcoin(withdrawAmt);
             	output = GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
             }

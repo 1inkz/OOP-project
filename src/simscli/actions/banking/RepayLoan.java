@@ -27,9 +27,12 @@ public final class RepayLoan implements Action {
     		output = RED + "You do not have enough Simcoin to repay the loan." + RESET;
     	}
     	else {
-        	int repayAmt = ui.intRange("Repay amount: $", 1, maxRepay);
+        	int repayAmt = ui.intRange("Enter repay amount or press '0' to cancel: $", 0, maxRepay);
 
-            if (sim.spendSimcoin(repayAmt)) {
+            if (repayAmt == 0) {
+            	output = GREEN + "Transaction Cancelled";
+            }
+            else if (sim.spendSimcoin(repayAmt)) {
             	sim.getBankingSystem().repayLoan(repayAmt);
                 if (sim.getLoanAmount() == 0) {
                     sim.setLoanStartDay(0);

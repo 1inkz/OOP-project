@@ -18,12 +18,15 @@ public final class ApplyLoan implements Action {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
         
         int loanAmt = ui.intRange(
-                "Loan amount (max $" + simscli.bank.BankingSystem.getLoanLimit() + "): $",
-                1,
+                "Enter loan amount (Max: $" + simscli.bank.BankingSystem.getLoanLimit() + ") or press '0' to cancel: $",
+                0,
                 simscli.bank.BankingSystem.getLoanLimit()
                         - sim.getLoanAmount());
 
-        if (sim.getBankingSystem().applyLoan(loanAmt)) {
+        if (loanAmt == 0) {
+        	output = GREEN + "Transaction Cancelled";
+        }
+        else if (sim.getBankingSystem().applyLoan(loanAmt)) {
         	sim.earnSimcoin(loanAmt);
         	output = GREEN + "Loan approved! $" + loanAmt + " | Simcoin: $" + sim.getSimcoin() + " | Loan: $" + sim.getLoanAmount() + RESET;
         }
