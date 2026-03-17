@@ -194,6 +194,11 @@ A: Not in the current system. It uses one save state.
 
 ## I. Common Problems
 
+**Q: Why can't I run my code?
+A: Run these commands
+"cd ../bin"
+"java simscli.Main"
+
 **Q: Why can’t I buy a house or car?**
 A: Usually because:
 
