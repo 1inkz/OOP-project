@@ -22,20 +22,43 @@ public class SimManager {
     private int activeIndex = -1;
     private final GameLogger logger;
 
+    /**
+     * Creates a SimManager with the specified logger.
+     * 
+     * @param logger the GameLogger instance for logging Sim lifecycle events
+     */
     public SimManager(GameLogger logger) {
         this.sims = new ArrayList<>();
         this.logger = logger;
     }
 
+    /**
+     * Gets an unmodifiable list of all Sims currently in the game.
+     * 
+     * @return an immutable view of all Sims
+     */
     public List<Sim> getAllSims() {
         return Collections.unmodifiableList(sims);
     }
 
+    /**
+     * Gets the currently active (player-controlled) Sim.
+     * 
+     * @return the active Sim, or null if none is active
+     */
     public Sim getActiveSim() {
         if (activeIndex < 0 || activeIndex >= sims.size()) return null;
         return sims.get(activeIndex);
     }
 
+    /**
+     * Sets the active (player-controlled) Sim by index.
+     * 
+     * Displays any pending loan notifications for the newly active Sim.
+     * 
+     * @param index the index of the Sim to make active
+     * @throws IllegalArgumentException if index is out of bounds
+     */
     public void setActiveSim(int index) {
         if (index < 0 || index >= sims.size()) {
             throw new IllegalArgumentException("Bad index: " + index);
@@ -52,18 +75,43 @@ public class SimManager {
         }
     }
 
+    /**
+     * Gets the index of the currently active Sim.
+     * 
+     * @return the active Sim's index, or -1 if no Sim is active
+     */
     public int getActiveSimIndex() {
         return this.activeIndex;
     }
 
+    /**
+     * Adds an existing Sim to the managed collection.
+     * 
+     * @param sim the Sim to add
+     */
     public void addSim(Sim sim) {
         this.sims.add(sim);
     }
 
+    /**
+     * Removes all Sims from the manager (typically used for new game initialization).
+     */
     public void clearSimList() {
         this.sims.clear();
     }
 
+    /**
+     * Creates a new Sim with the specified name and type.
+     * 
+     * Initializes the Sim at the Street location with a jobless job.
+     * If this is the first Sim, sets it as active.
+     * 
+     * @param name the Sim's display name
+     * @param type the Sim's life stage (CHILD, ADULT, or ELDER)
+     * @param game the Game instance for location and job setup
+     * @return the newly created Sim
+     * @throws IllegalArgumentException if type is unknown
+     */
     public Sim createSim(String name, SimType type, Game game) {
         Sim sim;
         switch (type) {
@@ -135,6 +183,12 @@ public class SimManager {
         }
     }
 
+    /**
+     * Determines which need caused a Sim's death by finding which need is at or below 0.
+     * 
+     * @param sim the dead or dying Sim
+     * @return the name of the critical need (HUNGER, ENERGY, HYGIENE, SOCIAL, FUN, BLADDER)
+     */
     private String getZeroNeedReason(Sim sim) {
         if (sim.getNeeds().get(NeedType.HUNGER) <= 0) return "HUNGER";
         if (sim.getNeeds().get(NeedType.ENERGY) <= 0) return "ENERGY";
