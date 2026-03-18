@@ -7,9 +7,17 @@ import simscli.sims.Sim;
 import simscli.stats.NeedType;
 import simscli.stats.Effect;
 
+/**
+ * Pet action: Shower a specific pet.
+ */
 public final class ShowerPet implements Action {
     private final Pet pet;
 
+    /**
+     * Creates a shower action for the specified pet.
+     * @param pet the pet to shower (non-null)
+     * @throws IllegalArgumentException if pet is null
+     */
     public ShowerPet(Pet pet) {
         if (pet == null) throw new IllegalArgumentException("Pet required");
         this.pet = pet;

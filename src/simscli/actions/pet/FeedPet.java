@@ -5,9 +5,17 @@ import simscli.game.GameContext;
 import simscli.pets.Pet;
 import simscli.sims.Sim;
 
+/**
+ * Pet action: Feed a specific pet.
+ */
 public final class FeedPet implements Action {
     private final Pet pet;
 
+    /**
+     * Creates a feed action for the specified pet.
+     * @param pet the pet to feed (non-null)
+     * @throws IllegalArgumentException if pet is null
+     */
     public FeedPet(Pet pet) {
         if (pet == null) throw new IllegalArgumentException("Pet required");
         this.pet = pet;

@@ -5,6 +5,10 @@ import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Health action: Sim gets medical checkup at hospital for 10 Simcoin.
+ * Restores energy and hygiene.
+ */
 public final class GetCheckup implements Action {
     private static final int CHECKUP_COST = 10;
 

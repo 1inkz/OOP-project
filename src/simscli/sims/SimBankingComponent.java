@@ -16,6 +16,10 @@ public class SimBankingComponent {
     }
 
     // Simcoin
+    /**
+     * Gets on-hand Simcoin amount.
+     * @return current Simcoin
+     */
     public int getSimcoin() {
         return simcoin;
     }
@@ -24,10 +28,19 @@ public class SimBankingComponent {
         this.simcoin = amount;
     }
 
+    /**
+     * Earns Simcoin, ensuring non-negative result.
+     * @param amount amount to gain
+     */
     public void earnSimcoin(int amount) {
         simcoin = Math.max(0, simcoin + amount);
     }
 
+    /**
+     * Spends Simcoin if sufficient balance exists.
+     * @param amount amount to spend
+     * @return true if successful
+     */
     public boolean spendSimcoin(int amount) {
         if (amount <= 0 || simcoin < amount) {
             return false;
@@ -65,6 +78,10 @@ public class SimBankingComponent {
         bankingSystem.repayLoan(amount);
     }
 
+    /**
+     * Calculates total wealth (Simcoin + deposits).
+     * @return total wealth amount
+     */
     public int getTotalWealth() {
         return simcoin + getBankDeposit();
     }

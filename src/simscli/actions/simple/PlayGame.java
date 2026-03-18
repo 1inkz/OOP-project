@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Play games for fun and gaming skill.
+ */
 public final class PlayGame implements Action {
     @Override public String name() { return "Play Game"; }
 

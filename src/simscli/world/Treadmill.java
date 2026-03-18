@@ -4,6 +4,9 @@ import simscli.actions.Action;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 
+/**
+ * World object: Treadmill for exercising.
+ */
 public final class Treadmill implements Usable {
     @Override public String key() { return "treadmill"; }
     @Override public String name() { return "Treadmill"; }

@@ -8,6 +8,9 @@ import simscli.pets.PetFactory;
 import simscli.pets.PetType;
 import simscli.sims.Sim;
 
+/**
+ * Pet action: Buy a pet from the pet store.
+ */
 public final class BuyPet implements Action {
     @Override
     public String name() {

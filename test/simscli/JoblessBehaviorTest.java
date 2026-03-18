@@ -5,8 +5,14 @@ import simscli.actions.ActionType;
 import simscli.game.Game;
 import simscli.sims.SimType;
 
+/**
+ * Test: Verifies jobless Sims cannot work or earn.
+ */
 public class JoblessBehaviorTest {
 
+    /**
+     * Tests that new Sims start unemployed.
+     */
     public static void newSimStartsJobless() {
         Game g = new Game();
         g.createSim("Ava", SimType.ADULT);
@@ -16,6 +22,9 @@ public class JoblessBehaviorTest {
         g.shutdown();
     }
 
+    /**
+     * Tests that jobless Sims cannot work or earn.
+     */
     public static void joblessCannotWork_moneyUnchanged() {
         Game g = new Game();
         g.createSim("Ava", SimType.ADULT);

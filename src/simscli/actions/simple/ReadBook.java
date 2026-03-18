@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Read books for fun and intelligence improvement.
+ */
 public final class ReadBook implements Action {
     @Override public String name() { return "Read Book"; }
 

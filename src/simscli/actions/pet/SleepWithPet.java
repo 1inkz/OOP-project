@@ -5,9 +5,17 @@ import simscli.game.GameContext;
 import simscli.pets.Pet;
 import simscli.sims.Sim;
 
+/**
+ * Pet action: Sleep with a specific pet.
+ */
 public final class SleepWithPet implements Action {
     private final Pet pet;
 
+    /**
+     * Creates a sleep action for the specified pet.
+     * @param pet the pet to sleep with (non-null)
+     * @throws IllegalArgumentException if pet is null
+     */
     public SleepWithPet(Pet pet) {
         if (pet == null) throw new IllegalArgumentException("Pet required");
         this.pet = pet;

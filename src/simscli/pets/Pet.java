@@ -2,6 +2,10 @@ package simscli.pets;
 
 import simscli.stats.BoundedStat;
 
+/**
+ * Abstract base class for all pets.
+ * Manages pet stats, experience, level, and serialization.
+ */
 public abstract class Pet {
     private final String name;
     private final PetType type;
@@ -14,6 +18,12 @@ public abstract class Pet {
     private int age = 0;
     private boolean alive = true;
 
+    /**
+     * Creates a new Pet with the given name and type.
+     * @param name the pet's name (non-empty)
+     * @param type the pet's type (Dog, Cat, or Bunny)
+     * @throws IllegalArgumentException if name is null or empty
+     */
     protected Pet(String name, PetType type) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Pet name required");
@@ -38,6 +48,10 @@ public abstract class Pet {
     public void setLevel(int lvl) { this.level = lvl; }
     public void setAge(int a) { this.age = a; }
 
+    /**
+     * Awards experience to the pet, potentially triggering level up.
+     * @param amount experience points to gain (must be positive)
+     */
     public void gainExperience(int amount) {
         if (amount > 0) {
             experience += amount;
@@ -55,6 +69,9 @@ public abstract class Pet {
         }
     }
 
+    /**
+     * Ages the pet by one in-game hour, increasing hunger and checking death conditions.
+     */
     public void ageOneHour() {
         age++;
         hunger.add(5);
@@ -69,6 +86,10 @@ public abstract class Pet {
         }
     }
 
+    /**
+     * Returns a formatted status summary of the pet's current state.
+     * @return status string with name, type, level, and all stat values
+     */
     public String getStatusSummary() {
         return String.format("%s (%s, Lvl %d) - Health: %d, Hunger: %d, Cleanliness: %d, Happiness: %d",
                 name, type.getDisplayName(), level, health.get(), hunger.get(), cleanliness.get(), happiness.get());

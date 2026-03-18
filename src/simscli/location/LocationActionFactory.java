@@ -7,14 +7,9 @@ import simscli.actions.simple.*;
 import simscli.actions.pet.BuyPet;
 
 /**
- * Factory for creating actions available at specific locations.
- * Decouples locations from hard-coding specific action implementations.
- * Locations request actions by type; factory handles creation.
- *
- * This follows the Dependency Inversion Principle:
- * - Locations don't import specific action classes
- * - Factory knows all action implementations
- * - Easy to add new actions without modifying Location code
+ * Factory for creating location-specific actions.
+ * Decouples locations from action implementation details.
+ * Follows Dependency Inversion Principle.
  */
 public final class LocationActionFactory {
     public enum LocationActionType {
@@ -35,10 +30,10 @@ public final class LocationActionFactory {
     }
     
     /**
-     * Create an action by type.
-     * @param type The action type to create
-     * @return A new instance of the requested action
-     * @throws IllegalArgumentException if action type is unknown
+     * Creates a location action by type.
+     * @param type the action type to instantiate
+     * @return a new Action instance
+     * @throws IllegalArgumentException if type is unknown
      */
     public static Action create(LocationActionType type) {
         switch (type) {

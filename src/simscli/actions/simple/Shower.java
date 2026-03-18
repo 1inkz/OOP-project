@@ -6,6 +6,9 @@ import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Action: Take a shower to improve hygiene.
+ */
 public final class Shower implements Action {
     @Override public String name() { return "Shower"; }
 

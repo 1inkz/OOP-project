@@ -7,9 +7,17 @@ import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Pet action: Groom a specific pet.
+ */
 public final class GroomPet implements Action {
     private final Pet pet;
 
+    /**
+     * Creates a groom action for the specified pet.
+     * @param pet the pet to groom (non-null)
+     * @throws IllegalArgumentException if pet is null
+     */
     public GroomPet(Pet pet) {
         if (pet == null) throw new IllegalArgumentException("Pet required");
         this.pet = pet;

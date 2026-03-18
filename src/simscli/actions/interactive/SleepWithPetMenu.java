@@ -8,6 +8,13 @@ import simscli.pets.Pet;
 import simscli.sims.Sim;
 import java.util.List;
 
+/**
+ * Interactive action that lets the player choose which pet to sleep with.
+ *
+ * <p>Displays the Sim's pets, allows sleeping with a single pet or all pets,
+ * and delegates single-pet interaction to {@link SleepWithPet}.</p>
+ */
+
 public final class SleepWithPetMenu implements Action {
 
     @Override
@@ -15,6 +22,14 @@ public final class SleepWithPetMenu implements Action {
         return "Sleep with Pets";
     }
 
+    /**
+     * Displays the pet sleep menu and performs the selected action.
+     *
+     * @param sim the Sim whose pets are being managed
+     * @param ctx the active game context, used to collect user input
+     * @return a message describing the outcome of the selected action
+     */
+    
     @Override
     public String perform(Sim sim, GameContext ctx) {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter

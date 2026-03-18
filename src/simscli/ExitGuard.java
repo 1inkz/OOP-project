@@ -5,12 +5,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import simscli.game.Game;
 
+/**
+ * Handles graceful shutdown and emergency save on unexpected exit.
+ * Installs a shutdown hook to prompt user for save on abnormal termination.
+ */
 public final class ExitGuard {
     private static final AtomicBoolean normalExit = new AtomicBoolean(false);
     private static final AtomicBoolean hookInstalled = new AtomicBoolean(false);
 
     private ExitGuard() {}
 
+    /**
+     * Installs the exit guard shutdown hook for the given game.
+     * @param game the Game instance to save during shutdown
+     */
     public static void install(Game game) {
         if (!hookInstalled.compareAndSet(false, true)) {
             return;
@@ -44,6 +52,9 @@ public final class ExitGuard {
         }, "simscli-exit-guard"));
     }
 
+    /**
+     * Signals that the game is exiting normally (no save prompt needed).
+     */
     public static void markNormalExit() {
         normalExit.set(true);
     }

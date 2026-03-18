@@ -8,11 +8,19 @@ public class BankingSystem {
     private static final int LOAN_LIMIT = 5000;
     private final BankService bankService;
 
+    /**
+     * Initializes the banking system with default simple interest policy.
+     */
     public BankingSystem() {
         this.bankService = new BankService(new SimpleInterestPolicy());
     }
 
     // Deposit operations
+    /**
+     * Deposits the specified amount into the account.
+     * @param amount the amount to deposit (must be positive)
+     * @return true if successful, false otherwise
+     */
     public boolean deposit(int amount) {
         try {
             if (amount <= 0) {
@@ -30,6 +38,11 @@ public class BankingSystem {
     }
 
     // Withdrawal operations
+    /**
+     * Withdraws the specified amount from the account if sufficient balance exists.
+     * @param amount the amount to withdraw
+     * @return true if successful, false if insufficient funds
+     */
     public boolean withdraw(int amount) {
         try {
             if (amount > bankService.getBalance()) {
@@ -43,6 +56,11 @@ public class BankingSystem {
     }
 
     // Loan operations
+    /**
+     * Applies for a loan if within the system's limit.
+     * @param amount the amount to borrow (must be positive)
+     * @return true if approved, false if exceeds limit
+     */
     public boolean applyLoan(int amount) {
         try {
             if (amount <= 0 || bankService.getLoan() + amount > LOAN_LIMIT) {
@@ -55,6 +73,10 @@ public class BankingSystem {
         }
     }
 
+    /**
+     * Repays part or all of the outstanding loan.
+     * @param amount the amount to repay
+     */
     public void repayLoan(int amount) {
         try {
             if (amount > 0 && amount <= bankService.getLoan()) {
@@ -70,6 +92,9 @@ public class BankingSystem {
     }
 
     // Interest operations
+    /**
+     * Calculates and applies daily interest to the account balance.
+     */
     public void settleInterest() {
         bankService.settleInterest();
     }

@@ -6,6 +6,9 @@ import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Action: Take a short nap to restore energy.
+ */
 public final class Nap implements Action {
     @Override public String name() { return "Nap"; }
 

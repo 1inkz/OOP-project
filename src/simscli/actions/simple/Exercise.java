@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Exercise for fun and fitness improvement.
+ */
 public final class Exercise implements Action {
     @Override public String name() { return "Exercise"; }
 

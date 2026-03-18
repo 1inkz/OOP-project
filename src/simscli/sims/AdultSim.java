@@ -4,7 +4,15 @@ import simscli.game.Game;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Adult Sim: balanced stat decay and earnings.
+ */
 public final class AdultSim extends Sim {
+    /**
+     * Creates an adult Sim.
+     * @param name the Sim's name
+     * @param game the Game instance
+     */
     public AdultSim(String name, Game game) {
         super(name, SimType.ADULT, game);
     }

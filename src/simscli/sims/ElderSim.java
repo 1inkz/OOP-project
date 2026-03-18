@@ -4,7 +4,15 @@ import simscli.game.Game;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Elder Sim: faster energy and hygiene drain but less social needs.
+ */
 public final class ElderSim extends Sim {
+    /**
+     * Creates an elder Sim.
+     * @param name the Sim's name
+     * @param game the Game instance
+     */
     public ElderSim(String name, Game game) {
         super(name, SimType.ELDER, game);
     }

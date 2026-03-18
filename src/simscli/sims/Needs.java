@@ -6,6 +6,10 @@ import simscli.stats.NeedType;
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Duplicate Needs class in sims package (see stats.Needs for primary).
+ * Maintains same interface for backward compatibility.
+ */
 public final class Needs {
     private final EnumMap<NeedType, BoundedStat> stats = new EnumMap<>(NeedType.class);
 

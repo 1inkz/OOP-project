@@ -7,9 +7,17 @@ import simscli.sims.Sim;
 import simscli.stats.NeedType;
 import simscli.stats.Effect;
 
+/**
+ * Pet action: Play with a specific pet.
+ */
 public final class PlayWithPet implements Action {
     private final Pet pet;
 
+    /**
+     * Creates a play action for the specified pet.
+     * @param pet the pet to play with (non-null)
+     * @throws IllegalArgumentException if pet is null
+     */
     public PlayWithPet(Pet pet) {
         if (pet == null) throw new IllegalArgumentException("Pet required");
         this.pet = pet;

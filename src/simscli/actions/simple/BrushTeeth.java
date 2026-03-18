@@ -6,6 +6,9 @@ import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Action: Brush teeth for minor hygiene improvement.
+ */
 public final class BrushTeeth implements Action {
     @Override public String name() { return "Brush Teeth"; }
 

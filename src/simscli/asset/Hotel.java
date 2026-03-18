@@ -1,5 +1,8 @@
 package simscli.asset;
 
+/**
+ * Hotel asset: generates 250 Simcoin daily passive income.
+ */
 public class Hotel extends Asset {
     public Hotel(int id, String name, int purchaseValue) {
         super(id, name, purchaseValue);

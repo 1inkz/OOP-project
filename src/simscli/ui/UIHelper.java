@@ -2,6 +2,9 @@ package simscli.ui;
 
 import simscli.SaveGame;
 
+/**
+ * Utility class for UI formatting and color management.
+ */
 public class UIHelper {
 	
     public final String RED = "\u001B[31m";
@@ -19,6 +22,11 @@ public class UIHelper {
         this.in = in;
     }
     
+    /**
+     * Gets color code for a need value for console display.
+     * @param value the need value (0-100)
+     * @return colored number string
+     */
     public String getNeedColor(int value) {
         if (value >= 60) {
             return GREEN + String.valueOf(value) + RESET;
@@ -29,6 +37,11 @@ public class UIHelper {
         }
     }
     
+    /**
+     * Prints a formatted title with colored border.
+     * @param title the title text
+     * @param color ANSI color code
+     */
     public void printDynamicTitle(String title, String color) {
         int width = title.length() + 10;
 
@@ -37,6 +50,10 @@ public class UIHelper {
         System.out.println(color + "=".repeat(width) + RESET);
     }
     
+    /**
+     * Prompts user to confirm starting a new game (losing save).
+     * @return true if user confirms
+     */
     public boolean confirmStartNewGame() {
         boolean hasValidSave = SaveGame.hasValidSaveData();
 

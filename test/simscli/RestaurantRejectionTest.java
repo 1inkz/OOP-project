@@ -3,8 +3,14 @@ package simscli;
 import simscli.game.Game;
 import simscli.sims.SimType;
 
+/**
+ * Test: Verifies restaurant dining requires sufficient funds.
+ */
 public class RestaurantRejectionTest {
 
+    /**
+     * Tests that dining out fails without 25 Simcoin.
+     */
     public static void dineOutRejectedIfInsufficientMoney() {
         Game g = new Game();
         g.createSim("Mia", SimType.ADULT);

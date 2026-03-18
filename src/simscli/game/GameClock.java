@@ -12,10 +12,18 @@ public final class GameClock {
     private double minuteRemainder; // fractional minutes from real-time ticks
     private int accumulatedMinutes = 0;
 
+    /**
+     * Creates a new GameClock starting at day 1, midnight.
+     */
     public GameClock() {
         this(1, 0);
     }
 
+    /**
+     * Creates a new GameClock with specified starting time.
+     * @param startDay the starting day (minimum 1)
+     * @param startMinuteOfDay the starting minute within the day (0-1439)
+     */
     public GameClock(int startDay, int startMinuteOfDay) {
         this.dayNumber = Math.max(1, startDay);
         this.minuteOfDay = clamp(startMinuteOfDay, 0, MINUTES_PER_DAY - 1);
@@ -24,6 +32,10 @@ public final class GameClock {
 
     // Time to flow automatically.
     // deltaSeconds is how many real seconds passed since last update.
+    /**
+     * Advances game time based on real-world seconds elapsed.
+     * @param deltaSeconds real-world seconds since last call
+     */
     public void advanceByRealTime(double deltaSeconds) {
         if (deltaSeconds <= 0) return;
 
@@ -55,6 +67,10 @@ public final class GameClock {
     }
 
     // Use this for time spent by actions.
+    /**
+     * Advances game time by the specified number of in-game minutes.
+     * @param minutes minutes to advance (positive values only)
+     */
     public void spendMinutes(int minutes) {
         if (minutes <= 0) return;
 
@@ -87,10 +103,18 @@ public final class GameClock {
 
     // Time left in the current day.
     // At 00:00 -> 1440 minutes left. At 23:59 -> 1 minute left.
+    /**
+     * Gets remaining in-game minutes until midnight.
+     * @return minutes left in the current day (1440 at midnight, 1 at 23:59)
+     */
     public int getMinutesLeftToday() {
         return MINUTES_PER_DAY - minuteOfDay;
     }
 
+    /**
+     * Gets the current time in HH:MM format.
+     * @return formatted time string
+     */
     public String getFormattedTime() {
         return String.format(" %02d:%02d", getHour(), getMinute());
     }

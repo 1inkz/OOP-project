@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Socialize to improve social need and charisma.
+ */
 public final class Socialise implements Action {
     @Override public String name() { return "Socialise"; }
 

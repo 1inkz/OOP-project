@@ -8,6 +8,9 @@ import simscli.stats.SkillType;
 
 import java.util.List;
 
+/**
+ * Manages Sim creation, selection, and Sim-specific UI menus.
+ */
 public class SimUIManager {
 	
 	private final Game game;
@@ -23,6 +26,9 @@ public class SimUIManager {
         this.menuUIManager = menuUIManager;
     }
     
+    /**
+     * Displays the three-part game tutorial.
+     */
     public void showTutorial() {
 
     	uiHelper.printDynamicTitle("Tutorial 1/3", uiHelper.DARK_RED);
@@ -44,6 +50,9 @@ public class SimUIManager {
         in.line("\nPress Enter to continue...\n");
     }
     
+    /**
+     * Prompts user to create a new Sim with type selection.
+     */
     public void createNewSim() {
 
     	uiHelper.printDynamicTitle("SIMS GAME - Create New Sims", uiHelper.DARK_RED);
@@ -86,6 +95,9 @@ public class SimUIManager {
         System.out.println(uiHelper.GREEN + "Created new Sim: " + name + " (" + type + ")" + uiHelper.RESET);
     }
     
+    /**
+     * Shows list of existing Sims for the user to select.
+     */
     public void selectExistingSim() {
 
         List<Sim> sims = game.sims();

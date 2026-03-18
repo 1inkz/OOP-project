@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Watch TV for fun and creativity improvement.
+ */
 public final class WatchTV implements Action {
     @Override public String name() { return "Watch TV"; }
 

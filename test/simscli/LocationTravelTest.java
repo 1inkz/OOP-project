@@ -3,8 +3,14 @@ package simscli;
 import simscli.game.Game;
 import simscli.sims.SimType;
 
+/**
+ * Test: Verifies Sim location changes with travel.
+ */
 public class LocationTravelTest {
 
+    /**
+     * Tests that traveling to park changes location.
+     */
     public static void travelChangesLocation() {
         Game g = new Game();
         g.createSim("Kai", SimType.ADULT);

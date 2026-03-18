@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Clean public areas for cleaning skill improvement.
+ */
 public final class Cleaning implements Action {
     @Override public String name() { return "Cleaning the area"; }
 

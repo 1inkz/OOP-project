@@ -10,12 +10,27 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import java.util.List;
 
+/**
+ * Interactive action that lets the player choose which pet to shower.
+ *
+ * <p>Displays the Sim's pets, allows showering a single pet or all pets,
+ * and delegates single-pet showering to {@link ShowerPet}.</p>
+ */
+
 public final class ShowerPetMenu implements Action {
 
     @Override
     public String name() {
         return "Shower Pets";
     }
+
+    /**
+     * Displays the pet-showering menu and performs the selected action.
+     *
+     * @param sim the Sim whose pets are being managed
+     * @param ctx the active game context, used to collect user input
+     * @return a message describing the outcome of the selected action
+     */
 
     @Override
     public String perform(Sim sim, GameContext ctx) {

@@ -5,6 +5,9 @@ import simscli.sims.Sim;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Street location: starting area with no actions, used for navigation.
+ */
 public final class Street extends Location {
     @Override
     public String key() {

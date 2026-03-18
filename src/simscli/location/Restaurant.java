@@ -7,6 +7,9 @@ import simscli.game.GameContext;
 import simscli.sims.Sim;
 import simscli.stats.*;
 
+/**
+ * Restaurant location: dining and Chef employment.
+ */
 public final class Restaurant extends Location {
     @Override public String key() { return "restaurant"; }
     @Override public String name() { return "Restaurant"; }

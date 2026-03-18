@@ -82,8 +82,9 @@ public class SimManager {
     }
 
     /**
-     * Checks for dead sims and removes them.
-     * Handles active sim switching if needed.
+     * Checks for dead sims and removes them from the simulation.
+     * Handles active sim switching and auto-save if the active Sim dies.
+     * @param game the Game instance for location access and save operations
      */
     public void removeDeadSims(Game game) {
         String deadActiveSimName = null;

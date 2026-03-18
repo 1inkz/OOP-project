@@ -8,6 +8,9 @@ import simscli.actions.interactive.GroomPetMenu;
 import simscli.actions.interactive.PlayWithPetMenu;
 import simscli.sims.Sim;
 
+/**
+ * Pet Store location: buy and groom pets.
+ */
 public final class PetStore extends Location {
     @Override
     public String key() {

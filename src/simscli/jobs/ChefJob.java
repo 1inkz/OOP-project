@@ -2,6 +2,9 @@ package simscli.jobs;
 
 import simscli.stats.SkillType;
 
+/**
+ * Chef job implementation: high cooking skill, works at restaurant.
+ */
 public final class ChefJob implements Job {
     @Override public String name() { return "Chef"; }
     @Override public double salary(int level) { return 90 + level * 22; }

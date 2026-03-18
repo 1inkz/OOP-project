@@ -8,6 +8,9 @@ import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.sims.Sim;
 
+/**
+ * Hospital location: health checkups and Doctor employment.
+ */
 public final class Hospital extends Location {
     @Override
     public String key() {

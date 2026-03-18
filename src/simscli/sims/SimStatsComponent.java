@@ -25,6 +25,10 @@ public class SimStatsComponent {
         return needs;
     }
 
+    /**
+     * Calculates average mood from all need values.
+     * @return average need value
+     */
     public int moodScore() {
         int sum = 0;
         for (NeedType t : NeedType.values()) {
@@ -67,6 +71,10 @@ public class SimStatsComponent {
         this.alive = alive;
     }
 
+    /**
+     * Applies an effect's need deltas and checks death.
+     * @param effect the effect to apply
+     */
     public void applyEffect(Effect effect) {
         for (java.util.Map.Entry<NeedType, Integer> entry : effect.deltas().entrySet()) {
             needs.add(entry.getKey(), entry.getValue());

@@ -8,12 +8,27 @@ import simscli.pets.Pet;
 import simscli.sims.Sim;
 import java.util.List;
 
+/**
+ * Interactive action that lets the player choose which pet to feed.
+ *
+ * <p>Displays the Sim's pets, allows feeding a single pet or all pets, and
+ * delegates single-pet feeding to {@link FeedPet}.</p>
+ */
+
 public final class FeedPetMenu implements Action {
 
     @Override
     public String name() {
         return "Feed Pets";
     }
+
+    /**
+     * Displays the pet-feeding menu and performs the selected feeding action.
+     *
+     * @param sim the Sim whose pets are being managed
+     * @param ctx the active game context, used to collect user input
+     * @return a message describing the outcome of the selected action
+     */
 
     @Override
     public String perform(Sim sim, GameContext ctx) {

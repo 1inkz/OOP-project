@@ -41,7 +41,16 @@ public abstract class Sim {
     // Loan messaging
     private final List<String> pendingLoanMessages = new ArrayList<>();
 
+    /**
+     * Associates this Sim with the Game instance.
+     * @param game the Game orchestrator
+     */
     public void setGame(Game game) { this.game = game; }
+    
+    /**
+     * Gets the Game instance this Sim belongs to.
+     * @return the Game orchestrator
+     */
     public Game getGame() { return game; }
 
     protected Sim(String name, SimType type, Game game) {
@@ -70,7 +79,11 @@ public abstract class Sim {
     public final boolean isAlive() { return stats.isAlive(); }
     public void setAlive(boolean alive) { stats.setAlive(alive); }
 
-    /** Each subtype defines its decay pace. */
+    /**
+     * Returns the hourly stat decay effect for this Sim type.
+     * Each subtype defines its own decay rates for needs.
+     * @return Effect representing hourly need degradation
+     */
     public abstract Effect hourlyDecay();
     
     // ==================== Time Management ====================
@@ -326,18 +339,29 @@ public abstract class Sim {
     }
 
     // ==================== Pending Message Management ====================
+    /**
+     * Adds a pending loan message to notify the Sim later.
+     * @param msg the message to queue
+     */
     public void addPendingLoanMessage(String msg) {
         if (msg != null && !msg.trim().isEmpty()) {
             pendingLoanMessages.add(msg);
         }
     }
 
+    /**
+     * Retrieves and clears all pending loan messages.
+     * @return list of pending messages to display
+     */
     public List<String> getAndClearPendingLoanMessages() {
         List<String> messages = new ArrayList<>(pendingLoanMessages);
         pendingLoanMessages.clear(); 
         return messages;
     }
 
+    /**
+     * Clears all pending loan messages without retrieving them.
+     */
     public void clearPendingLoanMessages() {
         pendingLoanMessages.clear();
     }

@@ -9,6 +9,10 @@ import simscli.game.GameLogger;
 import simscli.game.SimManager;
 import simscli.sims.Sim;
 
+/**
+ * Main console-based UI for the game.
+ * Manages the game loop and delegates to specialized UI managers.
+ */
 public final class ConsoleUI {
 
     private final Game game;
@@ -32,6 +36,10 @@ public final class ConsoleUI {
         this.businessUIManager = new BusinessUIManager(game, in, uiHelper);
     }
 
+    /**
+     * Starts the main game loop with real-time auto-advance.
+     * Handles active Sim selection and cleanup.
+     */
     public void run() {
     	menuUIManager.showInitialMenu();
 

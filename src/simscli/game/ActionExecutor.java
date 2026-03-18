@@ -25,7 +25,10 @@ public class ActionExecutor {
     }
 
     /**
-     * Changes a sim's job.
+     * Changes the active Sim's job to the specified job name.
+     * @param activeSim the Sim changing jobs
+     * @param jobName the name of the new job
+     * @return message describing the job change result
      */
     public String changeJob(Sim activeSim, String jobName) {
         if (activeSim == null) return "No active sim.";

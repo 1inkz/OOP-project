@@ -5,14 +5,33 @@ import simscli.actions.ActionUIAdapter;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 
+/**
+ * Banking action that allows a Sim to withdraw Simcoin from their bank account.
+ *
+ * <p>Prompts the user for a withdrawal amount up to the Sim's available bank
+ * deposit. On success, the specified amount is transferred from the bank
+ * balance to the Sim's on-hand Simcoin.</p>
+ */
+
+/**
+ * Banking action: Withdraw Simcoin from bank account.
+ */
 public final class Withdraw implements Action {
     
     private static final String RED = "\u001B[31m";       
     private static final String GREEN = "\u001B[32m";
     private static final String RESET = "\u001B[0m";
     String output = "";
-    
+
     @Override public String name() { return "Withdraw Simcoin"; }
+
+    /**
+     * Executes the withdrawal workflow for the specified Sim.
+     *
+     * @param sim the Sim performing the withdrawal
+     * @param ctx the active game context, used to collect user input
+     * @return a status message describing the outcome
+     */
 
     @Override
     public String perform(Sim sim, GameContext ctx) {
@@ -25,11 +44,14 @@ public final class Withdraw implements Action {
             int withdrawAmt = ui.intRange("Enter withdraw amount or press '0' to cancel: $", 0, sim.getBankDeposit());
 
             if (withdrawAmt == 0) {
-            	output = GREEN + "Transaction Cancelled";
+            	output = GREEN + "Transaction Cancelled" + RESET;
             }
             else if (sim.getBankingSystem().withdraw(withdrawAmt)) {
             	sim.earnSimcoin(withdrawAmt);
             	output = GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
+            }
+            else {
+            	output = RED + "An error occurred during withdrawal." + RESET;
             }
         }
 

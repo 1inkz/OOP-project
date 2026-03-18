@@ -5,6 +5,17 @@ import simscli.actions.ActionUIAdapter;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 
+/**
+ * Banking action that allows a Sim to deposit Simcoin into their bank account.
+ *
+ * <p>Prompts the user for a deposit amount up to the Sim's available Simcoin.
+ * On success, the specified amount is transferred from the Sim's on-hand
+ * balance to their bank deposit.</p>
+ */
+
+/**
+ * Banking action: Deposit Simcoin into bank account.
+ */
 public final class Deposit implements Action {
     
     private static final String RED = "\u001B[31m";       
@@ -13,6 +24,14 @@ public final class Deposit implements Action {
     String output = "";
     
     @Override public String name() { return "Deposit Simcoin"; }
+
+    /**
+    * Executes the deposit workflow for the specified Sim.
+    *
+    * @param sim the Sim performing the deposit
+    * @param ctx the active game context, used to collect user input
+    * @return a status message describing the outcome
+    */
 
     @Override
     public String perform(Sim sim, GameContext ctx) {

@@ -6,7 +6,13 @@ import simscli.game.Game;
 import simscli.sims.Sim;
 import simscli.sims.SimType;
 
+/**
+ * Test: Verifies that actions change Sim state and consume time.
+ */
 public class ActionEffectTest {
+    /**
+     * Tests that working action earns money.
+     */
     public static void actionConsumesTimeAndChangesState() {
         Game g = new Game();
         Sim s = g.createSim("Ava", SimType.ADULT);

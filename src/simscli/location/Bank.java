@@ -7,6 +7,9 @@ import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.sims.Sim;
 
+/**
+ * Bank location: offers financial operations and work for Bank Tellers.
+ */
 public final class Bank extends Location {
     @Override public String key() { return "bank"; }
     @Override public String name() { return "Bank"; }

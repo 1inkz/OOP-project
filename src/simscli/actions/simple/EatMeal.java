@@ -7,6 +7,9 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Eat a proper meal, restoring hunger and improving cooking.
+ */
 public final class EatMeal implements Action {
     @Override public String name() { return "Eat Meal"; }
 

@@ -7,6 +7,9 @@ import simscli.actions.*;
 import simscli.actions.interactive.*;
 import simscli.sims.Sim;
 
+/**
+ * Park location: offers outdoor recreation and work opportunities.
+ */
 public final class Park extends Location {
     @Override public String key() { return "park"; }
     @Override public String name() { return "Park"; }

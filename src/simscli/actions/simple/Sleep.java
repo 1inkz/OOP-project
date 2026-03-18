@@ -5,6 +5,9 @@ import simscli.actions.Action;
 import simscli.game.GameContext;
 import simscli.sims.Sim;
 
+/**
+ * Action: Sleep deeply and advance to the next day.
+ */
 public final class Sleep implements Action {
 	 
     @Override public String name() { return "Deep Sleep"; }

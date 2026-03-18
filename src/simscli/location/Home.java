@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Home location: requires owned house, offers residential actions and pet care.
+ */
 public final class Home extends Location {
     @Override public String key() { return "home"; }
     @Override public String name() { return "Home"; }

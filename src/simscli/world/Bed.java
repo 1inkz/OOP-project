@@ -4,6 +4,9 @@ import simscli.actions.Action;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 
+/**
+ * World object: Bed for sleeping.
+ */
 public final class Bed implements Usable {
     @Override public String key() { return "bed"; }
     @Override public String name() { return "Bed"; }

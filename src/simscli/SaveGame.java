@@ -15,9 +15,16 @@ import simscli.sims.*;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Handles game serialization and persistence.
+ * Manages saving and loading Sim state to/from file.
+ */
 public final class SaveGame {
     private static final String SAVE_FILE = "savegame.txt";
 
+    /**
+     * Creates the save file if it doesn't exist.
+     */
     public static void ensureSaveFileExists() {
         File file = new File(SAVE_FILE);
         try {
@@ -27,11 +34,19 @@ public final class SaveGame {
         }
     }
 
+    /**
+     * Checks if a valid save file exists with data.
+     * @return true if save file exists and is not empty
+     */
     public static boolean hasValidSaveData() {
         File file = new File(SAVE_FILE);
         return file.exists() && file.length() > 0;
     }
 
+    /**
+     * Saves the current game state to file.
+     * @param game the Game instance to save
+     */
     public static void saveGame(Game game) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(SAVE_FILE))) {
             List<Sim> sims = game.sims();

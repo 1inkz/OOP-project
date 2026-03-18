@@ -10,12 +10,27 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import java.util.List;
 
+/**
+ * Interactive action that lets the player choose which pet to groom.
+ *
+ * <p>Displays the Sim's pets, allows grooming a single pet or all pets, and
+ * delegates single-pet grooming to {@link GroomPet}.</p>
+ */
+
 public final class GroomPetMenu implements Action {
 
     @Override
     public String name() {
         return "Groom Pet";
     }
+
+    /**
+     * Displays the pet-grooming menu and performs the selected grooming action.
+     *
+     * @param sim the Sim whose pets are being managed
+     * @param ctx the active game context, used to collect user input
+     * @return a message describing the outcome of the selected action
+     */
 
     @Override
     public String perform(Sim sim, GameContext ctx) {

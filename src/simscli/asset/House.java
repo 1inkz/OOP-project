@@ -1,6 +1,15 @@
 package simscli.asset;
 
+/**
+ * House asset: unlocks Home location with residential actions.
+ */
 public class House extends Asset {
+    /**
+     * Creates a house with ID, name, and purchase value.
+     * @param id unique house identifier
+     * @param name house display name
+     * @param purchaseValue purchase cost
+     */
     public House(int id, String name, int purchaseValue) {
         super(id, name, purchaseValue);
     }

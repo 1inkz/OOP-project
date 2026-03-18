@@ -7,6 +7,10 @@ import simscli.sims.Sim;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType;
 
+/**
+ * Action: Work at current job to earn Simcoin and advance job level.
+ * Earnings scale with job level and primary skill levels.
+ */
 public final class Work implements Action {
 
     private static final String RED = "\u001B[31m";

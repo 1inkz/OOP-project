@@ -6,6 +6,9 @@ import simscli.sims.Sim;
 import simscli.stats.Effect;
 import simscli.stats.NeedType;
 
+/**
+ * Action: Use the toilet to restore bladder need.
+ */
 public final class UseToilet implements Action {
     @Override public String name() { return "Use Toilet"; }
 

@@ -14,10 +14,20 @@ public final class Effect {
         this.deltas = deltas;
     }
 
+    /**
+     * Creates an empty effect with no stat changes.
+     * @return new empty Effect
+     */
     public static Effect none() {
         return new Effect(new EnumMap<>(NeedType.class));
     }
 
+    /**
+     * Returns a new Effect with an additional need delta.
+     * @param need the need type to modify
+     * @param delta the amount to change
+     * @return new Effect with the added delta
+     */
     public Effect plus(NeedType need, int delta) {
         EnumMap<NeedType, Integer> copy = new EnumMap<>(deltas);
         copy.put(need, copy.getOrDefault(need, 0) + delta);
@@ -26,6 +36,10 @@ public final class Effect {
     
 
 
+    /**
+     * Gets the map of need deltas in this effect.
+     * @return defensive copy of deltas
+     */
     public Map<NeedType, Integer> deltas() {
         return new EnumMap<>(deltas);
     }

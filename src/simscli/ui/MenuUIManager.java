@@ -8,6 +8,9 @@ import simscli.SaveGame;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages main menus including start, Sim management, and sub-menus.
+ */
 public class MenuUIManager {
 	
     private final Game game;
@@ -25,6 +28,9 @@ public class MenuUIManager {
         this.simUIManager = new SimUIManager(game, in, uiHelper, this);
     }
     
+    /**
+     * Displays the initial start menu with continue/new game options.
+     */
     public void showInitialMenu() {
         boolean initialMenuRunning = true;
 
@@ -102,6 +108,9 @@ public class MenuUIManager {
         }
     }
     
+    /**
+     * Displays Sim management menu for creation and selection.
+     */
     public void showSimManagementMenu() {
         boolean simMenuRunning = true;
         

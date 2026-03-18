@@ -10,12 +10,27 @@ import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import java.util.List;
 
+/**
+ * Interactive action that lets the player choose which pet to play with.
+ *
+ * <p>Displays the Sim's pets, allows playing with a single pet or all pets,
+ * and delegates single-pet play to {@link PlayWithPet}.</p>
+ */
+
 public final class PlayWithPetMenu implements Action {
 
     @Override
     public String name() {
         return "Play with Pets";
     }
+
+    /**
+     * Displays the pet-play menu and performs the selected action.
+     *
+     * @param sim the Sim whose pets are being managed
+     * @param ctx the active game context, used to collect user input
+     * @return a message describing the outcome of the selected action
+     */
 
     @Override
     public String perform(Sim sim, GameContext ctx) {

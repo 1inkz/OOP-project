@@ -4,6 +4,9 @@ import simscli.actions.Action;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 
+/**
+ * World object: Television for entertainment.
+ */
 public final class TV implements Usable {
     @Override public String key() { return "tv"; }
     @Override public String name() { return "Television"; }

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Manages location travel, asset operations, and location action menus.
+ */
 public class BusinessUIManager {
 	
     private Game game;
@@ -25,6 +28,9 @@ public class BusinessUIManager {
         this.uiHelper = uiHelper;
     }
 
+    /**
+     * Displays available locations for travel.
+     */
     public void showTravelToLocationMenu() {
     	Sim activeSim = game.activeSim();
         uiHelper.printDynamicTitle("SIMS GAME - Location Menu", uiHelper.DARK_RED);

@@ -24,6 +24,10 @@ public class SimPetsComponent {
         return new ArrayList<>(pets);
     }
 
+    /**
+     * Adds a pet to this Sim's collection.
+     * @param pet the Pet to adopt
+     */
     public void adoptPet(Pet pet) {
         if (pet != null && !pets.contains(pet)) {
             pets.add(pet);

@@ -1,6 +1,9 @@
 package simscli.actions;
 
-// Enum representing all possible action types in the game.
+/**
+ * Enum of all action types available in the game.
+ * Used by ActionFactory to instantiate action objects.
+ */
 public enum ActionType {
     EAT_SNACK,
     EAT_MEAL,
