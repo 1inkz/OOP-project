@@ -68,16 +68,34 @@ public class SimEmploymentComponent {
      * Simulates work, applying costs and earning simcoin.
      * Returns work result message.
      */
-    public WorkResult work(String simName) {
+    public WorkResult work(String simName, SimType simType) {
         if (!job.canWork()) {
             return new WorkResult(false, simName + " is jobless. Get a job first!");
         }
-
+        //base cost of working: energy and hunger loss, scaled by job level
         Effect cost = Effect.none()
                 .plus(NeedType.ENERGY, -20)
                 .plus(NeedType.HUNGER, -15);
-
+        
+        //base earnings: scaled by job level and sim type
         int earned = (int) Math.round(job.salary(getJobLevel()));
+
+    // ==================== SIM TYPE MODIFIERS ====================
+    switch (simType) {
+        case CHILD:
+            earned = (int) Math.round(earned * 0.5);  // earns less
+            cost = cost.plus(NeedType.ENERGY, -5); // gets tired faster
+            break;
+
+        case ADULT:
+            earned = (int) Math.round(earned * 1.0);  // best worker
+            break;
+
+        case ELDER:
+            earned = (int) Math.round(earned * 0.75);  // earns less
+            cost = cost.plus(NeedType.ENERGY, -10); // much more tired
+            break;
+    }
         setJobLevel(getJobLevel() + 1);
 
         String message = simName + " worked as " + job.name() + " and earned $" + earned + ".";

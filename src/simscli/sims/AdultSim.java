@@ -12,11 +12,11 @@ public final class AdultSim extends Sim {
     @Override
 	public Effect hourlyDecay() {
         return Effect.none()
-                .plus(NeedType.HUNGER,  -5)
-                .plus(NeedType.ENERGY,  -5)
-                .plus(NeedType.HYGIENE, -3)
+                .plus(NeedType.HUNGER,  -3)
+                .plus(NeedType.ENERGY,  -3)
+                .plus(NeedType.HYGIENE, -2)
                 .plus(NeedType.SOCIAL,  -2)
-                .plus(NeedType.FUN,     -3)
+                .plus(NeedType.FUN,     -2)
                 .plus(NeedType.BLADDER, -3);
     }
 }

@@ -122,7 +122,20 @@ public abstract class Sim {
     }
 
     public final int gainSkill(SkillType type, int amount) {
-        return stats.gainSkill(type, amount);
+        int modified = amount;
+        // Apply Sim type modifiers
+        switch (this.type) {
+            case CHILD:
+                modified = (int) Math.round(modified * 1.5);
+                break;
+            case ADULT:
+                modified = (int) Math.round(modified * 1.0);
+                break;
+            case ELDER:
+                modified = (int) Math.round(modified * 0.70);
+                break;
+    }
+        return stats.gainSkill(type, modified);
     }
 
     public final Map<SkillType, Integer> getAllSkillLevels() {
@@ -171,7 +184,7 @@ public abstract class Sim {
             return name + " is not available.";
         }
 
-        SimEmploymentComponent.WorkResult result = employment.work(name);
+        SimEmploymentComponent.WorkResult result = employment.work(name, this.type);
         if (!result.isSuccess()) {
             return result.getMessage();
         }
