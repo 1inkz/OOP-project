@@ -13,7 +13,7 @@ public final class JobFactory {
 
             case "chef": return new ChefJob();
             case "doctor": return new DoctorJob();
-            case "engineer": return new EngineerJob();
+            case "bank teller": return new BankTellerJob();
             case "influencer": return new InfluencerJob();
 
             default:

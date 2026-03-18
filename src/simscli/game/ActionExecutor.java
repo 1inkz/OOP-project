@@ -42,7 +42,7 @@ public class ActionExecutor {
             return activeSim.getName() + " is now a " + activeSim.getJobName()
                     + ". You can work at: " + formatLocationList(workLocations) + ".";
         } catch (IllegalArgumentException e) {
-            return "Unknown job. Try: Chef / Doctor / Engineer / Influencer";
+            return "Unknown job. Try: Chef / Doctor / Bank Teller / Influencer";
         }
     }
 

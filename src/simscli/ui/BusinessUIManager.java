@@ -142,7 +142,7 @@ public class BusinessUIManager {
         String currentJob = activeSim.getJobName();
         System.out.println("Current Job: " + currentJob + " (Level " + activeSim.getJobLevel() + ")" + "\n");
 
-        List<String> allJobs = Arrays.asList("Chef", "Doctor", "Engineer", "Influencer", "Jobless");
+        List<String> allJobs = Arrays.asList("Chef", "Doctor", "Bank Teller", "Influencer", "Jobless");
         List<String> availableJobs = new ArrayList<>();
 
         for (String job : allJobs) {
