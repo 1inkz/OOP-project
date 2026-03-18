@@ -87,12 +87,10 @@ public final class ConsoleUI {
                 menuOptions.add(currentLocationOption);
             }
 
-            if (activeSim.getType().toString() != "CHILD" && activeSim.getType().toString() != "ELDER") {
-                if (jobless.equals("Jobless")) {
-                    menuOptions.add("Find Job");
-                } else {
-                    menuOptions.add("Change Job");
-                }
+            if (jobless.equals("Jobless")) {
+                menuOptions.add("Find Job");
+            } else {
+                menuOptions.add("Change Job");
             }
 
             menuOptions.add("Asset Operations [Buy/Sell Car/House/Hotel]");
