@@ -1,249 +1,141 @@
-## Frequently Asked Questions (FAQ)
-
-Got questions? Good. Your Sim probably does too.
-
-This FAQ is here for quick answers about gameplay, money, assets, needs, travel, and survival.
+❓ FAQ – QUICK HELP
 
 ---
 
-## A. General Questions
+🧠 GENERAL
 
-**Q: What kind of game is this?**
-A: It’s a text-based life simulation game where you manage Sims, their needs, jobs, money, assets, and daily decisions.
+Q: What is this game?
+A: A life simulation where you try not to die while managing everything.
 
-**Q: Is there a win condition?**
-A: Not exactly. The game is open-ended. You can set your own goals, like getting rich, maxing a career, buying a house, or keeping multiple Sims alive.
+Q: Is there a win?
+A: No fixed win. You survive and improve.
 
-**Q: How do I lose?**
-A: A Sim dies if any need reaches 0. If all Sims die, the game ends.
-
-**Q: Can I play with more than one Sim?**
-A: Yes. You can create multiple Sims, but only one is controlled at a time.
-
-**Q: How do I switch Sims?**
-A: Go back to the Sims Management Menu and select another existing Sim.
+Q: How do I lose?
+A: Any need hits 0 → 💀
 
 ---
 
-## B. Needs and Survival
+🍔 NEEDS
 
-**Q: What needs do I have to manage?**
-A: Hunger, Energy, Hygiene, Bladder, and Mood.
-
-**Q: What do the colors mean?**
+Q: What needs do I have?
 A:
+- Hunger
+- Energy
+- Hygiene
+- Social
+- Fun
+- Bladder
 
-* Green = good
-* Yellow = warning
-* Red = critical
-
-**Q: What happens if a need becomes 0?**
-A: Your Sim dies instantly.
-
-**Q: How do I restore needs?**
-A: Use location-based actions:
-
-* Hunger → eat at Restaurant
-* Energy → sleep at Home
-* Hygiene → shower at Home
-* Bladder → use toilet at Home
-* Mood → play or relax at Park
-
-**Q: Do needs change automatically?**
-A: Needs change as time passes. Since actions take time, your needs will keep shifting during gameplay.
-
-**Q: Can I ignore sleep?**
-A: No. At night the game warns you, and at 22:00 your Sim will faint and move to the next day.
-
----
-
-## C. Time and Daily Flow
-
-**Q: What time does the day start and end?**
-A: The day starts at 08:00 and ends at 22:00.
-
-**Q: How much time does one action use?**
-A: Every action uses 1 in-game hour.
-
-**Q: Does traveling also take time?**
-A: Yes. Traveling also costs 1 hour.
-
-**Q: What happens when I sleep?**
-A: Your Sim moves to the next day.
-
-**Q: Do all Sims move to the next day together?**
-A: Yes. The world stays synchronized.
-
----
-
-## D. Jobs and Money
-
-**Q: How do I get a job?**
-A: From the Main Menu, choose **Find Job / Change Job**.
-
-**Q: What jobs are available?**
-A: Chef, Doctor, Engineer, Influencer, and Jobless.
-
-**Q: How do I earn money?**
-A: The main way is by getting a job and working.
-
-**Q: Can I have more than one job?**
-A: No. One Sim can only hold one job at a time.
-
-**Q: How do I improve my pay?**
-A: Work more often to increase your skill level. Higher skill usually means better earnings.
-
-**Q: What does Jobless do?**
-A: No income, but no job responsibilities either.
-
----
-
-## E. Bank, Simcoin, and Loans
-
-**Q: What’s the difference between Simcoin and bank money?**
-A: Simcoin is money on hand. Bank money is stored in your account.
-
-**Q: How do I deposit or withdraw money?**
-A: Go to the Bank and choose Deposit or Withdraw.
-
-**Q: What is the maximum loan?**
-A: $5000.
-
-**Q: Where does loan money go?**
-A: Directly into your Simcoin.
-
-**Q: How do I repay a loan?**
-A: Go to the Bank and choose Repay Loan. Repayment is deducted from Simcoin.
-
-**Q: What happens if I ignore my loan for too long?**
-A: You risk repossession after day 60, and death after day 80 if your funds are still too low.
-
----
-
-## F. House and Car
-
-**Q: What assets can I buy?**
-A: A car and a house.
-
-**Q: How much does a car cost?**
-A: $2000 full price, or $400 down payment with loan support.
-
-**Q: How much does a house cost?**
-A: $5000 full price, or $1500 down payment with loan support.
-
-**Q: Which should I buy first?**
-A: House first. It is much more important for survival.
-
-**Q: Why is the house so important?**
-A: Because Home gives you access to key actions like sleeping, showering, and toilet use.
-
-**Q: What does the car do?**
-A: It makes travel less costly on your needs.
-
-**Q: Can I sell assets?**
-A: Yes, but they sell at reduced value.
-
-**Q: What are the resale values?**
+Q: Why do I keep dying?
 A:
-
-* Car = 60% of purchase value
-* House = 90% of purchase value
-
-**Q: Can I sell if I still have a loan?**
-A: You must clear the loan first.
+- ignored needs
+- ignored sleep
+- bad time management
 
 ---
 
-## G. Travel and Locations
+⏰ TIME
 
-**Q: Where do Sims start?**
-A: On a random street.
+Q: Why is time so hard?
+A: Because EVERYTHING costs time.
 
-**Q: What locations can I visit?**
-A: Street, Park, Bank, Restaurant, Hospital, and Home.
-
-**Q: What’s the difference between walking and driving?**
-A: Walking costs more Energy and Hunger. Driving is more efficient, but you need a car.
-
-**Q: Does driving save time?**
-A: No. Both walking and driving still take 1 hour.
-
-**Q: Can I travel as many times as I want in one day?**
-A: Yes, as long as you still have enough time and your needs can handle it.
-
-**Q: What happens if I’m far from home at night?**
-A: You still risk reaching the forced sleep time at 22:00, so plan carefully.
+Q: What happens at night?
+A:
+20:00 → reminder  
+21:00 → warning  
+22:00 → forced sleep  
 
 ---
 
-## H. Saving and Loading
+💼 JOBS
 
-**Q: How do I save the game?**
-A: The game saves when you choose **Quit Game**.
+Q: How do I earn money?
+A: Get a job and work.
 
-**Q: How do I load the game again?**
-A: Use **Continue Game** from the Start Menu.
-
-**Q: Does New Game keep my old progress?**
-A: No. New Game resets everything.
-
-**Q: Can I have multiple save files?**
-A: Not in the current system. It uses one save state.
+Q: Jobs available?
+A:
+- Chef
+- Doctor
+- Bank Teller
+- Influencer
 
 ---
 
-## I. Common Problems
+💳 MONEY & LOANS
 
-**Q: Why can't I run my code?
-A: Run these commands 
-* "cd ../bin"
-* "java simscli.Main"
+Q: Should I take loans?
+A: Only if you know what you’re doing.
 
-B: For visual studio code error:
-Ctrl Shift P and Run "Java: Clean Java Language Server Workspace" then Restart VS code
-
-**Q: Why can’t I buy a house or car?**
-A: Usually because:
-
-* you don’t have enough Simcoin
-* you don’t have enough for the down payment
-* your loan limit is already too high
-
-**Q: Why does my Sim keep dying?**
-A: Most likely because a need reached 0, or you failed to manage sleep, hunger, or debt.
-
-**Q: Why can’t I sleep?**
-A: You need access to Home.
-
-**Q: Why can’t I work?**
-A: Make sure your Sim has a job and is at the correct location for that job.
-
-**Q: Why did my asset disappear?**
-A: It may have been repossessed due to unpaid loan conditions.
+Q: What happens if I ignore loans?
+A:
+- repossession
+- worse consequences later
 
 ---
 
-## J. Quick Tips
+🏠 ASSETS
 
-**Q: What should I do first in a new game?**
-A: Get a job, earn money, and work toward buying a house.
+Q: Best first asset?
+A: 🏠 House
 
-**Q: Should I get a car early?**
-A: Only after your house situation is secure.
-
-**Q: What is the safest strategy?**
-A: Keep needs out of red, avoid bad loans, and always plan your time before night.
-
-**Q: What should I check often?**
-A: Your status screen. It helps prevent stupid deaths.
+Q: Why?
+A: It unlocks survival actions.
 
 ---
 
-## Final Tip
+🌍 LOCATIONS
 
-If you are new, read the **Tutorial** first.
-If you are stuck on one rule or mechanic, use this **FAQ**.
+Q: Why can’t I go Home?
+A: You don’t own a house yet.
 
-Good luck keeping your Sim alive.
+Q: Why do locations matter?
+A: Different actions only exist in certain places.
 
 ---
+
+🐶 PETS
+
+Q: Should I get pets early?
+A: ❌ No
+
+Q: Why?
+A: More responsibility → easier to fail
+
+---
+
+💾 SAVE
+
+Q: Does the game save?
+A: Yes → `savegame.txt`
+
+---
+
+🛠 TROUBLESHOOTING
+
+Q: Game won’t run?
+A:
+Run:
+java simscli.Main
+
+Q: VS Code bug?
+A:
+- Clean Java workspace
+- Restart IDE
+
+---
+
+🔥 QUICK TIPS
+
+- check status often 👀  
+- don’t ignore time ⏰  
+- don’t go into red zone 🔴  
+- house first 🏠  
+- don’t be greedy 💳  
+
+---
+
+💬 FINAL ADVICE
+
+This game is simple to understand…
+
+But VERY easy to mess up 😄

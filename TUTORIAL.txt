@@ -1,407 +1,137 @@
-## 🧭 Tutorial & Quick Start Guide
+🎮 TUTORIAL – START HERE
 
-Welcome to your new life 👀
-In this game, you’re not just playing… you’re **surviving adulthood simulator**.
+Welcome to The Sims (Terminal Edition)!
 
-You’ll manage:
-
-* 🧍 Your Sim’s needs
-* 💰 Money & debt
-* 🏠 Assets (yes, adulting hits hard)
-* ⏱ Time (your biggest enemy)
-
-Let’s get you started.
+This guide helps you survive your FIRST few days without dying instantly 💀
 
 ---
 
-## 🧾 Table of Contents
-
-1. Getting Started
-2. Creating Your First Sim
-3. Understanding the Main Menu
-4. Managing Needs (DON’T DIE)
-5. Making Money
-6. Assets (Car & House)
-7. Banking & Loans
-8. Traveling
-9. Locations & Actions
-10. Pro Tips (How to not suffer)
-
----
-
-## 🚀 1. Getting Started
-
-When you launch the game, you’ll see:
-
-* **New Game** → Start fresh
-* **Continue Game** → Load your save
-* **Quit Game** → Exit
-
-👉 First time?
-**Pick "New Game" and let the chaos begin.**
-
----
-
-## 🧍 2. Creating Your First Sim
+🧍 STEP 1: CREATE YOUR SIM
 
 Go to:
+Sims Menu → Create New Sim
 
-> **Create New Sims**
-
-Choose your Sim type:
-
-* 👶 **Child** → Lower income, slower progression
-* 🧑 **Adult** → Balanced gameplay (recommended)
-* 👴 **Elder** → Unique bonuses, different needs
-
-Then:
-
-1. Enter a name
-2. Select your Sim
-3. Enter the Main Menu
-
-💡 **Tip:**
-Multiple Sims = shared resources + more strategy (but also more chaos).
+- pick a type
+- enter a name
+- select your Sim
 
 ---
 
-## 🧠 3. Understanding the Main Menu
+📋 STEP 2: UNDERSTAND YOUR MENU
 
-This is your control center.
+Main menu controls EVERYTHING:
 
-### Key options:
-
-**1) View Status**
-See everything:
-
-* Needs
-* Job & level
-* Money
-* Assets
-* Loan
-
-👉 You’ll use this A LOT.
+👀 View Status → CHECK THIS OFTEN  
+✈️ Travel → move around  
+📍 Location Actions → do stuff  
+💼 Job → earn money  
+🏠 Assets → buy things  
+⏰ Pass Time → advance game  
 
 ---
 
-**2) Travel**
-Move between locations (costs time + energy)
+🍔 STEP 3: DO NOT DIE (NEEDS)
+
+Your needs:
+- Hunger 🍔
+- Energy 😴
+- Hygiene 🚿
+- Social 🗣
+- Fun 🎮
+- Bladder 🚽
+
+💀 ANY = 0 → death
 
 ---
 
-**3) Location Actions**
-Do things like:
+⏰ STEP 4: TIME IS YOUR ENEMY
 
-* Eat 🍔
-* Sleep 😴
-* Work 💼
+- actions cost time
+- travel costs time
+- needs decay over time
 
----
-
-**4) Job Management**
-Get rich (or try to)
-
----
-
-**5) Assets**
-Buy/sell car or house
+🌙 Night:
+20:00 → reminder  
+21:00 → warning  
+22:00 → forced sleep  
 
 ---
 
-**6) Pass Time (+1 hour)**
-Everything in this game costs time ⏱
+💼 STEP 5: GET A JOB
+
+No job = no money = you suffer
+
+Pick:
+- Chef
+- Doctor
+- Bank Teller
+- Influencer
+
+👉 Work → earn → survive
 
 ---
 
-## ⚠️ 4. Managing Needs (THIS KILLS YOU)
+🏠 STEP 6: GET A HOUSE
 
-Your Sim has needs:
+This is HUGE:
 
-* 🍔 Hunger
-* ⚡ Energy
-* 🚿 Hygiene
-* 🚽 Bladder
-* 🙂 Mood
+Without house ❌  
+- no proper sleep  
+- no shower  
+- no toilet  
 
-### Status Colors:
-
-| Level    | Meaning |
-| -------- | ------- |
-| 🟢 ≥60   | Safe    |
-| 🟡 21–59 | Warning |
-| 🔴 ≤20   | DANGER  |
-
-### 💀 If ANY need hits 0:
-
-**Your Sim dies instantly. Game Over.**
+👉 House = survival unlocked
 
 ---
 
-### 🧩 How to fix needs:
+💳 STEP 7: LOANS (BE CAREFUL)
 
-| Need    | Solution     |
-| ------- | ------------ |
-| Hunger  | Restaurant   |
-| Energy  | Sleep (Home) |
-| Hygiene | Shower       |
-| Bladder | Toilet       |
-| Mood    | Park         |
+Loans help you early…
+
+BUT:
+👉 ignore them → bad things happen
 
 ---
 
-### 😴 Sleep System
+🐶 STEP 8: PETS (ADVANCED MODE)
 
-* 20:00 → “You should sleep soon…”
-* 21:00 → “SERIOUSLY go sleep”
-* 22:00 → 💀 *You collapse*
+Pets are:
+- fun 🎾
+- extra responsibility 😅
 
-👉 Sleep = next day (08:00)
-
----
-
-## 💰 5. Making Money
-
-No money = no life.
-
-### Jobs available:
-
-* 👨‍🍳 Chef
-* 🩺 Doctor
-* 🧑‍💻 Engineer
-* 📱 Influencer
-* 🧍 Jobless (good luck bro)
+👉 Don’t get pets too early
 
 ---
 
-### How to work:
+🧠 SAFE START STRATEGY
 
-1. Get a job
-2. Go to correct location
-3. Work = earn money
-
----
-
-### 📈 Progression:
-
-* Levels: 1 → 10
-* Higher level = more money
-* Level up by working repeatedly
-
-💡 You can switch jobs anytime.
+1. Get job 💼  
+2. Monitor needs 👀  
+3. Don’t waste time ⏰  
+4. Save money 💰  
+5. Buy house 🏠  
+6. THEN expand  
 
 ---
 
-## 🏠 6. Assets (Car & House)
+❌ COMMON MISTAKES
 
-Welcome to debt simulator.
-
----
-
-### 🚗 Car
-
-* Cost: $2000
-* Down payment: $400
-* Sell value: 60%
-
-**Benefit:**
-
-* Cheaper travel (less energy + hunger)
+- ignoring needs  
+- working too much  
+- taking too many loans  
+- forgetting time  
+- buying assets too early  
 
 ---
 
-### 🏡 House
+🏁 FINAL TIP
 
-* Cost: $5000
-* Down payment: $1500
-* Sell value: 90%
+Think before every action.
 
-**Benefit:**
-
-* You can SLEEP (very important 💀)
-* Better need recovery
+This game rewards:
+👉 planning > rushing
 
 ---
 
-### 🧠 Priority:
-
-👉 **House > Car**
-
----
-
-## 🏦 7. Banking & Loans
-
-### You have:
-
-* 💵 Simcoin (cash)
-* 🏦 Bank account
-
----
-
-### Actions:
-
-* Deposit
-* Withdraw
-* Take loan
-* Repay loan
-
----
-
-### 💳 Loan Rules:
-
-* Max: $5000
-* Used for assets
-
----
-
-### ⚠️ Consequences:
-
-#### After 60 days:
-
-* You may lose car or house (repossession)
-
-#### After 80 days:
-
-* If money < loan → 💀 YOU DIE
-
----
-
-💡 **Golden rule:**
-Don’t take loans you can’t repay.
-
----
-
-## 🗺️ 8. Traveling
-
-You start on a random street.
-
-To do anything → you must travel.
-
----
-
-### 🚶 Walking
-
-* Energy −15
-* Hunger +10
-
----
-
-### 🚗 Driving (if you have car)
-
-* Energy −5
-* Hunger +0
-
----
-
-💡 Travel = 1 hour always
-
----
-
-## 📍 9. Locations & Actions
-
-### 🌆 Street
-
-* Starting point
-* Limited actions
-
----
-
-### 🌳 Park
-
-* Improve mood
-* Relax
-
----
-
-### 🏦 Bank
-
-* Money stuff
-
----
-
-### 🍽 Restaurant
-
-* Eat
-* Chef work
-
----
-
-### 🏥 Hospital
-
-* Health
-* Doctor work
-
----
-
-### 🏡 Home (IMPORTANT)
-
-* Sleep
-* Shower
-* Toilet
-
-👉 No house = suffering.
-
----
-
-## 🧠 10. Pro Tips (Read This Seriously)
-
-### 🗓 Example Day
-
-* 08:00 → Wake up
-* 09:00 → Work
-* 12:00 → Eat
-* 14:00 → Relax
-* 17:00 → Work
-* 20:00 → Prepare to sleep
-* 22:00 → Sleep
-
----
-
-### 🧩 Survival Strategy
-
-1. 🏡 Get a house ASAP
-2. 💼 Get a job early
-3. 🔴 NEVER ignore red needs
-4. 😴 Sleep before 22:00
-5. 💳 Keep loans low
-
----
-
-### 💡 Advanced Tips
-
-* Car = long-term efficiency
-* Bank money = safety
-* Multi-Sim = shared resources
-* Time = your most valuable resource
-
----
-
-### ❌ Common Mistakes
-
-* Ignoring needs → 💀
-* Taking huge loans → 💀
-* Not sleeping → 💀
-* Overspending → 💀
-* Not planning time → 💀
-
-(Yes, everything leads to death. Welcome to Sims.)
-
----
-
-## 🎉 Final Words
-
-You’re now ready.
-
-Will your Sim:
-
-* Become rich 💰
-* Own a house 🏡
-* Live a balanced life 🙂
-
-Or…
-
-Die on Day 2? 💀
-
----
-
-👉 Check `FAQ.txt` anytime if you’re stuck.
-Good luck—you’re gonna need it 😏
+If stuck:
+👉 read FAQ.txt

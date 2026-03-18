@@ -1,309 +1,192 @@
 # 🎮 THE SIMS – TERMINAL CONSOLE EDITION
 
-A text-based life simulation game where you create and manage virtual characters, balance their needs, build wealth, and survive day-to-day life decisions.
+A Java-based terminal life simulation game where you manage Sims, balance their needs, earn money, buy assets, adopt pets, and try not to accidentally ruin their lives.
 
 ---
 
-## 📌 Overview
+## 🧠 Overview
 
-**The Sims – Console Edition** is a command-line simulation game that challenges players to manage:
+Welcome to a **SIMS survival simulator**.
 
-* 🧍 Character needs (hunger, energy, hygiene, etc.)
-* 💰 Finances (cash, bank account, loans)
-* 🏠 Assets (cars and houses)
-* 💼 Careers and income
-* ⏱ Time progression and daily cycles
+In this game, you will manage:
+- 🧍 Sims and their daily lives
+- 🍔 Needs (yes… all of them)
+- 💼 Jobs and income
+- 💳 Banking and loans
+- 🏠 Assets (Car, House, Hotel)
+- 🐶 Pets (because why not make life harder)
+- ⏰ Time (your biggest enemy)
 
-Your goal?
-👉 Keep your Sims alive, financially stable, and progressing in life.
-
----
-
-## 🚀 Quick Start
-
-### New to the game?
-
-👉 Read `TUTORIAL.txt` for a step-by-step walkthrough of gameplay and mechanics.
-
-### Need help?
-
-👉 Check `FAQ.txt` for common questions and strategies.
+👉 Goal: **Stay alive, stay stable, and don’t go broke.**
 
 ---
 
-## 🎯 Core Features
+## 🔥 Core Systems
+
+### 🧍 Sim System
+Each Sim has:
+- needs
+- job & progression
+- finances
+- assets
+- pets
+- location
+
+You can create multiple Sims, but control one at a time.
 
 ---
 
-### 🧠 General Gameplay
+### 🍔 Needs System (DO NOT IGNORE THIS)
 
-* Save progress automatically when quitting
-* Start fresh with **New Game**
-* Sims spawn at a random street initially
-* Built-in tutorial and FAQ system
-* 💀 **Death System**:
+- Hunger
+- Energy
+- Hygiene
+- Social
+- Fun
+- Bladder
 
-  * Any need reaching **0 → instant death**
-  * If all Sims die → **Game Over**
+💀 If ANY hits **0 → your Sim dies, so watch out!**
 
----
-
-### ⏱ Time System
-
-* Every action advances time by **+1 hour**
-* Daily cycle:
-
-  * 🌅 Start: **08:00**
-  * 🌙 End: **22:00**
-* Needs update every hour
-
-#### 😴 Sleep Mechanics
-
-* 20:00 → Reminder to sleep
-* 21:00 → Warning
-* 22:00 → Forced faint (skip to next day)
-
-> ⚠️ Sleeping always advances to the next day (08:00)
+| Level | Status |
+|------|--------|
+| 60+  | 🟢 Good |
+| 21–59| 🟡 Warning |
+| 0–20 | 🔴 Critical |
 
 ---
 
-### ❤️ Needs System
+### ⏰ Time System (THE REAL BOSS)
 
-Each Sim has dynamic needs:
+- Every action ≈ 1 hour
+- Travel also costs time
+- Time keeps moving → your needs keep dropping
 
-| Level Range | Status      |
-| ----------- | ----------- |
-| ≥ 60        | 🟢 Good     |
-| 21–59       | 🟡 Moderate |
-| ≤ 20        | 🔴 Critical |
+🌙 Night system:
+- 20:00 → 😴 Reminder
+- 21:00 → ⚠️ Warning
+- 22:00 → 💀 Forced sleep / faint
 
-* Needs change hourly
-* Poor management leads to death
-
----
-
-### 💰 Money System
-
-Two types of currency:
-
-* **Simcoin** (on-hand cash)
-* **Bank Account**
-
-#### Available Actions:
-
-* Deposit / Withdraw
-* Apply Loan (max: **$5000**)
-* Repay Loan
-
-> Loans are credited directly to Simcoin
+👉 Ignore time → you lose control fast
 
 ---
 
-### 🏠 Asset System
+### 💼 Jobs & Income
 
-#### Asset Types:
+Jobs available:
+- 👨‍🍳 Chef
+- 🏥 Doctor
+- 🏦 Bank Teller
+- 📱 Influencer
+- 🚫 Jobless
 
-* 🚗 Car — $2000
-* 🏡 House — $5000
+💰 Work → earn money  
+📈 Work more → earn better
 
-#### Purchase Options:
-
-| Condition                              | Result        |
-| -------------------------------------- | ------------- |
-| Enough cash                            | Buy outright  |
-| Enough for down payment + loan < $5000 | Buy with loan |
-| Loan ≥ $5000                           | ❌ Cannot buy  |
-| Cash < down payment                    | ❌ Cannot buy  |
-
-#### Down Payments:
-
-* Car: $400 (+$1600 loan)
-* House: $1500 (+$3500 loan)
+BUT:
+👉 Work too much → your needs crash
 
 ---
 
-### 💸 Selling Assets
+### 💳 Banking & Loans
 
-* Car → 60% resale value
-* House → 90% resale value
-* Must **clear loan first** before selling
+Money is split into:
+- 💵 Simcoin (on hand)
+- 🏦 Bank balance
 
----
+You can:
+- deposit
+- withdraw
+- take loans
+- repay loans
 
-### 🏦 Loan System
-
-Loan penalties depend on time and assets:
-
-#### After 60 Days:
-
-* Loan > $2000:
-
-  * Own house → house repossessed
-  * No house → car repossessed
-* Loan < $2000:
-
-  * Car repossessed
-
-#### After 80 Days:
-
-* If **(bank + cash) < loan → 💀 death**
+⚠️ Loans = helpful but dangerous  
+Ignore them → repossession → death risk
 
 ---
 
-### 📍 Location System
+### 🏠 Assets
 
-#### Available Locations:
+Available:
+- 🚗 Car → better travel
+- 🏠 House → unlock survival actions
+- 🏨 Hotel → passive income
 
-* Street (starting point only)
-* Park
-* Bank
-* Restaurant
-* Hospital
-* Home
-
-#### Travel Methods:
-
-| Method | Effect                    |
-| ------ | ------------------------- |
-| Walk   | Hunger +10, Energy −15    |
-| Drive  | No penalty (requires car) |
+💡 Beginner tip:
+👉 House > everything else early game
 
 ---
 
-## 🧭 Game Menu Structure
+### 🐶 Pets System
+
+Yes… you can make life harder:
+
+- buy pets 🐾
+- feed 🍖
+- clean 🧼
+- play 🎾
+- sleep together 😴
+
+⚠️ Pets:
+- need care
+- age
+- can die
+
+👉 Don’t get pets if you’re already struggling 😅
 
 ---
 
-### 🎮 Start Menu
+### 🌍 Locations
 
-```
-1) New Game
-2) Continue Game
-3) Quit Game
-```
+- 🚶 Street
+- 🏠 Home (requires house!)
+- 🌳 Park
+- 🏦 Bank
+- 🍽 Restaurant
+- 🏥 Hospital
+- 🐶 Pet Store
 
----
-
-### 👥 Sims Management Menu
-
-```
-1) Create New Sims
-2) Select Existing Sims
-3) Enter Sim Main Menu
-4) Return to Start Menu
-5) Quit Game
-```
+Different places = different actions
 
 ---
 
-### 🧍 Sim Main Menu
+## 🕹️ Menu System
 
-```
-Time: Day X, XX:00
+### Start Menu
+- New Game
+- Continue Game
+- Quit
 
-1) View Status
-2) Travel
-3) Location Actions
-4) Job Management
-5) Asset Operations
-6) Pass Time (+1 hour)
-7) View FAQ
-8) Back
-9) Quit
-```
+### Sims Menu
+- Create Sim
+- Select Sim
+- Enter Game
 
----
-
-### 📍 Location Menu
-
-```
-Current Location: XXX
-Car: Yes/No | House: Yes/No
-
-1) Travel to Location
-N) Back
-```
+### Main Menu
+- View Status 👀
+- Travel ✈️
+- Location Actions 📍
+- Job Management 💼
+- Assets 🏠
+- Pass Time ⏰
 
 ---
 
-### ⚙️ Location Action Menu
+## 💾 Save System
 
-```
-Time: Day X, XX:00
-Needs: XXX
+Game saves:
+- time ⏰
+- Sims 🧍
+- jobs 💼
+- needs 🍔
+- money 💰
+- assets 🏠
+- pets 🐶
 
-1) Perform Action
-2) Perform Action
-N) Back
-```
-
----
-
-### 💼 Job System
-
-Available Jobs:
-
-* Chef
-* Doctor
-* Engineer
-* Influencer
-* Jobless
-
-```
-Change Job Menu:
-1) Select Job
-2) Back
-```
+📄 Saved in: `savegame.txt`
 
 ---
 
-### 🏠 Asset Operations
+## 🚀 How to Run
 
-```
-Car: Yes/No | House: Yes/No
-Cash: $X | Loan: $X
-
-1) Buy Car
-2) Buy House
-3) Sell Asset
-4) Back
-```
-
----
-
-### 🏦 Bank Menu
-
-```
-Deposit: $X | Loan: $X | Cash: $X
-
-1) Work
-2) Deposit
-3) Withdraw
-4) Apply Loan
-5) Repay Loan
-6) Back
-```
-
----
-
-## ❓ FAQ Highlights
-
-* 💼 Earn money → Get a job + work
-* ❤️ Restore needs → Use location actions
-* 🚗 Car → Enables free travel (no penalties)
-* 🏡 House → Unlocks better actions + bonuses
-* 🏦 Bank account → Requires ≥ $500
-* 😴 Faint → Happens at 22:00 automatically
-* 💀 Death → Any need reaches 0
-
----
-
-## 🧩 Game Strategy Tips
-
-* ⚖️ Balance needs early — don’t rush money
-* 🚗 Buy a car early to reduce travel penalties
-* 🏡 House gives long-term efficiency boost
-* 💳 Don’t over-loan — repossession is brutal
-* ⏳ Time management is EVERYTHING
-
----
+```bash
+java simscli.Main
