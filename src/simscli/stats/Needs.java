@@ -62,7 +62,7 @@ public final class Needs {
     /**
      * Checks if a need is in critical state.
      * @param t the need type to check
-     * @return true if need value <= 15
+     * @return true if need value &lt;= 15
      */
     public boolean isCritical(NeedType t) {
         return stats.get(t).isCritical();

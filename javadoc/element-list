@@ -1,0 +1,16 @@
+simscli
+simscli.actions
+simscli.actions.banking
+simscli.actions.interactive
+simscli.actions.pet
+simscli.actions.simple
+simscli.asset
+simscli.bank
+simscli.game
+simscli.jobs
+simscli.location
+simscli.pets
+simscli.sims
+simscli.stats
+simscli.ui
+simscli.world

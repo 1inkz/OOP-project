@@ -32,20 +32,88 @@ public abstract class Pet {
         this.type = type;
     }
 
+    /**
+     * Gets the pet's name.
+     * @return the pet's name
+     */
     public String getName() { return name; }
+    
+    /**
+     * Gets the pet's type (Dog, Cat, or Bunny).
+     * @return the pet's type
+     */
     public PetType getType() { return type; }
+    
+    /**
+     * Gets the health stat.
+     * @return the health BoundedStat
+     */
     public BoundedStat getHealth() { return health; }
+    
+    /**
+     * Gets the hunger stat.
+     * @return the hunger BoundedStat
+     */
     public BoundedStat getHunger() { return hunger; }
+    
+    /**
+     * Gets the cleanliness stat.
+     * @return the cleanliness BoundedStat
+     */
     public BoundedStat getCleanliness() { return cleanliness; }
+    
+    /**
+     * Gets the happiness stat.
+     * @return the happiness BoundedStat
+     */
     public BoundedStat getHappiness() { return happiness; }
+    
+    /**
+     * Gets the experience points.
+     * @return the experience amount
+     */
     public int getExperience() { return experience; }
+    
+    /**
+     * Gets the current level.
+     * @return the level
+     */
     public int getLevel() { return level; }
+    
+    /**
+     * Gets the age in hours.
+     * @return the age
+     */
     public int getAge() { return age; }
+    
+    /**
+     * Checks if the pet is alive.
+     * @return true if alive, false if dead
+     */
     public boolean isAlive() { return alive; }
 
+    /**
+     * Sets the alive status.
+     * @param alive true to alive, false for dead
+     */
     public void setAlive(boolean alive) { this.alive = alive; }
+    
+    /**
+     * Sets the experience points.
+     * @param exp the new experience amount
+     */
     public void setExperience(int exp) { this.experience = exp; }
+    
+    /**
+     * Sets the level.
+     * @param lvl the new level
+     */
     public void setLevel(int lvl) { this.level = lvl; }
+    
+    /**
+     * Sets the age.
+     * @param a the new age
+     */
     public void setAge(int a) { this.age = a; }
 
     /**
@@ -97,6 +165,7 @@ public abstract class Pet {
 
     /**
      * Serialize pet data to a string for saving (format: name-TYPE-health-hunger-cleanliness-happiness-exp-level-age-alive)
+     * @return serialized pet data string
      */
     public String serialize() {
         return String.format("%s-%s-%d-%d-%d-%d-%d-%d-%d-%s",
@@ -116,6 +185,8 @@ public abstract class Pet {
     /**
      * Deserialize pet data from saved string
      * Format: name-TYPE-health-hunger-cleanliness-happiness-exp-level-age-alive
+     * @param petData the serialized pet data string
+     * @return the deserialized Pet object
      */
     public static Pet deserialize(String petData) {
         if (petData == null || petData.trim().isEmpty()) {

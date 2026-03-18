@@ -74,9 +74,28 @@ public abstract class Sim {
     }
 
     // Core Identity
+    /**
+     * Gets this Sim's name.
+     * @return the Sim's name
+     */
     public final String getName() { return name; }
+    
+    /**
+     * Gets this Sim's type (Adult, Child, or Elder).
+     * @return the Sim's type
+     */
     public final SimType getType() { return type; }
+    
+    /**
+     * Checks if this Sim is still alive.
+     * @return true if alive, false otherwise
+     */
     public final boolean isAlive() { return stats.isAlive(); }
+    
+    /**
+     * Sets this Sim's alive status.
+     * @param alive true to mark as alive, false for dead
+     */
     public void setAlive(boolean alive) { stats.setAlive(alive); }
 
     /**
@@ -87,6 +106,11 @@ public abstract class Sim {
     public abstract Effect hourlyDecay();
     
     // ==================== Time Management ====================
+    /**
+     * Gets how many in-game days this Sim has existed.
+     * @param game the Game instance to check current day
+     * @return the number of days since this Sim was created
+     */
     public int getPersonalDay(Game game) {
         if (game == null || game.getClock() == null) {
             return 1;
@@ -96,18 +120,34 @@ public abstract class Sim {
         return Math.max(1, personalDay);
     }
     
+    /**
+     * Gets the day this Sim was created.
+     * @return the starting day number
+     */
     public int getStartDay() {
         return this.startDay;
     }
     
+    /**
+     * Sets the day this Sim was created.
+     * @param startDay the starting day number (must be positive)
+     */
     public void setStartDay(int startDay) {
         this.startDay = Math.max(1, startDay);
     }
     
+    /**
+     * Gets the day when an asset loan was taken out.
+     * @return the loan start day or 0 if no loan
+     */
     public int getLoanStartDay() {
         return assets.getLoanStartDay();
     }
     
+    /**
+     * Sets the day when an asset loan was taken out.
+     * @param loanStartDay the loan start day
+     */
     public void setLoanStartDay(int loanStartDay) {
         assets.setLoanStartDay(loanStartDay);
     }
@@ -209,10 +249,19 @@ public abstract class Sim {
     }
 
     // ==================== Location Management ====================
+    /**
+     * Gets the current location.
+     * @return the Location where this Sim is
+     */
     public final Location getLocation() {
         return location;
     }
 
+    /**
+     * Sets the current location.
+     * @param location the Location to move to (non-null)
+     * @throws IllegalArgumentException if location is null
+     */
     public final void setLocation(Location location) {
         if (location == null) {
             throw new IllegalArgumentException("location required");
@@ -294,46 +343,90 @@ public abstract class Sim {
     }
 
     // ==================== Banking Management ====================
+    /**
+     * Gets the banking system.
+     * @return the BankingSystem instance
+     */
     public BankingSystem getBankingSystem() { 
         return banking.getBankingSystem(); 
     }
     
+    /**
+     * Applies bank interest to deposits.
+     */
     public void settleBankInterest() { 
         banking.settleBankInterest(); 
     }
     
+    /**
+     * Gets the bank deposit amount.
+     * @return current bank deposit
+     */
     public int getBankDeposit() { 
         return banking.getBankDeposit(); 
     }
     
+    /**
+     * Sets the bank deposit amount.
+     * @param v the new deposit amount
+     */
     public void setBankDeposit(int v) { 
         banking.setBankDeposit(v); 
     }
     
+    /**
+     * Gets the current Simcoin (cash) amount.
+     * @return cash on hand
+     */
     public final int getSimcoin() { 
         return banking.getSimcoin(); 
     }
     
+    /**
+     * Sets the cash amount.
+     * @param v the new cash amount
+     */
     public void setSimcoin(int v) { 
         banking.setSimcoin(v); 
     }
     
+    /**
+     * Gets the outstanding loan amount.
+     * @return loan amount or 0 if no loan
+     */
     public int getLoanAmount() { 
         return banking.getLoanAmount(); 
     }
     
+    /**
+     * Sets the loan amount.
+     * @param v the new loan amount
+     */
     public void setLoanAmount(int v) { 
         banking.applyLoan(v); 
     }
 
+    /**
+     * Earns money (adds to cash).
+     * @param amount the amount to earn
+     */
     public final void earnSimcoin(int amount) {
         banking.earnSimcoin(amount);
     }
 
+    /**
+     * Spends money from cash.
+     * @param amount the amount to spend
+     * @return true if sufficient funds, false otherwise
+     */
     public boolean spendSimcoin(int amount) {
         return banking.spendSimcoin(amount);
     }
 
+    /**
+     * Adds money (alias for earnSimcoin).
+     * @param amount the amount to add
+     */
     public void addSimcoin(int amount) {
         earnSimcoin(amount);
     }

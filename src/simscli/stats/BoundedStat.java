@@ -55,7 +55,7 @@ public final class BoundedStat {
 
     /**
      * Checks if stat is in critical state.
-     * @return true if value <= 15
+     * @return true if value &lt;= 15
      */
     public boolean isCritical() {
         return value <= 15;

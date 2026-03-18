@@ -33,6 +33,10 @@ public class BankingSystem {
         }
     }
 
+    /**
+     * Gets the current bank deposit balance.
+     * @return the balance in the bank account
+     */
     public int getDeposit() {
         return bankService.getBalance();
     }
@@ -87,6 +91,10 @@ public class BankingSystem {
         }
     }
 
+    /**
+     * Gets the outstanding loan amount.
+     * @return the current loan balance
+     */
     public int getLoanAmount() {
         return bankService.getLoan();
     }
@@ -96,6 +104,10 @@ public class BankingSystem {
      * Calculates and applies daily interest to the account balance.
      */
     public void settleInterest() {
+    /**
+     * Gets the system loan limit cap.
+     * @return the maximum allowed loan amount
+     */
         bankService.settleInterest();
     }
 

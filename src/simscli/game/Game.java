@@ -29,10 +29,17 @@ public final class Game {
     private final int gameStartDay;
     private Input uiInput;
 
+    /**
+     * Initializes the Game with default console logger.
+     */
     public Game() {
         this(new ConsoleGameLogger());
     }
 
+    /**
+     * Initializes the Game with a custom logger for event tracking.
+     * @param logger the GameLogger instance for logging game events
+     */
     public Game(GameLogger logger) {
         this.logger = logger;
         
@@ -53,87 +60,161 @@ public final class Game {
 
     // ==================== Lifecycle ====================
     
+    /**
+     * Resets the game state, clearing all Sims and resetting the game clock to start.
+     */
     public void resetGame() {
         simManager.clearSimList();
         timeManager.getClock().resetNewGame();
     }
 
+    /**
+     * Shuts down the game, stopping all background operations.
+     */
     public void shutdown() {
         timeManager.shutdown();
     }
 
+    /**
+     * Gets the day number when the game started.
+     * @return the starting day of this game session
+     */
     public int getGameStartDay() {
         return gameStartDay;
     }
 
     // ==================== Sim Management ====================
     
+    /**
+     * Gets all Sims in the game.
+     * @return list of all Sims
+     */
     public List<Sim>sims() {
         return simManager.getAllSims();
     }
 
+    /**
+     * Gets the currently active Sim being played.
+     * @return the active Sim or null if none is selected
+     */
     public Sim activeSim() {
         return simManager.getActiveSim();
     }
 
+    /**
+     * Sets which Sim is currently active by index.
+     * @param index the index in the Sim list (0-based)
+     */
     public void setActiveSim(int index) {
         simManager.setActiveSim(index);
     }
 
+    /**
+     * Gets the index of the currently active Sim.
+     * @return the active Sim's index or -1 if none
+     */
     public int getActiveSimIndex() {
         return simManager.getActiveSimIndex();
     }
 
+    /**
+     * Adds a Sim to the game.
+     * @param sim the Sim to add
+     */
     public void addSim(Sim sim) {
         simManager.addSim(sim);
     }
 
+    /**
+     * Removes all Sims from the game.
+     */
     public void clearSimList() {
         simManager.clearSimList();
     }
 
+    /**
+     * Creates a new Sim with given name and type.
+     * @param name the Sim's name
+     * @param type the Sim's type (Adult, Child, Elder)
+     * @return the newly created Sim
+     */
     public Sim createSim(String name, SimType type) {
         return simManager.createSim(name, type, this);
     }
 
+    /**
+     * Removes all dead Sims from the game.
+     */
     public void cleanupDeadSims() {
         simManager.removeDeadSims(this);
     }
 
     // ==================== Time Management ====================
     
+    /**
+     * Gets the current time as a formatted string.
+     * @return formatted time string (e.g., "Day 5 - 8:30 AM")
+     */
     public String timeString() {
         return timeManager.getTimeString();
     }
 
+    /**
+     * Gets the game clock.
+     * @return the GameClock instance
+     */
     public GameClock getClock() {
         return timeManager.getClock();
     }
 
+    /**
+     * Sets the game clock.
+     * @param clock the new GameClock to use
+     */
     public void setClock(GameClock clock) {
         timeManager.setClock(clock);
     }
 
+    /**
+     * Advances game time after an action, checking loan rules and removing dead Sims.
+     */
     public void advanceTimeForAction() {
         timeManager.advanceTimeForAction(simManager.getAllSims(), simManager.getActiveSimIndex(), this);
         loanManager.checkLoanOverdueRules(simManager.getAllSims(), simManager.getActiveSim(), this);
         simManager.removeDeadSims(this);
     }
 
+    /**
+     * Automatically advances real-time game progression.
+     * @param deltaSeconds the elapsed real time in seconds
+     */
     public void autoAdvanceRealTime(double deltaSeconds) {
         timeManager.autoAdvanceRealTime(deltaSeconds, simManager.getAllSims(), this);
     }
 
+    /**
+     * Checks and applies time-based rules (events, status changes, etc.).
+     * @param actionTriggered whether an action was just performed
+     */
     public void checkTimeRules(boolean actionTriggered) {
         timeManager.checkTimeRules(actionTriggered, simManager.getAllSims());
     }
 
     // ==================== Location Management ====================
     
+    /**
+     * Gets all locations in the game world.
+     * @return map of location keys to Location objects
+     */
     public Map<String, Location> location() {
         return locationManager.getLocations();
     }
 
+    /**
+     * Moves the active Sim to a destination location.
+     * @param destinationKey the key of the destination location
+     * @return message describing the travel result
+     */
     public String travelTo(String destinationKey) {
         Sim active = simManager.getActiveSim();
         if (active == null) return "No active sim.";
@@ -142,6 +223,11 @@ public final class Game {
         return result;
     }
 
+    /**
+     * Performs an action available at the current location.
+     * @param actionIndex the index of the action to perform
+     * @return message describing the action result
+     */
     public String performLocationAction(int actionIndex) {
         Sim active = simManager.getActiveSim();
         if (active == null) return "No active sim.";
@@ -149,12 +235,22 @@ public final class Game {
         return locationManager.performLocationAction(active, actionIndex);
     }
 
+    /**
+     * Uses an object at the current location.
+     * @param objectKey the key of the object to use
+     * @return message describing what happened
+     */
     public String useObject(String objectKey) {
         return locationManager.useObject(objectKey);
     }
 
     // ==================== Action Execution ====================
     
+    /**
+     * Performs an action on the active Sim.
+     * @param action the Action to perform
+     * @return message describing the action result
+     */
     public String performAction(Action action) {
         Sim active = simManager.getActiveSim();
         String result = actionExecutor.performAction(active, action, this);
@@ -163,26 +259,47 @@ public final class Game {
         return result;
     }
 
+    /**
+     * Changes the active Sim's job.
+     * @param jobName the name of the new job
+     * @return message describing the job change result
+     */
     public String changeJob(String jobName) {
         return actionExecutor.changeJob(simManager.getActiveSim(), jobName);
     }
 
     // ==================== UI Input ====================
     
+    /**
+     * Sets the UI input handler.
+     * @param input the Input instance for user interaction
+     */
     public void setUIInput(Input input) {
         this.uiInput = input;
     }
 
+    /**
+     * Gets the UI input handler.
+     * @return the Input instance
+     */
     public Input getUIInput() {
         return uiInput;
     }
 
     // ==================== Utility ====================
     
+    /**
+     * Gets the game logger.
+     * @return the GameLogger instance
+     */
     public GameLogger getLogger() {
         return logger;
     }
     
+    /**
+     * Gets the Sim manager.
+     * @return the SimManager instance
+     */
     public SimManager getSimManager() {
         return this.simManager;
     }
