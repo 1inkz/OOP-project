@@ -24,7 +24,7 @@ public final class FeedPet implements Action {
             return pet.getName() + " is no longer with us...";
         }
 
-        pet.getHunger().add(-30);
+        pet.getHunger().add(40);
         pet.getHappiness().add(10);
         pet.gainExperience(5);
 

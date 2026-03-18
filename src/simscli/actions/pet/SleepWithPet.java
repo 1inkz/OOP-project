@@ -25,7 +25,8 @@ public final class SleepWithPet implements Action {
         }
 
         pet.getHappiness().add(30);
-        pet.getHunger().add(5);
+        pet.getHunger().add(-10);
+        pet.getCleanliness().add(-5);
         pet.gainExperience(10);
 
         return sim.getName() + " slept with " + pet.getName() + ". " + pet.getName() + " is so content!";
