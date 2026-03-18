@@ -119,20 +119,17 @@ public class SimManager {
 
         if (deadActiveSimName != null) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(0);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
 
-            activeIndex = 0;
-
-            logger.error("\n[Eliminated] " + deadActiveSimName + " can no longer be played because "
+            activeIndex = -1;
+            
+            logger.error("[Eliminated] " + deadActiveSimName + " can no longer be played because "
                     + deadReason + " reached 0.");
-            logger.info("Switching to " + sims.get(activeIndex).getName() + "...\n");
-
             SaveGame.saveGame(game);
         } else if (activeIndex >= sims.size()) {
-            activeIndex = 0;
             SaveGame.saveGame(game);
         }
     }

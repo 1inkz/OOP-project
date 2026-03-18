@@ -182,4 +182,8 @@ public final class Game {
     public GameLogger getLogger() {
         return logger;
     }
+    
+    public SimManager getSimManager() {
+        return this.simManager;
+    }
 }

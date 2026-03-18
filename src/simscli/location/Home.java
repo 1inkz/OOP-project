@@ -39,7 +39,7 @@ public final class Home extends Location {
                 ActionFactory.create(ActionType.PLAY_GAME),
                 ActionFactory.create(ActionType.READ_BOOK),
                 ActionFactory.create(ActionType.EAT_MEAL),
-                ActionFactory.create(ActionType.CLEAN_PUBLIC)
+                ActionFactory.create(ActionType.SHOWER)
         ));
 
         return actions;

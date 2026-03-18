@@ -199,6 +199,9 @@ A: Run these commands
 * "cd ../bin"
 * "java simscli.Main"
 
+B: For visual studio code error:
+Ctrl Shift P and Run "Java: Clean Java Language Server Workspace" then Restart VS code
+
 **Q: Why can’t I buy a house or car?**
 A: Usually because:
 

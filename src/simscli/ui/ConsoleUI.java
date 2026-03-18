@@ -15,7 +15,7 @@ public final class ConsoleUI {
     private final Input in = new Input();
     private UIHelper uiHelper;
     GameLogger gameLogger;
-    SimManager simManager = new SimManager(gameLogger);
+    private SimManager simManager;
     private SimUIManager simUIManager;
     private MenuUIManager menuUIManager;
     private BusinessUIManager businessUIManager;
@@ -28,6 +28,7 @@ public final class ConsoleUI {
         this.uiHelper = new UIHelper(in);
         this.menuUIManager = new MenuUIManager(game, in, uiHelper);
         this.simUIManager = new SimUIManager(game, in, uiHelper, menuUIManager);
+        this.simManager = game.getSimManager();
         this.businessUIManager = new BusinessUIManager(game, in, uiHelper);
     }
 
@@ -47,27 +48,21 @@ public final class ConsoleUI {
             Sim activeSim = game.activeSim();
 
             if (activeSim == null || !activeSim.isAlive()) {
-
-                // check if other sims still exist
                 boolean anyAlive = false;
-
                 for (Sim sim : game.sims()) {
                     if (sim.isAlive()) {
                         anyAlive = true;
                         break;
                     }
                 }
-
+                
                 if (anyAlive) {
-                    System.out.println("Select another Sim to continue.");
+                	simManager.removeDeadSims(game);
+                	simUIManager.selectExistingSim();
                 } else {
                     System.out.println("All Sims are gone. Create a new Sim.");
-                }
-           
-				simManager.removeDeadSims(game);
-                in.line("Press Enter to continue...");
-                menuUIManager.showSimManagementMenu();
-
+                    menuUIManager.showSimManagementMenu();
+                }         				
                 continue;
             }
 
