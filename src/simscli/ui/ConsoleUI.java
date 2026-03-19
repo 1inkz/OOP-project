@@ -80,6 +80,16 @@ public final class ConsoleUI {
 
             uiHelper.printDynamicTitle("SIMS GAME - " + activeSim.getName() + " Main Menu", uiHelper.DARK_RED);
             System.out.println(uiHelper.PURPLE + "Time: Day " + activeSim.getPersonalDay(game) + game.timeString() + uiHelper.RESET + "\n");
+            
+            // Display critical need warnings automatically during gameplay
+            List<String> warnings = uiHelper.getCriticalNeedWarnings(activeSim);
+            if (!warnings.isEmpty()) {
+                System.out.println(uiHelper.RED + "!!  WARNING - CRITICAL NEEDS !!" + uiHelper.RESET);
+                for (String warning : warnings) {
+                    System.out.println(uiHelper.RED + warning + uiHelper.RESET);
+                }
+                System.out.println();
+            }
 
             List<String> menuOptions = new ArrayList<>();
 
