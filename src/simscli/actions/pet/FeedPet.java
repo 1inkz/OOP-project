@@ -36,6 +36,6 @@ public final class FeedPet implements Action {
         pet.getHappiness().add(10);
         pet.gainExperience(5);
 
-        return sim.getName() + " fed " + pet.getName() + ". Hunger decreased, happiness increased!";
+        return sim.getName() + " fed " + pet.getName() + ". " + pet.getName() + " is feeling happy from a wonderful meal!";
     }
 }

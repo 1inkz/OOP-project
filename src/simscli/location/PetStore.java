@@ -6,6 +6,7 @@ import simscli.actions.Action;
 import simscli.actions.pet.BuyPet;
 import simscli.actions.interactive.GroomPetMenu;
 import simscli.actions.interactive.PlayWithPetMenu;
+import simscli.actions.interactive.FeedPetMenu;
 import simscli.sims.Sim;
 
 /**
@@ -31,6 +32,7 @@ public final class PetStore extends Location {
 
         // Only available if Sim has pets
         if (sim != null && !sim.getPets().isEmpty()) {
+            actions.add(new FeedPetMenu());
             actions.add(new GroomPetMenu());
             actions.add(new PlayWithPetMenu());
         }

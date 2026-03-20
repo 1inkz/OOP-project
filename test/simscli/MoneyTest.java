@@ -1,89 +1,58 @@
 package simscli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
+import org.junit.Test;
+
 import simscli.bank.Money;
 
-/**
- * Test: Verifies Money value object behavior and arithmetic operations.
- */
 public class MoneyTest {
-    
-    public static void testMoneyCreation() {
-        Money m = new Money(100);
-        assert m.amount() == 100;
-        System.out.println("✓ testMoneyCreation");
+
+    @Test
+    public void createMoney_negativeAmount_shouldThrowException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Money(-100);
+        });
+        assertEquals("Money cannot be negative", exception.getMessage());
     }
 
-    public static void testMoneyZero() {
-        Money m = new Money(0);
-        assert m.amount() == 0;
-        System.out.println("✓ testMoneyZero");
+    @Test
+    public void addMoney_shouldReturnNewInstanceWithSum() {
+        Money money1 = new Money(100);
+        Money money2 = new Money(200);
+        Money sum = money1.add(money2);
+        
+        assertEquals(300, sum.getAmount());
+        assertEquals(100, money1.getAmount()); 
+        assertEquals(200, money2.getAmount()); 
     }
 
-    public static void testAddPositiveAmount() {
-        Money m1 = new Money(100);
-        Money m2 = m1.add(50);
-        assert m1.amount() == 100 : "Original should be immutable";
-        assert m2.amount() == 150;
-        System.out.println("✓ testAddPositiveAmount");
+    @Test
+    public void subtractMoney_shouldReturnNewInstanceWithDifference() {
+        Money money1 = new Money(500);
+        Money money2 = new Money(300);
+        Money difference = money1.subtract(money2);
+        
+        assertEquals(200, difference.getAmount());
+        assertEquals(500, money1.getAmount()); 
+        assertEquals(300, money2.getAmount()); 
     }
 
-    public static void testSubtractWithSufficientFunds() {
-        Money m1 = new Money(100);
-        Money m2 = m1.subtract(30);
-        assert m1.amount() == 100 : "Original should be immutable";
-        assert m2.amount() == 70;
-        System.out.println("✓ testSubtractWithSufficientFunds");
+    @Test
+    public void subtractMoney_insufficientFunds_shouldThrowException() {
+        Money smallMoney = new Money(200);
+        Money largeMoney = new Money(300);
+        
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            smallMoney.subtract(largeMoney);
+        });
+        assertEquals("Insufficient funds", exception.getMessage());
     }
 
-    public static void testSubtractAllFunds() {
-        Money m1 = new Money(100);
-        Money m2 = m1.subtract(100);
-        assert m2.amount() == 0;
-        System.out.println("✓ testSubtractAllFunds");
-    }
-
-    public static void testNegativeMoneyThrows() {
-        try {
-            new Money(-50);
-            assert false : "Should throw IllegalArgumentException";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testNegativeMoneyThrows");
-        }
-    }
-
-    public static void testSubtractMoreThanFundsThrows() {
-        try {
-            Money m = new Money(50);
-            m.subtract(100);
-            assert false : "Should throw";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testSubtractMoreThanFundsThrows");
-        }
-    }
-
-    public static void testChainedOperations() {
-        Money m = new Money(100);
-        Money result = m.add(50).subtract(30).add(20);
-        assert result.amount() == 140;
-        System.out.println("✓ testChainedOperations");
-    }
-
-    public static void testLargeAmounts() {
-        Money m = new Money(1000000);
-        Money m2 = m.add(500000);
-        assert m2.amount() == 1500000;
-        System.out.println("✓ testLargeAmounts");
-    }
-
-    public static void main(String[] args) {
-        testMoneyCreation();
-        testMoneyZero();
-        testAddPositiveAmount();
-        testSubtractWithSufficientFunds();
-        testSubtractAllFunds();
-        testNegativeMoneyThrows();
-        testSubtractMoreThanFundsThrows();
-        testChainedOperations();
-        testLargeAmounts();
+    @Test
+    public void getAmount_shouldReturnCorrectValue() {
+        Money money = new Money(1500);
+        assertEquals(1500, money.getAmount());
     }
 }

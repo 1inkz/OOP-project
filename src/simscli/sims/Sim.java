@@ -471,4 +471,9 @@ public abstract class Sim {
     public void updatePetsHourly() {
         pets.updatePetsHourly();
     }
+
+//	public abstract String performWork();
+//	public abstract void eatMeal();
+//	public abstract void sleep();
+//	public abstract void shower();
 }

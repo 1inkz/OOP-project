@@ -16,7 +16,7 @@ public final class UseToilet implements Action {
     public String perform(Sim sim, GameContext ctx) {
         sim.applyEffect(Effect.none()
                 .plus(NeedType.BLADDER, +45)
-                .plus(NeedType.HYGIENE, -2));
+                .plus(NeedType.HYGIENE, +30));
         return sim.getName() + " used the toilet. Relief.";
     }
 }

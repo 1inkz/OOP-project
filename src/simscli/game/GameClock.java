@@ -134,4 +134,5 @@ public final class GameClock {
         dayNumber = 1;
         minuteOfDay = 480; // 8:00 AM
     }
+
 }

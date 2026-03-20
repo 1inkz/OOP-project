@@ -1,160 +1,74 @@
 package simscli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import simscli.bank.LoanAccount;
+import simscli.bank.Money;
 
-/**
- * Test: Verifies LoanAccount loan limit enforcement (5000 max).
- */
 public class LoanAccountTest {
-    
-    public static void testInitialLoanAmount() {
-        LoanAccount loan = new LoanAccount();
-        assert loan.getLoanBalance() == 0;
-        System.out.println("✓ testInitialLoanAmount");
+    private LoanAccount loanAccount;
+    private static final int LOAN_LIMIT = 5000;
+
+    @Before
+    public void setUp() {
+        loanAccount = new LoanAccount(); 
     }
 
-    public static void testApplySmallLoan() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(500);
-        assert loan.getLoanBalance() == 500;
-        System.out.println("✓ testApplySmallLoan");
-    }
-
-    public static void testApplyLoanAtLimit() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(5000);
-        assert loan.getLoanBalance() == 5000;
-        System.out.println("✓ testApplyLoanAtLimit");
-    }
-
-    public static void testApplyLoanExceedsMaximum() {
-        try {
-            LoanAccount loan = new LoanAccount();
-            loan.applyLoan(5001);
-            assert false : "Should throw IllegalArgumentException";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testApplyLoanExceedsMaximum");
-        }
-    }
-
-    public static void testApplyLoanExceedsFromExisting() {
-        try {
-            LoanAccount loan = new LoanAccount();
-            loan.applyLoan(3000);
-            loan.applyLoan(2500); // Would total 5500
-            assert false : "Should throw";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testApplyLoanExceedsFromExisting");
-        }
-    }
-
-    public static void testApplyMultipleLoansWithinLimit() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(1000);
-        assert loan.getLoanBalance() == 1000;
+    @Test
+    public void applyLoan_withinLimit_shouldIncreaseBalance() {
+        Money loanAmount = new Money(1000);
         
-        loan.applyLoan(2000);
-        assert loan.getLoanBalance() == 3000;
+        loanAccount.applyLoan(loanAmount);
+        assertEquals(1000, loanAccount.getLoanBalance().getAmount());
+    }
+
+    @Test
+    public void applyLoan_exceedLimit_shouldThrowException() {
+        Money firstLoan = new Money(4000);
+        Money secondLoan = new Money(1001);
+        loanAccount.applyLoan(firstLoan);
         
-        loan.applyLoan(2000);
-        assert loan.getLoanBalance() == 5000;
-        System.out.println("✓ testApplyMultipleLoansWithinLimit");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            loanAccount.applyLoan(secondLoan);
+        });
+        assertEquals("Loan limit exceeded", exception.getMessage());
+        assertEquals(4000, loanAccount.getLoanBalance().getAmount());
     }
 
-    public static void testRepayPartialLoan() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(1000);
-        loan.repayLoan(300);
-        assert loan.getLoanBalance() == 700;
-        System.out.println("✓ testRepayPartialLoan");
+    @Test
+    public void repayLoan_withinBalance_shouldDecreaseBalance() {
+        Money loanAmount = new Money(2000);
+        Money repayAmount = new Money(500);
+        loanAccount.applyLoan(loanAmount);
+        loanAccount.repayLoan(repayAmount);
+
+        assertEquals(1500, loanAccount.getLoanBalance().getAmount());
     }
 
-    public static void testRepayFullLoan() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(1000);
-        loan.repayLoan(1000);
-        assert loan.getLoanBalance() == 0;
-        System.out.println("✓ testRepayFullLoan");
-    }
-
-    public static void testRepayMoreThanOwed() {
-        try {
-            LoanAccount loan = new LoanAccount();
-            loan.applyLoan(500);
-            loan.repayLoan(600);
-            assert false : "Should throw";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testRepayMoreThanOwed");
-        }
-    }
-
-    public static void testRepayWhenNoLoan() {
-        try {
-            LoanAccount loan = new LoanAccount();
-            loan.repayLoan(100);
-            assert false : "Should throw";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testRepayWhenNoLoan");
-        }
-    }
-
-    public static void testLoanCycleMultiple() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(2000);
-        loan.repayLoan(500);
+    @Test
+    public void repayLoan_exceedBalance_shouldThrowException() {
+        Money loanAmount = new Money(1000);
+        Money overRepayAmount = new Money(1500);
+        loanAccount.applyLoan(loanAmount);
         
-        assert loan.getLoanBalance() == 1500;
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            loanAccount.repayLoan(overRepayAmount);
+        });
+        assertEquals("Repay exceeds loan", exception.getMessage());
+        assertEquals(1000, loanAccount.getLoanBalance().getAmount());
+    }
+
+    @Test
+    public void repayLoan_fullRepayment_shouldSetBalanceToZero() {
+        Money loanAmount = new Money(3000);
+        Money fullRepayAmount = new Money(3000);
+        loanAccount.applyLoan(loanAmount); 
+        loanAccount.repayLoan(fullRepayAmount);
         
-        loan.applyLoan(2000);
-        assert loan.getLoanBalance() == 3500;
-        
-        loan.repayLoan(1500);
-        assert loan.getLoanBalance() == 2000;
-        System.out.println("✓ testLoanCycleMultiple");
-    }
-
-    public static void testApplyAtMaxThenRepayPartial() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(5000);
-        loan.repayLoan(1000);
-        assert loan.getLoanBalance() == 4000;
-        System.out.println("✓ testApplyAtMaxThenRepayPartial");
-    }
-
-    public static void testCanApplyMoreAfterPartialRepay() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(3000);
-        loan.repayLoan(1000);
-        loan.applyLoan(3000); // Now can apply more to reach 5000
-        assert loan.getLoanBalance() == 5000;
-        System.out.println("✓ testCanApplyMoreAfterPartialRepay");
-    }
-
-    public static void testMaxBoundaryConditions() {
-        LoanAccount loan = new LoanAccount();
-        loan.applyLoan(1000);
-        loan.repayLoan(1000);
-        
-        // Should be able to apply fresh max loan
-        loan.applyLoan(5000);
-        assert loan.getLoanBalance() == 5000;
-        System.out.println("✓ testMaxBoundaryConditions");
-    }
-
-    public static void main(String[] args) {
-        testInitialLoanAmount();
-        testApplySmallLoan();
-        testApplyLoanAtLimit();
-        testApplyLoanExceedsMaximum();
-        testApplyLoanExceedsFromExisting();
-        testApplyMultipleLoansWithinLimit();
-        testRepayPartialLoan();
-        testRepayFullLoan();
-        testRepayMoreThanOwed();
-        testRepayWhenNoLoan();
-        testLoanCycleMultiple();
-        testApplyAtMaxThenRepayPartial();
-        testCanApplyMoreAfterPartialRepay();
-        testMaxBoundaryConditions();
+        assertEquals(0, loanAccount.getLoanBalance().getAmount());
     }
 }
