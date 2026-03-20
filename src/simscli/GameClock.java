@@ -1,5 +1,7 @@
 package simscli;
 
+import simscli.stats.NeedType;
+
 /**
  * Manages in-game time with real-time synchronization.
  * 
@@ -190,7 +192,7 @@ public final class GameClock {
     }
 
     /**
-     * Resets the game clock to the next day at 8:00 AM.
+     * Always start a day at 8:00 AM.
      * 
      * Used when a Sim faints and must spend the remainder of the day unconscious.
      * Clears remaining game time and starts fresh at 08:00 (480 minutes into day).

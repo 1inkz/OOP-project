@@ -196,8 +196,8 @@ public final class Game {
      * Checks and applies time-based rules (events, status changes, etc.).
      * @param actionTriggered whether an action was just performed
      */
-    public void checkTimeRules(boolean actionTriggered) {
-        timeManager.checkTimeRules(actionTriggered, simManager.getAllSims());
+    public void checkTimeRules() {
+        timeManager.checkTimeRules(simManager.getAllSims());
     }
 
     // ==================== Location Management ====================

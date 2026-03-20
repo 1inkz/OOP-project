@@ -3,6 +3,7 @@ package simscli.game;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.sims.Sim;
+import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import java.util.List;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class TimeManager {
             }
         }
 
-        checkTimeRules(false, sims);
+        checkTimeRules(sims);
     }
 
     /**
@@ -99,41 +100,19 @@ public class TimeManager {
     }
 
     /**
-     * Checks time-based rules: bedtime notifications and day reset.
+     * Sims energy drops faster after 11pm
      */
-    public void checkTimeRules(boolean actionTriggered, List<Sim> sims) {
+    public void checkTimeRules(List<Sim> sims) {
         int currentHour = clock.getHour();
 
-        if (currentHour == 20 && !actionTriggered) {
-            logger.warn("\n[GAME] It's 8pm — all sims should head to bed!");
-        } else if (currentHour == 21 && !actionTriggered) {
-            logger.warn("\n[GAME] It's 9pm — sleep now!");
-        }
+        if (currentHour >= 23 || currentHour <= 7) {
+            logger.warn("\n[GAME] It's Midnight — Sim's energy draining fast!");
+            
+            for (Sim sim : sims) { {
+                sim.applyEffect(Effect.none()
+                        .plus(NeedType.ENERGY, -10));
+            }}
 
-        if (currentHour == 22 || actionTriggered) {
-            clock.resetToNextDayMorning();
-            for (Sim sim : sims) {
-                if (!sim.isAlive()) continue;
-
-                boolean hasHouse = sim.getOwnedHouse() != null;
-                boolean inCorrectLocation =
-                        (hasHouse && sim.getLocation().key().equals("home")) ||
-                        (!hasHouse && sim.getLocation().key().equals("park"));
-
-                if (!inCorrectLocation && sim.isAlive()) {
-                    logger.warn("\n" + sim.getName() + " is too tired! Forced to sleep... See you next morning 8:00 AM!");
-                }
-
-                int hotelIncome = sim.calculateDailyHotelIncome();
-                if (hotelIncome > 0) {
-                    sim.earnSimcoin(hotelIncome);
-                    logger.info(sim.getName() + " earned $" + hotelIncome + " passive income from the hotel.");
-                }
-
-                sim.settleBankInterest();
-                sim.getNeeds().set(NeedType.ENERGY, 90);
-                sim.getNeeds().set(NeedType.HUNGER, 30);
-            }
         }
     }
 

@@ -37,7 +37,7 @@ public final class GameContext implements ActionUIAdapter {
     }
 
     public void checkTimeRules() {
-        game.checkTimeRules(true);
+        game.checkTimeRules();
     }
     
     @Override
