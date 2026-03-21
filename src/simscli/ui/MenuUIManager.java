@@ -18,7 +18,6 @@ public class MenuUIManager {
     private final UIHelper uiHelper;
     private final SimUIManager simUIManager;
 
-    public boolean isGameLoaded = false;
     public boolean isGameReset = false;
 
     public MenuUIManager(Game game, Input in, UIHelper uiHelper) {
@@ -40,10 +39,12 @@ public class MenuUIManager {
             menuOptions.add("New Game");
 
             boolean hasValidSave = SaveGame.hasValidSaveData();
-            if (hasValidSave && !isGameReset) {
-                menuOptions.add("Continue Game");
+            if (game.isGameModified() && !hasValidSave) {
+                
+            } else if (game.isGameModified() || hasValidSave) {
+            	menuOptions.add("Continue Game");
             }
-
+            
             menuOptions.add("Quit Game");
 
             uiHelper.printDynamicTitle("SIMS GAME - START MENU", uiHelper.DARK_RED);
@@ -67,7 +68,6 @@ public class MenuUIManager {
                     game.resetGame();
                     SaveGame.clearSaveFile();
                     isGameReset = true;
-                    isGameLoaded = false;
 
                     System.out.println(uiHelper.GREEN + "New Game started!" + uiHelper.RESET);
                     showSimManagementMenu();
@@ -76,27 +76,23 @@ public class MenuUIManager {
 
                 case "Continue Game":
                     if (hasValidSave) {
-                        if (!isGameLoaded) {
-                            SaveGame.loadGame(game);
-                            System.out.println(uiHelper.GREEN + "Successfully loaded last game!\n" + uiHelper.RESET);
-                        }
-                        isGameLoaded = true;
-                        showSimManagementMenu();
-                        initialMenuRunning = false;
+                    	SaveGame.loadGame(game);
+                    	System.out.println(uiHelper.GREEN + "Successfully loaded last game!\n" + uiHelper.RESET);
                     }
+                    showSimManagementMenu();
+                    initialMenuRunning = false;
+                    
                     break;
                 case "Quit Game":
-                    if (!isGameLoaded) {
-                        SaveGame.loadGame(game);
-                        isGameLoaded = true;
+                    if (game.isGameModified()) {
+                        String confirm = in.line("Save current progress before quitting? (y/n): ");
+
+                        if (confirm.equalsIgnoreCase("y")) {
+                            SaveGame.saveGame(game);
+                            System.out.println("Game saved.");
+                        }
                     }
 
-                    String confirm = in.line("Save current progress before quitting? (y/n): ");
-
-                    if (confirm.equalsIgnoreCase("y")) {
-                        SaveGame.saveGame(game);
-                        System.out.println("Game saved.");
-                    }
                     ExitGuard.markNormalExit();
                     System.out.println(uiHelper.DARK_RED + "Goodbye!" + uiHelper.RESET);
                     System.exit(0);
@@ -167,6 +163,7 @@ public class MenuUIManager {
                     break;
                 case "Enter Action Menu":
                     if (activeSim != null) {
+                    	game.markGameModified();
                         simMenuRunning = false;
                     }
                     break;
@@ -174,12 +171,15 @@ public class MenuUIManager {
                     showInitialMenu();
                     break;
                 case "Quit Game":
-                    String confirm = in.line("Save current progress before quitting? (y/n): ");
+                	if (game.isGameModified()) {
+                        String confirm = in.line("Save current progress before quitting? (y/n): ");
 
-                    if (confirm.equalsIgnoreCase("y")) {
-                        SaveGame.saveGame(game);
-                        System.out.println("Game saved.");
-                    }
+                        if (confirm.equalsIgnoreCase("y")) {
+                            SaveGame.saveGame(game);
+                            System.out.println("Game saved.");
+                        }
+                	}
+
                     ExitGuard.markNormalExit();
                     System.out.println(uiHelper.DARK_RED + "Goodbye!" + uiHelper.RESET);
                     System.exit(0);

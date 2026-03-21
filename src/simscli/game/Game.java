@@ -25,6 +25,7 @@ public final class Game {
     private final ActionExecutor actionExecutor;
     private final LoanManager loanManager;
     private final GameLogger logger;
+    private boolean isGameModified = false;
     
     private final int gameStartDay;
     private Input uiInput;
@@ -56,6 +57,18 @@ public final class Game {
         
         // Inject Game instance into LocationManager after full initialization
         this.locationManager.setGame(this);
+    }
+    
+    // ==================== SAVE GAME ====================
+    /**
+     * Check if game is modify for save game features
+     */    
+    public boolean isGameModified() {
+        return isGameModified;
+    }
+    
+    public void markGameModified() {
+        this.isGameModified = true;
     }
 
     // ==================== Lifecycle ====================

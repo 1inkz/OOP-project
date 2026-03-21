@@ -40,8 +40,22 @@ public final class SaveGame {
      */
     public static boolean hasValidSaveData() {
         File file = new File(SAVE_FILE);
-        return file.exists() && file.length() > 0;
+        if (!file.exists() || file.length() == 0) {
+        	return false;
+        }
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            reader.readLine();
+            
+            // Only if second line not empty consider have data as first line is data time string
+            String secondLine = reader.readLine();
+            return secondLine != null && !secondLine.trim().isEmpty();
+        } catch (IOException e) {
+            System.out.println("Error checking save file validity: " + e.getMessage());
+            return false;
+        }
     }
+    
 
     /**
      * Saves the current game state to file.

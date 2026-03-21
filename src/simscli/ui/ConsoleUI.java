@@ -56,25 +56,6 @@ public final class ConsoleUI {
 
             Sim activeSim = game.activeSim();
 
-            if (activeSim == null || !activeSim.isAlive()) {
-                boolean anyAlive = false;
-                for (Sim sim : game.sims()) {
-                    if (sim.isAlive()) {
-                        anyAlive = true;
-                        break;
-                    }
-                }
-                
-                if (anyAlive) {
-                	simManager.removeDeadSims(game);
-                	simUIManager.selectExistingSim();
-                } else {
-                    System.out.println("All Sims are gone. Create a new Sim.");
-                    menuUIManager.showSimManagementMenu();
-                }         				
-                continue;
-            }
-
             String currentLocation = activeSim.getLocation().name();
             String currentLocationOption = "View [" + currentLocation + "] Actions Menu";
             String jobless = activeSim.getJobName();
@@ -163,11 +144,26 @@ public final class ConsoleUI {
                     game.shutdown();
                     return;
             }
-
-            if (game.sims().isEmpty()) {
-                System.out.println("\nAll Sims are gone.");
-                in.line("Press Enter to return to the Sims Management Menu...");
-                menuUIManager.showSimManagementMenu();
+            
+            if (activeSim == null || !activeSim.isAlive()) {
+                boolean anyAlive = false;
+                for (Sim sim : game.sims()) {
+                    if (sim.isAlive()) {
+                        anyAlive = true;
+                        break;
+                    }
+                }
+                
+                simManager.removeDeadSims(game);
+                
+                if (anyAlive) {
+                	simUIManager.selectExistingSim();
+                } else {
+                    System.out.println("All Sims are gone. Game restarted! Create a new Sim.");
+                    game.resetGame();
+                    SaveGame.clearSaveFile();
+                    menuUIManager.showSimManagementMenu();
+                }         				
                 continue;
             }
         }

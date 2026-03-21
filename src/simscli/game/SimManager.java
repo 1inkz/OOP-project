@@ -165,22 +165,6 @@ public class SimManager {
             SaveGame.saveGame(game);
             return;
         }
-
-        if (deadActiveSimName != null) {
-            try {
-                Thread.sleep(0);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-
-            activeIndex = -1;
-            
-            logger.error("[Eliminated] " + deadActiveSimName + " can no longer be played because "
-                    + deadReason + " reached 0.");
-            SaveGame.saveGame(game);
-        } else if (activeIndex >= sims.size()) {
-            SaveGame.saveGame(game);
-        }
     }
 
     /**

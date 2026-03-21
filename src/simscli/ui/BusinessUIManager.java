@@ -134,11 +134,6 @@ public class BusinessUIManager {
         } else {
             System.out.println(uiHelper.BLUE + actionMsg + uiHelper.RESET);
         }
-
-        if (!activeSim.isAlive()) {
-            System.out.println(uiHelper.RED + activeSim.getName() + " has left the simulation!" + uiHelper.RESET);
-        }
-
     }
     
     public void showChangeJobMenu() {

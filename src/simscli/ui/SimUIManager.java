@@ -78,6 +78,7 @@ public class SimUIManager {
         SimType type = (t == 1) ? SimType.CHILD : (t == 2) ? SimType.ADULT : SimType.ELDER;
 
         game.createSim(name, type);
+        game.markGameModified();
         // Show tutorial once when new sims created
         if (!tutorialShown) {
             showTutorial();
@@ -122,6 +123,7 @@ public class SimUIManager {
 
         int simIndex = choice - 1;
         game.setActiveSim(simIndex);
+        game.markGameModified();
         System.out.println(uiHelper.GREEN + "Active Sims changed to: " + game.activeSim().getName() + uiHelper.RESET);
     }
     
@@ -132,7 +134,7 @@ public class SimUIManager {
                 + "Hygiene: " + uiHelper.getNeedColor(sim.getNeeds().get(NeedType.HYGIENE)) + " | "
                 + "Social: " + uiHelper.getNeedColor(sim.getNeeds().get(NeedType.SOCIAL)) + " | "
                 + "Fun: " + uiHelper.getNeedColor(sim.getNeeds().get(NeedType.FUN)) + " | "
-                + "Bladder: " + uiHelper.getNeedColor(sim.getNeeds().get(NeedType.BLADDER));
+                + "Bladder: " + uiHelper.getNeedColor(sim.getNeeds().get(NeedType.BLADDER)) + "\n";
 
         String skillsOutput
                 = "Cooking: " + sim.getSkillLevel(SkillType.COOKING) + " | "
@@ -142,9 +144,10 @@ public class SimUIManager {
                 + "Intelligence: " + sim.getSkillLevel(SkillType.INTELLIGENCE) + " | "
                 + "Creativity: " + sim.getSkillLevel(SkillType.CREATIVITY) + " | "
                 + "Gaming: " + sim.getSkillLevel(SkillType.GAMING) + " | "
-                + "Work Ethic: " + sim.getSkillLevel(SkillType.WORK_ETHIC);
+                + "Work Ethic: " + sim.getSkillLevel(SkillType.WORK_ETHIC) + "\n";
 
         int needsWidth = (needsOutput.length()) / 4;
+        int skillsWidth = (skillsOutput.length()) / 6;
 
         uiHelper.printDynamicTitle(" ".repeat(needsWidth) + sim.getName() + " - Status" + " ".repeat(needsWidth), uiHelper.DARK_RED);
 
@@ -168,20 +171,17 @@ public class SimUIManager {
             }
         }
         
-        System.out.println("\n");
-        uiHelper.printDynamicTitle(" ".repeat(needsWidth) + "Skill Progression" + " ".repeat(needsWidth), uiHelper.CYAN);
+        uiHelper.printDynamicTitle(" ".repeat(skillsWidth) + "Skill Progression" + " ".repeat(skillsWidth), uiHelper.CYAN);
         System.out.println(skillsOutput);
 
         // Display pets
         if (!sim.getPets().isEmpty()) {
-        	System.out.println("\n");
         	uiHelper.printDynamicTitle(" ".repeat(needsWidth) + "Pet" + " ".repeat(needsWidth), uiHelper.YELLOW);
             for (simscli.pets.Pet pet : sim.getPets()) {
             	System.out.println(pet.getStatusSummary());
             }
         } else {
-        	System.out.println("\n");
-        	uiHelper.printDynamicTitle(" ".repeat(needsWidth) + "Pet" + " ".repeat(needsWidth), uiHelper.YELLOW);
+        	uiHelper.printDynamicTitle(" ".repeat(16) + "Pet" + " ".repeat(16), uiHelper.YELLOW);
         	System.out.println("No pets yet. Visit the Pet Store to get one!");
         }
         uiHelper.printDynamicTitle(" ".repeat(needsWidth) + "End of Status" + " ".repeat(needsWidth), uiHelper.DARK_RED);
