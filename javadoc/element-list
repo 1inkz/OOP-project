@@ -3,13 +3,16 @@ simscli.actions
 simscli.actions.banking
 simscli.actions.interactive
 simscli.actions.pet
+simscli.actions.request
 simscli.actions.simple
 simscli.asset
 simscli.bank
 simscli.game
 simscli.jobs
 simscli.location
+simscli.persistence
 simscli.pets
+simscli.policy
 simscli.sims
 simscli.stats
 simscli.ui

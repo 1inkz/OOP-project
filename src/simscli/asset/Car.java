@@ -33,14 +33,26 @@ public class Car extends Asset {
         return travelMultiplier;
     }
 
+    /**
+     * Gets the daily maintenance cost for this car.
+     * @return daily maintenance cost in Simcoin
+     */
     public int getDailyMaintenanceCost() {
         return DAILY_MAINTENANCE_COST;
     }
 
+    /**
+     * Gets the asset type name.
+     * @return "Car"
+     */
     public String getAssetType() {
         return "Car";
     }
 
+    /**
+     * Gets the sell value of this car (60% of purchase value).
+     * @return sell value in Simcoin
+     */
     @Override
     public int sellValue() {
         if (purchaseValue < 0) {

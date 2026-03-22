@@ -1,6 +1,17 @@
 package simscli.game;
 
-// GameClock.java
+/**
+ * Manages game time progression and conversion between real-world and game time.
+ * 
+ * <p>Time Conversion: 1440 game minutes = 1 game day. Real-time is converted to game time
+ * at a rate of 2.4 game minutes per real second, so a full game day passes in ~10 real minutes.
+ * 
+ * <p>Time Structure: Game time is tracked as day number (starting at 1) and minute-of-day (0-1439).
+ * Fractional minutes are accumulated to handle real-time input accurately.
+ * 
+ * <p>Usage: Use {@link #spendMinutes(int)} for action-based time advancement (discrete),
+ * or {@link #advanceByRealTime(double)} for continuous real-time simulation.
+ */
 public final class GameClock {
     public static final int MINUTES_PER_DAY = 1440;
 
@@ -60,6 +71,11 @@ public final class GameClock {
         return hoursPassed; 
     }
 
+    /**
+     * Gets accumulated full hours from the accumulator and resets it.
+     * Used internally for hourly event processing.
+     * @return number of accumulated hours
+     */
     public int getHoursPassedFromAccumulator() {
         int hours = accumulatedMinutes / 60;
         accumulatedMinutes = accumulatedMinutes % 60;
@@ -85,24 +101,38 @@ public final class GameClock {
         minuteOfDay = newMinuteOfDay;
     }
 
+    /**
+     * Gets the current day number (starting at 1).
+     * @return day number
+     */
     public int getDayNumber() {
         return dayNumber;
     }
 
+    /**
+     * Gets the current minute within the day (0-1439, where 0 = midnight, 1439 = 23:59).
+     * @return minute of day
+     */
     public int getMinuteOfDay() {
         return minuteOfDay;
     }
 
+    /**
+     * Gets the hour component (0-23) of the current time.
+     * @return hour (0 = midnight, 23 = 11 PM)
+     */
     public int getHour() {
         return minuteOfDay / 60;
     }
 
+    /**
+     * Gets the minute component (0-59) of the current time.
+     * @return minute in the current hour
+     */
     public int getMinute() {
         return minuteOfDay % 60;
     }
 
-    // Time left in the current day.
-    // At 00:00 -> 1440 minutes left. At 23:59 -> 1 minute left.
     /**
      * Gets remaining in-game minutes until midnight.
      * @return minutes left in the current day (1440 at midnight, 1 at 23:59)
@@ -123,13 +153,18 @@ public final class GameClock {
         return Math.max(min, Math.min(max, value));
     }
 
-    // Reset time to next day 8:00 AM (for faint rule)
+    /**
+     * Resets clock to the next day at 8:00 AM.
+     * Typically used when a Sim faints and is sent to the hospital.
+     */
     public void resetToNextDayMorning() {
         dayNumber++;
         minuteOfDay = 480; // 8:00 AM
     }
     
-    // For new game
+    /**
+     * Resets clock to Day 1 at 8:00 AM for a new game.
+     */
     public void resetNewGame() {
         dayNumber = 1;
         minuteOfDay = 480; // 8:00 AM

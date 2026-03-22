@@ -14,10 +14,18 @@ public class House extends Asset {
         super(id, name, purchaseValue);
     }
 
+    /**
+     * Gets the asset type name.
+     * @return "House"
+     */
     public String getAssetType() {
         return "House";
     }
 
+    /**
+     * Gets the sell value of this house (90% of purchase value).
+     * @return sell value in Simcoin
+     */
     @Override
     public int sellValue() {
         if (purchaseValue < 0) {
