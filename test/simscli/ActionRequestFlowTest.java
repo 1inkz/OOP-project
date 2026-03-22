@@ -55,4 +55,21 @@ public class ActionRequestFlowTest {
 
         g.shutdown();
     }
+
+    @Test
+    public void applyLoanShowsLimitReachedWhenAtMaxLoan() {
+        Game g = new Game();
+        Sim sim = g.createSim("Noah", SimType.ADULT);
+        g.setActiveSim(0);
+
+        String firstLoan = g.performAction(ActionFactory.create(ActionType.APPLY_LOAN), new AmountActionRequest(5000));
+        assertTrue(firstLoan.toLowerCase().contains("loan approved"));
+        assertEquals(5000, sim.getLoanAmount());
+
+        String secondLoan = g.performAction(ActionFactory.create(ActionType.APPLY_LOAN), new AmountActionRequest(1));
+        assertTrue(secondLoan.toLowerCase().contains("loan limit reached"));
+        assertTrue(secondLoan.contains("$5000"));
+
+        g.shutdown();
+    }
 }

@@ -1,6 +1,7 @@
 package simscli;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
+import simscli.actions.request.AmountActionRequest;
 import simscli.game.Game;
 import simscli.game.GameClock;
 import simscli.game.GameLogger;
@@ -58,6 +60,21 @@ public class UxFeedbackTest {
                 && m.contains("Tip "));
 
         assertTrue(foundSummary);
+
+        game.shutdown();
+    }
+
+    @Test
+    public void loanLimitMessageShouldNotIncludeFlavor() {
+        Game game = new Game();
+        game.createSim("Ava", SimType.ADULT);
+        game.setActiveSim(0);
+
+        game.performAction(ActionFactory.create(ActionType.APPLY_LOAN), new AmountActionRequest(5000));
+        String msg = game.performAction(ActionFactory.create(ActionType.APPLY_LOAN), new AmountActionRequest(1));
+
+        assertTrue(msg.toLowerCase().contains("loan limit reached"));
+        assertFalse(msg.contains("[Vibe]"));
 
         game.shutdown();
     }

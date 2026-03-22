@@ -55,7 +55,10 @@ public final class ActionFlavorService {
                 || m.contains("unknown")
                 || m.contains("invalid")
                 || m.contains("cannot enter")
-                || m.contains("no longer in the simulation");
+                || m.contains("no longer in the simulation")
+                || m.contains("limit reached")
+                || m.contains("maximum amount")
+                || m.contains("failed");
     }
 
     private String[] chooseFlavorBank(String lowerMessage) {
