@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.actions.request.AmountActionRequest;
+import simscli.actions.request.BuyPetActionRequest;
 import simscli.game.Game;
 import simscli.game.GameClock;
 import simscli.game.GameLogger;
+import simscli.location.LocationKey;
 import simscli.sims.Sim;
 import simscli.sims.SimType;
 import simscli.stats.NeedType;
@@ -74,6 +76,53 @@ public class UxFeedbackTest {
         String msg = game.performAction(ActionFactory.create(ActionType.APPLY_LOAN), new AmountActionRequest(1));
 
         assertTrue(msg.toLowerCase().contains("loan limit reached"));
+        assertFalse(msg.contains("[Vibe]"));
+
+        game.shutdown();
+    }
+
+    @Test
+    public void travelArrivalShouldNotIncludeFlavor() {
+        Game game = new Game();
+        game.createSim("Wy", SimType.ADULT);
+        game.setActiveSim(0);
+
+        String msg = game.travelTo(LocationKey.RESTAURANT);
+
+        assertTrue(msg.contains("arrived at Restaurant"));
+        assertFalse(msg.contains("[Vibe]"));
+
+        game.shutdown();
+    }
+
+    @Test
+    public void petStorePurchaseShouldNotIncludeFlavor() {
+        Game game = new Game();
+        game.createSim("Wy", SimType.ADULT);
+        game.setActiveSim(0);
+        game.travelTo(LocationKey.PETSTORE);
+
+        String msg = game.performAction(
+                ActionFactory.create(ActionType.BUY_PET),
+                new BuyPetActionRequest(1, "Meow"));
+
+        assertTrue(msg.toLowerCase().contains("bought"));
+        assertFalse(msg.contains("[Vibe]"));
+
+        game.shutdown();
+    }
+
+    @Test
+    public void bankDepositShouldUseSavingsAccountAndNoFlavor() {
+        Game game = new Game();
+        game.createSim("Wy", SimType.ADULT);
+        game.setActiveSim(0);
+
+        String msg = game.performAction(
+                ActionFactory.create(ActionType.DEPOSIT),
+                new AmountActionRequest(2));
+
+        assertTrue(msg.contains("Savings Account"));
         assertFalse(msg.contains("[Vibe]"));
 
         game.shutdown();

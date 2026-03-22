@@ -13,24 +13,6 @@ public final class ActionFlavorService {
             "[Vibe] Solid work rhythm today."
     };
 
-    private static final String[] FINANCE_FLAVORS = {
-            "[Vibe] Smart money move.",
-            "[Vibe] Ledger looks healthier.",
-            "[Vibe] Financial control improved."
-    };
-
-    private static final String[] REST_FLAVORS = {
-            "[Vibe] Recovery helped.",
-            "[Vibe] You feel steadier.",
-            "[Vibe] Good reset."
-    };
-
-    private static final String[] COMMERCE_FLAVORS = {
-            "[Vibe] Portfolio evolving.",
-            "[Vibe] Long game improved.",
-            "[Vibe] Strong market decision."
-    };
-
     public String decorate(String message, Sim sim, GameClock clock) {
         if (message == null || message.isBlank() || sim == null || clock == null) {
             return message;
@@ -58,22 +40,13 @@ public final class ActionFlavorService {
                 || m.contains("no longer in the simulation")
                 || m.contains("limit reached")
                 || m.contains("maximum amount")
-                || m.contains("failed");
+                || m.contains("failed")
+                || m.contains("arrived at");
     }
 
     private String[] chooseFlavorBank(String lowerMessage) {
         if (lowerMessage.contains("earned") || lowerMessage.contains("worked")) {
             return WORK_FLAVORS;
-        }
-        if (lowerMessage.contains("deposited") || lowerMessage.contains("withdrew") || lowerMessage.contains("loan")
-                || lowerMessage.contains("repay")) {
-            return FINANCE_FLAVORS;
-        }
-        if (lowerMessage.contains("sleep") || lowerMessage.contains("nap") || lowerMessage.contains("rest")) {
-            return REST_FLAVORS;
-        }
-        if (lowerMessage.contains("bought") || lowerMessage.contains("sold")) {
-            return COMMERCE_FLAVORS;
         }
         return null;
     }

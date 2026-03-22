@@ -62,7 +62,7 @@ public final class Withdraw implements Action {
 
         if (sim.getBankingSystem().withdraw(withdrawAmt)) {
             sim.earnSimcoin(withdrawAmt);
-            return GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
+            return GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Savings Account: $" + sim.getBankDeposit() + RESET;
         }
 
         return RED + "An error occurred during withdrawal." + RESET;

@@ -62,7 +62,7 @@ public final class Deposit implements Action {
 
         if (sim.getBankingSystem().deposit(depositAmt)) {
             sim.spendSimcoin(depositAmt);
-            return GREEN + "Deposited $" + depositAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
+            return GREEN + "Deposited $" + depositAmt + " | Simcoin: $" + sim.getSimcoin() + " | Savings Account: $" + sim.getBankDeposit() + RESET;
         }
 
         return RED + "An error occurred during deposit." + RESET;

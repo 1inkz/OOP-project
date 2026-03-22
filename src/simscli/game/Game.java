@@ -274,6 +274,8 @@ public final class Game {
         if (!active.isAlive()) return active.getName() + " is no longer in the simulation.";
         
         String result = locationManager.performLocationAction(active, actionIndex, request);
+        timeManager.checkTimeRules(simManager.getAllSims(), this);
+        simManager.removeDeadSims(this);
         return flavorService.decorate(result, active, timeManager.getClock());
     }
 
@@ -306,6 +308,7 @@ public final class Game {
     public String performAction(Action action, ActionRequest request) {
         Sim active = simManager.getActiveSim();
         String result = actionExecutor.performAction(active, action, this, request);
+        timeManager.checkTimeRules(simManager.getAllSims(), this);
         
         simManager.removeDeadSims(this);
         return flavorService.decorate(result, active, timeManager.getClock());
