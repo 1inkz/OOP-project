@@ -1,14 +1,14 @@
 package simscli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import simscli.game.Game;
 import simscli.game.SimManager;
@@ -21,7 +21,7 @@ public class SimManagerTest {
     private SimManager simManager;
     private Game game;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         game = new Game(new ConsoleGameLogger());
         game.location().values().forEach(loc -> {}); 
@@ -41,7 +41,7 @@ public class SimManagerTest {
     
     @Test
     public void setActiveSim_validIndex_shouldSwitchActiveSim() {
-        Sim alice = simManager.createSim("Alice", SimType.ADULT, game);
+        simManager.createSim("Alice", SimType.ADULT, game);
         Sim bob = simManager.createSim("Bob", SimType.ELDER, game);
         
         simManager.setActiveSim(1);

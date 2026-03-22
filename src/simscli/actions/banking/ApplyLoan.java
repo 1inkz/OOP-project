@@ -3,6 +3,8 @@ package simscli.actions.banking;
 import simscli.actions.Action;
 import simscli.actions.ActionUIAdapter;
 import simscli.game.GameContext;
+import simscli.actions.request.ActionRequest;
+import simscli.actions.request.AmountActionRequest;
 import simscli.sims.Sim;
 
 /**
@@ -20,8 +22,6 @@ public final class ApplyLoan implements Action {
     
     private static final String GREEN = "\u001B[32m";
     private static final String RESET = "\u001B[0m";
-    String output = "";
-    
     @Override public String name() { return "Apply Loan"; }
 
 /**
@@ -35,21 +35,38 @@ public final class ApplyLoan implements Action {
     @Override
     public String perform(Sim sim, GameContext ctx) {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
-        
+
+        int maxLoan = simscli.bank.BankingSystem.getLoanLimit() - sim.getLoanAmount();
         int loanAmt = ui.intRange(
                 "Enter loan amount (Max: $" + simscli.bank.BankingSystem.getLoanLimit() + ") or press '0' to cancel: $",
                 0,
-                simscli.bank.BankingSystem.getLoanLimit()
-                        - sim.getLoanAmount());
+                maxLoan);
+
+        return perform(sim, ctx, new AmountActionRequest(loanAmt));
+    }
+
+    @Override
+    public String perform(Sim sim, GameContext ctx, ActionRequest request) {
+        if (!(request instanceof AmountActionRequest amountRequest)) {
+            return perform(sim, ctx);
+        }
+
+        int maxLoan = simscli.bank.BankingSystem.getLoanLimit() - sim.getLoanAmount();
+        int loanAmt = amountRequest.amount();
+
+        if (loanAmt < 0 || loanAmt > maxLoan) {
+            return "Invalid loan amount.";
+        }
 
         if (loanAmt == 0) {
-        	output = GREEN + "Transaction Cancelled";
+            return GREEN + "Transaction Cancelled" + RESET;
         }
-        else if (sim.getBankingSystem().applyLoan(loanAmt)) {
-        	sim.earnSimcoin(loanAmt);
-        	output = GREEN + "Loan approved! $" + loanAmt + " | Simcoin: $" + sim.getSimcoin() + " | Loan: $" + sim.getLoanAmount() + RESET;
+
+        if (sim.getBankingSystem().applyLoan(loanAmt)) {
+            sim.earnSimcoin(loanAmt);
+            return GREEN + "Loan approved! $" + loanAmt + " | Simcoin: $" + sim.getSimcoin() + " | Loan: $" + sim.getLoanAmount() + RESET;
         }
-        
-		return output;
+
+        return "Loan application failed.";
     }
 }

@@ -1,136 +1,111 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.bank.BankingSystem;
 
 /**
  * Test: Verifies banking operations and loan limit enforcement.
  */
 public class BankingSystemTest {
-    
-    public static void testInitialBalance() {
+
+    @Test
+    public void testInitialBalance() {
         BankingSystem banking = new BankingSystem();
-        assert banking.getDeposit() == 0;
-        System.out.println("✓ testInitialBalance");
+        assertEquals(0, banking.getDeposit());
     }
 
-    public static void testDepositAmount() {
+    @Test
+    public void testDepositAmount() {
         BankingSystem banking = new BankingSystem();
-        banking.deposit(100);
-        assert banking.getDeposit() == 100;
-        System.out.println("✓ testDepositAmount");
+        assertTrue(banking.deposit(100));
+        assertEquals(100, banking.getDeposit());
     }
 
-    public static void testMultipleDeposits() {
+    @Test
+    public void testMultipleDeposits() {
         BankingSystem banking = new BankingSystem();
         banking.deposit(100);
         banking.deposit(50);
         banking.deposit(25);
-        assert banking.getDeposit() == 175;
-        System.out.println("✓ testMultipleDeposits");
+        assertEquals(175, banking.getDeposit());
     }
 
-    public static void testWithdrawSufficientFunds() {
+    @Test
+    public void testWithdrawSufficientFunds() {
         BankingSystem banking = new BankingSystem();
         banking.deposit(100);
-        banking.withdraw(30);
-        assert banking.getDeposit() == 70;
-        System.out.println("✓ testWithdrawSufficientFunds");
+        assertTrue(banking.withdraw(30));
+        assertEquals(70, banking.getDeposit());
     }
 
-    public static void testWithdrawAllFunds() {
+    @Test
+    public void testWithdrawAllFunds() {
         BankingSystem banking = new BankingSystem();
         banking.deposit(100);
-        banking.withdraw(100);
-        assert banking.getDeposit() == 0;
-        System.out.println("✓ testWithdrawAllFunds");
+        assertTrue(banking.withdraw(100));
+        assertEquals(0, banking.getDeposit());
     }
 
-    public static void testWithdrawMoreThanFundsThrows() {
-        try {
-            BankingSystem banking = new BankingSystem();
-            banking.deposit(50);
-            banking.withdraw(100);
-            assert false : "Should throw";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testWithdrawMoreThanFundsThrows");
-        }
-    }
-
-    public static void testApplyLoan() {
+    @Test
+    public void testWithdrawMoreThanFundsReturnsFalse() {
         BankingSystem banking = new BankingSystem();
-        banking.applyLoan(1000);
-        assert banking.getLoanAmount() == 1000;
-        System.out.println("✓ testApplyLoan");
+        banking.deposit(50);
+        assertFalse(banking.withdraw(100));
+        assertEquals(50, banking.getDeposit());
     }
 
-    public static void testLoanAddsToDeposit() {
+    @Test
+    public void testApplyLoan() {
         BankingSystem banking = new BankingSystem();
-        banking.deposit(100);
-        banking.applyLoan(500);
-        assert banking.getDeposit() == 600;
-        assert banking.getLoanAmount() == 500;
-        System.out.println("✓ testLoanAddsToDeposit");
+        assertTrue(banking.applyLoan(1000));
+        assertEquals(1000, banking.getLoanAmount());
     }
 
-    public static void testApplyLoanAtLimit() {
+    @Test
+    public void testApplyLoanAtLimit() {
         BankingSystem banking = new BankingSystem();
-        banking.applyLoan(5000);
-        assert banking.getLoanAmount() == 5000;
-        System.out.println("✓ testApplyLoanAtLimit");
+        assertTrue(banking.applyLoan(5000));
+        assertEquals(5000, banking.getLoanAmount());
     }
 
-    public static void testApplyLoanExceedsLimit() {
-        try {
-            BankingSystem banking = new BankingSystem();
-            banking.applyLoan(5001);
-            assert false : "Should throw";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ testApplyLoanExceedsLimit");
-        }
+    @Test
+    public void testApplyLoanExceedsLimitReturnsFalse() {
+        BankingSystem banking = new BankingSystem();
+        assertFalse(banking.applyLoan(5001));
+        assertEquals(0, banking.getLoanAmount());
     }
 
-    public static void testRepayLoanPartially() {
+    @Test
+    public void testRepayLoanPartially() {
         BankingSystem banking = new BankingSystem();
         banking.applyLoan(1000);
         banking.repayLoan(300);
-        assert banking.getLoanAmount() == 700;
-        System.out.println("✓ testRepayLoanPartially");
+        assertEquals(700, banking.getLoanAmount());
     }
 
-    public static void testRepayLoanCompletely() {
+    @Test
+    public void testRepayLoanCompletely() {
         BankingSystem banking = new BankingSystem();
         banking.applyLoan(1000);
         banking.repayLoan(1000);
-        assert banking.getLoanAmount() == 0;
-        System.out.println("✓ testRepayLoanCompletely");
+        assertEquals(0, banking.getLoanAmount());
     }
 
-    public static void testComplexTransactions() {
+    @Test
+    public void testComplexTransactions() {
         BankingSystem banking = new BankingSystem();
         banking.deposit(1000);
         banking.withdraw(200);
         banking.applyLoan(500);
         banking.withdraw(100);
         banking.repayLoan(200);
-        
-        // 1000 - 200 + 500 - 100 = 1200
-        assert banking.getLoanAmount() == 300; // 500 - 200 repaid
-        System.out.println("✓ testComplexTransactions");
-    }
 
-    public static void main(String[] args) {
-        testInitialBalance();
-        testDepositAmount();
-        testMultipleDeposits();
-        testWithdrawSufficientFunds();
-        testWithdrawAllFunds();
-        testWithdrawMoreThanFundsThrows();
-        testApplyLoan();
-        testLoanAddsToDeposit();
-        testApplyLoanAtLimit();
-        testApplyLoanExceedsLimit();
-        testRepayLoanPartially();
-        testRepayLoanCompletely();
-        testComplexTransactions();
+        assertEquals(300, banking.getLoanAmount());
+        assertEquals(700, banking.getDeposit());
     }
 }

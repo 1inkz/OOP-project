@@ -2,8 +2,10 @@ package simscli.game;
 
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
+import simscli.policy.MidnightEnergyDrainPolicy;
+import simscli.policy.NeedCrisisPolicy;
+import simscli.policy.TimeRulePolicy;
 import simscli.sims.Sim;
-import simscli.stats.Effect;
 import simscli.stats.NeedType;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,10 +21,14 @@ public class TimeManager {
     private GameClock clock;
     private final ExecutorService npcPool;
     private final GameLogger logger;
+    private final List<TimeRulePolicy> timeRulePolicies;
 
     public TimeManager(GameClock clock, GameLogger logger) {
         this.clock = clock;
         this.logger = logger;
+        this.timeRulePolicies = new ArrayList<>();
+        this.timeRulePolicies.add(new NeedCrisisPolicy());
+        this.timeRulePolicies.add(new MidnightEnergyDrainPolicy());
         this.npcPool = Executors.newFixedThreadPool(
                 Math.max(1, Math.min(4, Runtime.getRuntime().availableProcessors()))
         );
@@ -57,7 +63,7 @@ public class TimeManager {
             }
         }
 
-        checkTimeRules(sims);
+        checkTimeRules(sims, game);
     }
 
     /**
@@ -102,17 +108,9 @@ public class TimeManager {
     /**
      * Sims energy drops faster after 11pm
      */
-    public void checkTimeRules(List<Sim> sims) {
-        int currentHour = clock.getHour();
-
-        if (currentHour >= 23 || currentHour <= 7) {
-            logger.warn("\n[GAME] It's Midnight — Sim's energy draining fast!");
-            
-            for (Sim sim : sims) { {
-                sim.applyEffect(Effect.none()
-                        .plus(NeedType.ENERGY, -10));
-            }}
-
+    public void checkTimeRules(List<Sim> sims, Game game) {
+        for (TimeRulePolicy policy : timeRulePolicies) {
+            policy.apply(clock, sims, logger, game);
         }
     }
 

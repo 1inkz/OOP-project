@@ -135,11 +135,7 @@ public class SimManager {
      * @param game the Game instance for location access and save operations
      */
     public void removeDeadSims(Game game) {
-        String deadActiveSimName = null;
-        String deadReason = null;
-
         Iterator<Sim> it = sims.iterator();
-        int index = 0;
 
         while (it.hasNext()) {
             Sim sim = it.next();
@@ -148,16 +144,9 @@ public class SimManager {
                 String reason = getZeroNeedReason(sim);
                 logger.error(sim.getName() + " was eliminated because " + reason + " reached 0!");
 
-                if (index == activeIndex) {
-                    deadActiveSimName = sim.getName();
-                    deadReason = reason;
-                }
-
                 it.remove();
                 continue;
             }
-
-            index++;
         }
 
         if (sims.isEmpty()) {

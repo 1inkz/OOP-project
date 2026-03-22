@@ -3,6 +3,8 @@ package simscli.actions.pet;
 import simscli.actions.Action;
 import simscli.actions.ActionUIAdapter;
 import simscli.game.GameContext;
+import simscli.actions.request.ActionRequest;
+import simscli.actions.request.BuyPetActionRequest;
 import simscli.pets.Pet;
 import simscli.pets.PetFactory;
 import simscli.pets.PetType;
@@ -20,7 +22,7 @@ public final class BuyPet implements Action {
     @Override
     public String perform(Sim sim, GameContext ctx) {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
-        
+
         System.out.println("\n===== Pet Store =====");
         System.out.println("Available Pets:");
         int index = 1;
@@ -36,7 +38,31 @@ public final class BuyPet implements Action {
             return "You leave the pet store.";
         }
 
+        System.out.print("Enter pet name: ");
+        String petName = ui.line("");
+        return perform(sim, ctx, new BuyPetActionRequest(choice, petName));
+    }
+
+    @Override
+    public String perform(Sim sim, GameContext ctx, ActionRequest request) {
+        if (!(request instanceof BuyPetActionRequest buyPetRequest)) {
+            return perform(sim, ctx);
+        }
+
+        int choice = buyPetRequest.petSelection();
+        String petName = buyPetRequest.petName();
+
         PetType[] types = PetType.values();
+        int cancelIndex = types.length + 1;
+
+        if (choice < 1 || choice > cancelIndex) {
+            return "Invalid pet selection.";
+        }
+
+        if (choice == cancelIndex) {
+            return "You leave the pet store.";
+        }
+
         PetType petType = types[choice - 1];
 
         if (sim.getSimcoin() < petType.getPrice()) {
@@ -44,10 +70,7 @@ public final class BuyPet implements Action {
                     " but you only have $" + sim.getSimcoin();
         }
 
-        System.out.print("Enter pet name: ");
-        String petName = ui.line("");
-
-        if (petName.trim().isEmpty()) {
+        if (petName == null || petName.trim().isEmpty()) {
             return "Pet name cannot be empty!";
         }
 

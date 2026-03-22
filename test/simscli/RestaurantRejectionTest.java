@@ -1,5 +1,9 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.game.Game;
 import simscli.sims.SimType;
 
@@ -11,7 +15,8 @@ public class RestaurantRejectionTest {
     /**
      * Tests that dining out fails without 25 Simcoin.
      */
-    public static void dineOutRejectedIfInsufficientMoney() {
+    @Test
+    public void dineOutRejectedIfInsufficientMoney() {
         Game g = new Game();
         g.createSim("Mia", SimType.ADULT);
         g.setActiveSim(0);
@@ -33,12 +38,7 @@ public class RestaurantRejectionTest {
         // If your Restaurant action order differs, adjust index.
         String msg = g.performLocationAction(0);
 
-        assert msg.toLowerCase().contains("can't afford") || msg.toLowerCase().contains("need $");
-        System.out.println("✓ dineOutRejectedIfInsufficientMoney");
+        assertTrue(msg.toLowerCase().contains("can't afford") || msg.toLowerCase().contains("need $"));
         g.shutdown();
-    }
-
-    public static void main(String[] args) {
-        dineOutRejectedIfInsufficientMoney();
     }
 }

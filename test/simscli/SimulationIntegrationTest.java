@@ -1,46 +1,38 @@
 package simscli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertFalse;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import simscli.bank.BankingSystem;
 import simscli.game.ConsoleGameLogger;
 import simscli.game.Game;
-import simscli.game.SimManager;
 import simscli.jobs.Job; // 需确保Job类可访问
 import simscli.sims.Sim;
 import simscli.sims.SimType;
 import simscli.stats.NeedType;
 import simscli.stats.SkillType; // 需确保SkillType可访问
 
-// 注意：需补充SaveGame类的导入（根据你的实际包路径）
-import simscli.SaveGame;
-
 public class SimulationIntegrationTest {
     private Game game;
     private Sim activeSim;
     private BankingSystem bankingSystem;
-    private SimManager simManager;
 
     /**
      * Testing Sim should have full state
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         game = new Game(new ConsoleGameLogger());
         game.location().values().forEach(loc -> {}); 
         SaveGame.ensureSaveFileExists(); 
         
-        simManager = new SimManager(game.getLogger());
         activeSim = game.createSim("Charlie", SimType.ADULT); 
         
         initSimForTests(activeSim);
@@ -180,7 +172,6 @@ public class SimulationIntegrationTest {
     @Test
     public void needActions_eatSleepShower_shouldUpdateNeeds() {
         int initialHunger = activeSim.getNeeds().get(NeedType.HUNGER);
-        int initialEnergy = activeSim.getNeeds().get(NeedType.ENERGY);
         int initialHygiene = activeSim.getNeeds().get(NeedType.HYGIENE);
         
         game.travelTo("park");

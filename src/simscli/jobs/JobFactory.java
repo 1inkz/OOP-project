@@ -8,26 +8,36 @@ public final class JobFactory {
     private JobFactory() {}
 
     /**
+     * Creates a job instance by typed identifier.
+     * @param type the job type
+     * @return the corresponding Job implementation
+     */
+    public static Job create(JobType type) {
+        if (type == null) throw new IllegalArgumentException("job type required");
+
+        switch (type) {
+            case JOBLESS:
+                return new JoblessJob();
+            case CHEF:
+                return new ChefJob();
+            case DOCTOR:
+                return new DoctorJob();
+            case BANK_TELLER:
+                return new BankTellerJob();
+            case INFLUENCER:
+                return new InfluencerJob();
+            default:
+                throw new IllegalArgumentException("Unknown job type: " + type);
+        }
+    }
+
+    /**
      * Creates a job instance by name.
      * @param name the job name (case-insensitive)
      * @return the corresponding Job implementation
      * @throws IllegalArgumentException if job name is unknown
      */
     public static Job create(String name) {
-        if (name == null) throw new IllegalArgumentException("job required");
-
-        switch (name.trim().toLowerCase()) {
-            case "jobless":
-            case "unemployed":
-                return new JoblessJob();
-
-            case "chef": return new ChefJob();
-            case "doctor": return new DoctorJob();
-            case "bank teller": return new BankTellerJob();
-            case "influencer": return new InfluencerJob();
-
-            default:
-                throw new IllegalArgumentException("Unknown job: " + name);
-        }
+        return create(JobType.fromName(name));
     }
 }

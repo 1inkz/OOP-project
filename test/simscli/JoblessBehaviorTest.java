@@ -1,5 +1,10 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.game.Game;
@@ -13,19 +18,20 @@ public class JoblessBehaviorTest {
     /**
      * Tests that new Sims start unemployed.
      */
-    public static void newSimStartsJobless() {
+    @Test
+    public void newSimStartsJobless() {
         Game g = new Game();
         g.createSim("Ava", SimType.ADULT);
         g.setActiveSim(0);
-        assert g.activeSim().getJobName().equals("Jobless");
-        System.out.println("✓ newSimStartsJobless");
+        assertEquals("Jobless", g.activeSim().getJobName());
         g.shutdown();
     }
 
     /**
      * Tests that jobless Sims cannot work or earn.
      */
-    public static void joblessCannotWork_moneyUnchanged() {
+    @Test
+    public void joblessCannotWork_moneyUnchanged() {
         Game g = new Game();
         g.createSim("Ava", SimType.ADULT);
         g.setActiveSim(0);
@@ -34,14 +40,8 @@ public class JoblessBehaviorTest {
         String msg = g.performAction(ActionFactory.create(ActionType.WORK));
         int after = g.activeSim().getSimcoin();
 
-        assert before == after;
-        assert msg.toLowerCase().contains("jobless");
-        System.out.println("✓ joblessCannotWork_moneyUnchanged");
+        assertEquals(before, after);
+        assertTrue(msg.toLowerCase().contains("jobless"));
         g.shutdown();
-    }
-
-    public static void main(String[] args) {
-        newSimStartsJobless();
-        joblessCannotWork_moneyUnchanged();
     }
 }

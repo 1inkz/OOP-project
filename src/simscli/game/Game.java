@@ -2,7 +2,9 @@ package simscli.game;
 
 import java.util.*;
 import simscli.actions.Action;
+import simscli.actions.request.ActionRequest;
 import simscli.location.Location;
+import simscli.location.LocationKey;
 import simscli.sims.Sim;
 import simscli.sims.SimType;
 import simscli.ui.Input;
@@ -210,7 +212,7 @@ public final class Game {
      * @param actionTriggered whether an action was just performed
      */
     public void checkTimeRules() {
-        timeManager.checkTimeRules(simManager.getAllSims());
+        timeManager.checkTimeRules(simManager.getAllSims(), this);
     }
 
     // ==================== Location Management ====================
@@ -229,10 +231,23 @@ public final class Game {
      * @return message describing the travel result
      */
     public String travelTo(String destinationKey) {
+        try {
+            return travelTo(LocationKey.fromKey(destinationKey));
+        } catch (IllegalArgumentException e) {
+            return "Unknown location. Try: " + locationManager.getLocations().keySet();
+        }
+    }
+
+    /**
+     * Moves the active Sim to a typed destination location.
+     * @param destination the destination location key
+     * @return message describing the travel result
+     */
+    public String travelTo(LocationKey destination) {
         Sim active = simManager.getActiveSim();
         if (active == null) return "No active sim.";
-        
-        String result = locationManager.travelTo(active, destinationKey);
+
+        String result = locationManager.travelTo(active, destination);
         return result;
     }
 
@@ -242,10 +257,21 @@ public final class Game {
      * @return message describing the action result
      */
     public String performLocationAction(int actionIndex) {
+        return performLocationAction(actionIndex, null);
+    }
+
+    /**
+     * Performs an action available at the current location with optional request payload.
+     * @param actionIndex the index of the action to perform
+     * @param request optional action request payload
+     * @return message describing the action result
+     */
+    public String performLocationAction(int actionIndex, ActionRequest request) {
         Sim active = simManager.getActiveSim();
         if (active == null) return "No active sim.";
+        if (!active.isAlive()) return active.getName() + " is no longer in the simulation.";
         
-        return locationManager.performLocationAction(active, actionIndex);
+        return locationManager.performLocationAction(active, actionIndex, request);
     }
 
     /**
@@ -265,8 +291,18 @@ public final class Game {
      * @return message describing the action result
      */
     public String performAction(Action action) {
+        return performAction(action, null);
+    }
+
+    /**
+     * Performs an action on the active Sim with optional request payload.
+     * @param action the Action to perform
+     * @param request optional action request payload
+     * @return message describing the action result
+     */
+    public String performAction(Action action, ActionRequest request) {
         Sim active = simManager.getActiveSim();
-        String result = actionExecutor.performAction(active, action, this);
+        String result = actionExecutor.performAction(active, action, this, request);
         
         simManager.removeDeadSims(this);
         return result;

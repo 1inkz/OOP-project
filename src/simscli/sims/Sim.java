@@ -164,6 +164,13 @@ public abstract class Sim {
     public final boolean isCritical(NeedType t) {
         return stats.isCritical(t);
     }
+
+    /**
+     * Consumes one-time trigger when a need reaches zero.
+     */
+    public boolean consumeZeroNeedTrigger(NeedType type) {
+        return stats.consumeZeroNeedTrigger(type);
+    }
     
     public void applyEffect(Effect effect) {
         stats.applyEffect(effect);

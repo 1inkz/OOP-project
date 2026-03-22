@@ -8,7 +8,6 @@ import simscli.game.Game;
 import simscli.game.GameLogger;
 import simscli.game.SimManager;
 import simscli.sims.Sim;
-import simscli.stats.NeedType;
 
 /**
  * Main console-based UI for the game.

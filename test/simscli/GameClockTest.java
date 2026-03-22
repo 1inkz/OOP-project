@@ -1,83 +1,77 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import simscli.game.GameClock;
+
 /**
  * Test: Verifies GameClock time management and real-time synchronization.
  */
 public class GameClockTest {
     
-    public static void testDefaultInitialization() {
+    @Test
+    public void testDefaultInitialization() {
         GameClock clock = new GameClock();
-        assert clock.getDayNumber() == 1 : "Should start at day 1";
-        assert clock.getMinuteOfDay() == 0 : "Should start at midnight";
-        System.out.println("✓ testDefaultInitialization");
+        assertEquals(1, clock.getDayNumber());
+        assertEquals(0, clock.getMinuteOfDay());
     }
 
-    public static void testCustomTime() {
+    @Test
+    public void testCustomTime() {
         GameClock clock = new GameClock(5, 720);
-        assert clock.getDayNumber() == 5;
-        assert clock.getMinuteOfDay() == 720;
-        System.out.println("✓ testCustomTime");
+        assertEquals(5, clock.getDayNumber());
+        assertEquals(720, clock.getMinuteOfDay());
     }
 
-    public static void testGetHour() {
+    @Test
+    public void testGetHour() {
         GameClock clock = new GameClock(1, 480); // 8:00 AM
-        assert clock.getHour() == 8;
-        System.out.println("✓ testGetHour");
+        assertEquals(8, clock.getHour());
     }
 
-    public static void testGetMinute() {
+    @Test
+    public void testGetMinute() {
         GameClock clock = new GameClock(1, 485); // 8:05 AM
-        assert clock.getMinute() == 5;
-        System.out.println("✓ testGetMinute");
+        assertEquals(5, clock.getMinute());
     }
 
-    public static void testSpendMinutesWithinDay() {
+    @Test
+    public void testSpendMinutesWithinDay() {
         GameClock clock = new GameClock(1, 100);
         clock.spendMinutes(60);
-        assert clock.getDayNumber() == 1;
-        assert clock.getMinuteOfDay() == 160;
-        System.out.println("✓ testSpendMinutesWithinDay");
+        assertEquals(1, clock.getDayNumber());
+        assertEquals(160, clock.getMinuteOfDay());
     }
 
-    public static void testSpendMinutesAdvancesDay() {
+    @Test
+    public void testSpendMinutesAdvancesDay() {
         GameClock clock = new GameClock(1, 1400);
         clock.spendMinutes(100);
-        assert clock.getDayNumber() == 2;
-        assert clock.getMinuteOfDay() == 60;
-        System.out.println("✓ testSpendMinutesAdvancesDay");
+        assertEquals(2, clock.getDayNumber());
+        assertEquals(60, clock.getMinuteOfDay());
     }
 
-    public static void testGetMinutesLeftToday() {
+    @Test
+    public void testGetMinutesLeftToday() {
         GameClock clock = new GameClock(1, 100);
-        assert clock.getMinutesLeftToday() == 1340;
-        System.out.println("✓ testGetMinutesLeftToday");
+        assertEquals(1340, clock.getMinutesLeftToday());
     }
 
-    public static void testResetToNextDayMorning() {
+    @Test
+    public void testResetToNextDayMorning() {
         GameClock clock = new GameClock(3, 1000);
         clock.resetToNextDayMorning();
-        assert clock.getDayNumber() == 4;
-        assert clock.getMinuteOfDay() == 480; // 8:00 AM
-        System.out.println("✓ testResetToNextDayMorning");
+        assertEquals(4, clock.getDayNumber());
+        assertEquals(480, clock.getMinuteOfDay());
     }
 
-    public static void testResetNewGame() {
+    @Test
+    public void testResetNewGame() {
         GameClock clock = new GameClock(10, 1200);
         clock.resetNewGame();
-        assert clock.getDayNumber() == 1;
-        assert clock.getMinuteOfDay() == 480;
-        System.out.println("✓ testResetNewGame");
-    }
-
-    public static void main(String[] args) {
-        testDefaultInitialization();
-        testCustomTime();
-        testGetHour();
-        testGetMinute();
-        testSpendMinutesWithinDay();
-        testSpendMinutesAdvancesDay();
-        testGetMinutesLeftToday();
-        testResetToNextDayMorning();
-        testResetNewGame();
+        assertEquals(1, clock.getDayNumber());
+        assertEquals(480, clock.getMinuteOfDay());
     }
 }

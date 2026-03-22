@@ -1,5 +1,9 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.stats.BoundedStat;
 
 /**
@@ -10,25 +14,20 @@ public class BoundedStatTest {
     /**
      * Tests that stat cannot go below 0.
      */
-    public static void clampsLowToZero() {
+    @Test
+    public void clampsLowToZero() {
         BoundedStat s = new BoundedStat(10);
         s.add(-999);
-        assert s.get() == 0;
-        System.out.println("✓ clampsLowToZero");
+        assertEquals(0, s.get());
     }
 
     /**
      * Tests that stat cannot go above 100.
      */
-    public static void clampsHighToHundred() {
+    @Test
+    public void clampsHighToHundred() {
         BoundedStat s = new BoundedStat(90);
         s.add(999);
-        assert s.get() == 100;
-        System.out.println("✓ clampsHighToHundred");
-    }
-
-    public static void main(String[] args) {
-        clampsLowToZero();
-        clampsHighToHundred();
+        assertEquals(100, s.get());
     }
 }

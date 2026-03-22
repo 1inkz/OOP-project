@@ -1,5 +1,10 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.jobs.JobFactory;
 
 /**
@@ -10,25 +15,16 @@ public class JobFactoryTest {
     /**
      * Tests that Chef job is created correctly.
      */
-    public static void createsKnownJob() {
-        assert JobFactory.create("Chef").name().equals("Chef");
-        System.out.println("✓ createsKnownJob");
+    @Test
+    public void createsKnownJob() {
+        assertEquals("Chef", JobFactory.create("Chef").name());
     }
 
     /**
      * Tests that unknown job names throw exception.
      */
-    public static void unknownJobThrows() {
-        try {
-            JobFactory.create("Wizard");
-            assert false : "Should have thrown IllegalArgumentException";
-        } catch (IllegalArgumentException e) {
-            System.out.println("✓ unknownJobThrows");
-        }
-    }
-
-    public static void main(String[] args) {
-        createsKnownJob();
-        unknownJobThrows();
+    @Test
+    public void unknownJobThrows() {
+        assertThrows(IllegalArgumentException.class, () -> JobFactory.create("Wizard"));
     }
 }

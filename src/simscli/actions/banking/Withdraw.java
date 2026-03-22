@@ -3,6 +3,8 @@ package simscli.actions.banking;
 import simscli.actions.Action;
 import simscli.actions.ActionUIAdapter;
 import simscli.game.GameContext;
+import simscli.actions.request.ActionRequest;
+import simscli.actions.request.AmountActionRequest;
 import simscli.sims.Sim;
 
 /**
@@ -21,8 +23,6 @@ public final class Withdraw implements Action {
     private static final String RED = "\u001B[31m";       
     private static final String GREEN = "\u001B[32m";
     private static final String RESET = "\u001B[0m";
-    String output = "";
-
     @Override public String name() { return "Withdraw Simcoin"; }
 
     /**
@@ -36,25 +36,35 @@ public final class Withdraw implements Action {
     @Override
     public String perform(Sim sim, GameContext ctx) {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
-        
+
         if (sim.getBankDeposit() <= 0) {
-        	output = RED + "No money available to withdraw!" + RESET;
-        }
-        else {
-            int withdrawAmt = ui.intRange("Enter withdraw amount or press '0' to cancel: $", 0, sim.getBankDeposit());
-
-            if (withdrawAmt == 0) {
-            	output = GREEN + "Transaction Cancelled" + RESET;
-            }
-            else if (sim.getBankingSystem().withdraw(withdrawAmt)) {
-            	sim.earnSimcoin(withdrawAmt);
-            	output = GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
-            }
-            else {
-            	output = RED + "An error occurred during withdrawal." + RESET;
-            }
+            return RED + "No money available to withdraw!" + RESET;
         }
 
-		return output;
+        int withdrawAmt = ui.intRange("Enter withdraw amount or press '0' to cancel: $", 0, sim.getBankDeposit());
+        return perform(sim, ctx, new AmountActionRequest(withdrawAmt));
+    }
+
+    @Override
+    public String perform(Sim sim, GameContext ctx, ActionRequest request) {
+        if (!(request instanceof AmountActionRequest amountRequest)) {
+            return perform(sim, ctx);
+        }
+
+        int withdrawAmt = amountRequest.amount();
+        if (withdrawAmt < 0 || withdrawAmt > sim.getBankDeposit()) {
+            return RED + "Invalid withdrawal amount." + RESET;
+        }
+
+        if (withdrawAmt == 0) {
+            return GREEN + "Transaction Cancelled" + RESET;
+        }
+
+        if (sim.getBankingSystem().withdraw(withdrawAmt)) {
+            sim.earnSimcoin(withdrawAmt);
+            return GREEN + "Withdrew $" + withdrawAmt + " | Simcoin: $" + sim.getSimcoin() + " | Deposit: $" + sim.getBankDeposit() + RESET;
+        }
+
+        return RED + "An error occurred during withdrawal." + RESET;
     }
 }

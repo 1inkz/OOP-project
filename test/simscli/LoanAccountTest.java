@@ -1,19 +1,18 @@
 package simscli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import simscli.bank.LoanAccount;
 import simscli.bank.Money;
 
 public class LoanAccountTest {
     private LoanAccount loanAccount;
-    private static final int LOAN_LIMIT = 5000;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         loanAccount = new LoanAccount(); 
     }

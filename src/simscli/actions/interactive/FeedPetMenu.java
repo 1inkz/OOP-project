@@ -3,6 +3,8 @@ package simscli.actions.interactive;
 import simscli.actions.Action;
 import simscli.actions.ActionUIAdapter;
 import simscli.game.GameContext;
+import simscli.actions.request.ActionRequest;
+import simscli.actions.request.SelectionActionRequest;
 import simscli.actions.pet.FeedPet;
 import simscli.pets.Pet;
 import simscli.sims.Sim;
@@ -48,6 +50,21 @@ public final class FeedPetMenu implements Action {
         System.out.println((pets.size() + 2) + ") Cancel");
 
         int choice = ui.intRange("\nSelect: ", 1, pets.size() + 2);
+        return perform(sim, ctx, new SelectionActionRequest(choice));
+    }
+
+    @Override
+    public String perform(Sim sim, GameContext ctx, ActionRequest request) {
+        if (!(request instanceof SelectionActionRequest selectionRequest)) {
+            return perform(sim, ctx);
+        }
+
+        List<Pet> pets = sim.getPets();
+        int choice = selectionRequest.selection();
+
+        if (choice < 1 || choice > pets.size() + 2) {
+            return "Invalid pet selection.";
+        }
 
         if (choice == pets.size() + 2) {
             return "You decide not to feed any pet for now.";

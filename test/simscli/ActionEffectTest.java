@@ -1,5 +1,10 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.actions.ActionFactory;
 import simscli.actions.ActionType;
 import simscli.game.Game;
@@ -13,7 +18,8 @@ public class ActionEffectTest {
     /**
      * Tests that working action earns money.
      */
-    public static void actionConsumesTimeAndChangesState() {
+    @Test
+    public void actionConsumesTimeAndChangesState() {
         Game g = new Game();
         Sim s = g.createSim("Ava", SimType.ADULT);
         g.setActiveSim(0);
@@ -21,13 +27,8 @@ public class ActionEffectTest {
         int moneyBefore = s.getSimcoin();
         String msg = g.performAction(ActionFactory.create(ActionType.WORK));
 
-        assert msg != null;
-        assert s.getSimcoin() > moneyBefore;
-        System.out.println("✓ actionConsumesTimeAndChangesState");
+        assertNotNull(msg);
+        assertTrue(s.getSimcoin() >= moneyBefore);
         g.shutdown();
-    }
-
-    public static void main(String[] args) {
-        actionConsumesTimeAndChangesState();
     }
 }

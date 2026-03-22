@@ -1,5 +1,11 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.stats.Needs;
 import simscli.stats.NeedType;
 
@@ -7,78 +13,79 @@ import simscli.stats.NeedType;
  * Test: Verifies Needs tracking and critical state detection.
  */
 public class NeedsTest {
-    
-    public static void testSetNeed() {
+
+    @Test
+    public void testSetNeed() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 50);
-        assert needs.get(NeedType.HUNGER) == 50;
-        System.out.println("✓ testSetNeed");
+        assertEquals(50, needs.get(NeedType.HUNGER));
     }
 
-    public static void testSetNeedClampsToZero() {
+    @Test
+    public void testSetNeedClampsToZero() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, -100);
-        assert needs.get(NeedType.HUNGER) == 0;
-        System.out.println("✓ testSetNeedClampsToZero");
+        assertEquals(0, needs.get(NeedType.HUNGER));
     }
 
-    public static void testSetNeedClampsTo100() {
+    @Test
+    public void testSetNeedClampsTo100() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 150);
-        assert needs.get(NeedType.HUNGER) == 100;
-        System.out.println("✓ testSetNeedClampsTo100");
+        assertEquals(100, needs.get(NeedType.HUNGER));
     }
 
-    public static void testAddNeedPositive() {
+    @Test
+    public void testAddNeedPositive() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 50);
         needs.add(NeedType.HUNGER, 20);
-        assert needs.get(NeedType.HUNGER) == 70;
-        System.out.println("✓ testAddNeedPositive");
+        assertEquals(70, needs.get(NeedType.HUNGER));
     }
 
-    public static void testAddNeedNegative() {
+    @Test
+    public void testAddNeedNegative() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 50);
         needs.add(NeedType.HUNGER, -30);
-        assert needs.get(NeedType.HUNGER) == 20;
-        System.out.println("✓ testAddNeedNegative");
+        assertEquals(20, needs.get(NeedType.HUNGER));
     }
 
-    public static void testIsCriticalTrue() {
+    @Test
+    public void testIsCriticalTrue() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 10);
-        assert needs.isCritical(NeedType.HUNGER) : "Should be critical at 10";
-        System.out.println("✓ testIsCriticalTrue");
+        assertTrue(needs.isCritical(NeedType.HUNGER));
     }
 
-    public static void testIsCriticalFalse() {
+    @Test
+    public void testIsCriticalFalse() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 20);
-        assert !needs.isCritical(NeedType.HUNGER) : "Should not be critical at 20";
-        System.out.println("✓ testIsCriticalFalse");
+        assertFalse(needs.isCritical(NeedType.HUNGER));
     }
 
-    public static void testCriticalAtZero() {
+    @Test
+    public void testCriticalAtZero() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 0);
-        assert needs.isCritical(NeedType.HUNGER) : "Must be critical at 0";
-        System.out.println("✓ testCriticalAtZero");
+        assertTrue(needs.isCritical(NeedType.HUNGER));
     }
 
-    public static void testMultipleNeeds() {
+    @Test
+    public void testMultipleNeeds() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 30);
         needs.set(NeedType.ENERGY, 60);
         needs.set(NeedType.SOCIAL, 10);
-        
-        assert needs.get(NeedType.HUNGER) == 30;
-        assert needs.get(NeedType.ENERGY) == 60;
-        assert needs.get(NeedType.SOCIAL) == 10;
-        System.out.println("✓ testMultipleNeeds");
+
+        assertEquals(30, needs.get(NeedType.HUNGER));
+        assertEquals(60, needs.get(NeedType.ENERGY));
+        assertEquals(10, needs.get(NeedType.SOCIAL));
     }
 
-    public static void testAllNeedTypes() {
+    @Test
+    public void testAllNeedTypes() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 11);
         needs.set(NeedType.ENERGY, 22);
@@ -87,37 +94,22 @@ public class NeedsTest {
         needs.set(NeedType.FUN, 55);
         needs.set(NeedType.BLADDER, 66);
         
-        assert needs.get(NeedType.HUNGER) == 11;
-        assert needs.get(NeedType.ENERGY) == 22;
-        assert needs.get(NeedType.HYGIENE) == 33;
-        assert needs.get(NeedType.SOCIAL) == 44;
-        assert needs.get(NeedType.FUN) == 55;
-        assert needs.get(NeedType.BLADDER) == 66;
-        System.out.println("✓ testAllNeedTypes");
+        assertEquals(11, needs.get(NeedType.HUNGER));
+        assertEquals(22, needs.get(NeedType.ENERGY));
+        assertEquals(33, needs.get(NeedType.HYGIENE));
+        assertEquals(44, needs.get(NeedType.SOCIAL));
+        assertEquals(55, needs.get(NeedType.FUN));
+        assertEquals(66, needs.get(NeedType.BLADDER));
     }
 
-    public static void testSequentialAdditions() {
+    @Test
+    public void testSequentialAdditions() {
         Needs needs = new Needs();
         needs.set(NeedType.HUNGER, 40);
         needs.add(NeedType.HUNGER, 10);
         needs.add(NeedType.HUNGER, 15);
         needs.add(NeedType.HUNGER, -20);
-        
-        assert needs.get(NeedType.HUNGER) == 45;
-        System.out.println("✓ testSequentialAdditions");
-    }
 
-    public static void main(String[] args) {
-        testSetNeed();
-        testSetNeedClampsToZero();
-        testSetNeedClampsTo100();
-        testAddNeedPositive();
-        testAddNeedNegative();
-        testIsCriticalTrue();
-        testIsCriticalFalse();
-        testCriticalAtZero();
-        testMultipleNeeds();
-        testAllNeedTypes();
-        testSequentialAdditions();
+        assertEquals(45, needs.get(NeedType.HUNGER));
     }
 }

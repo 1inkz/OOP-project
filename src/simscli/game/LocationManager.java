@@ -7,13 +7,15 @@ import simscli.location.Bank;
 import simscli.location.Home;
 import simscli.location.Hospital;
 import simscli.location.Location;
+import simscli.location.LocationKey;
+import simscli.actions.request.ActionRequest;
+import simscli.policy.TravelEffectPolicy;
+import simscli.policy.WalkTravelFatiguePolicy;
 import simscli.location.Park;
 import simscli.location.PetStore;
 import simscli.location.Restaurant;
 import simscli.location.Street;
 import simscli.sims.Sim;
-import simscli.stats.Effect;
-import simscli.stats.NeedType;
 import simscli.world.Usable;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import java.util.List;
 public class LocationManager {
     private final Map<String, Location> locations;
     private final Map<String, Usable> objects;
+    private final TravelEffectPolicy travelEffectPolicy;
     private Game game;
 
     /**
@@ -34,6 +37,7 @@ public class LocationManager {
     public LocationManager(GameLogger logger) {
         this.locations = new LinkedHashMap<>();
         this.objects = new LinkedHashMap<>();
+        this.travelEffectPolicy = new WalkTravelFatiguePolicy();
         this.game = null; // Will be set after Game initialization
     }
 
@@ -127,21 +131,29 @@ public class LocationManager {
      * Applies movement costs and executes location entry actions.
      */
     public String travelTo(Sim activeSim, String destinationKey) {
+        try {
+            return travelTo(activeSim, LocationKey.fromKey(destinationKey));
+        } catch (IllegalArgumentException e) {
+            return "Unknown location. Try: " + locations.keySet();
+        }
+    }
+
+    /**
+     * Handles traveling to a location.
+     * Applies movement costs and executes location entry actions.
+     */
+    public String travelTo(Sim activeSim, LocationKey destination) {
         if (activeSim == null) return "No active sim.";
 
-        Location dest = locations.get(destinationKey.toLowerCase());
+        Location dest = locations.get(destination.key());
         if (dest == null) return "Unknown location. Try: " + locations.keySet();
 
         if (!dest.canEnter(activeSim)) {
             return activeSim.getName() + " cannot enter " + dest.name() + ".";
         }
 
-        // Walking tired
-        if (activeSim.getOwnedCar() == null) {
-            activeSim.applyEffect(Effect.none()
-                    .plus(NeedType.HUNGER, -10)
-                    .plus(NeedType.ENERGY, -10));
-        }
+        Location origin = activeSim.getLocation();
+        travelEffectPolicy.onTravel(activeSim, origin, dest);
 
         activeSim.setLocation(dest);
         return dest.onEnter(activeSim);
@@ -158,14 +170,27 @@ public class LocationManager {
      * @return a message describing the action result
      */
     public String performLocationAction(Sim activeSim, int actionIndex) {
+        return performLocationAction(activeSim, actionIndex, null);
+    }
+
+    /**
+     * Performs a location action for the active Sim.
+     *
+     * @param activeSim the Sim performing the action
+     * @param actionIndex the index of the action in the current location's action list
+     * @param request optional action request payload
+     * @return a message describing the action result
+     */
+    public String performLocationAction(Sim activeSim, int actionIndex, ActionRequest request) {
         if (activeSim == null) return "No active sim.";
+        if (!activeSim.isAlive()) return activeSim.getName() + " is no longer in the simulation.";
         if (game == null) return "Game context not initialized.";
 
         List<simscli.actions.Action> acts = activeSim.getLocation().actions(activeSim);
         if (actionIndex < 0 || actionIndex >= acts.size()) return "Invalid action index.";
 
         simscli.actions.Action action = acts.get(actionIndex);
-        String msg = action.perform(activeSim, new GameContext(game));
+        String msg = action.perform(activeSim, new GameContext(game), request);
         
         return "[" + activeSim.getLocation().name() + "] " + msg;
     }

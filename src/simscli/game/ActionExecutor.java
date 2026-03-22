@@ -1,6 +1,8 @@
 package simscli.game;
 
 import simscli.actions.Action;
+import simscli.actions.request.ActionRequest;
+import simscli.jobs.JobType;
 import simscli.sims.Sim;
 
 /**
@@ -16,10 +18,17 @@ public class ActionExecutor {
      * Returns result message and handles sid cleanup.
      */
     public String performAction(Sim activeSim, Action action, Game game) {
+        return performAction(activeSim, action, game, null);
+    }
+
+    /**
+     * Performs an action for the active sim with optional request payload.
+     */
+    public String performAction(Sim activeSim, Action action, Game game, ActionRequest request) {
         if (activeSim == null) return "No active sim.";
         if (!activeSim.isAlive()) return activeSim.getName() + " is no longer in the simulation.";
 
-        String msg = action.perform(activeSim, new GameContext(game));
+        String msg = action.perform(activeSim, new GameContext(game), request);
         
         return msg;
     }
@@ -34,7 +43,7 @@ public class ActionExecutor {
         if (activeSim == null) return "No active sim.";
 
         try {
-            simscli.jobs.Job job = simscli.jobs.JobFactory.create(jobName);
+            simscli.jobs.Job job = simscli.jobs.JobFactory.create(JobType.fromName(jobName));
             activeSim.setJob(job);
 
             String[] workLocations = job.getWorkLocations();

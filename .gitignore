@@ -30,6 +30,8 @@ bin/
 *.class
 *.jar
 *.war
+target/
+sources.txt
 
 ### Mac OS ###
 .DS_Store

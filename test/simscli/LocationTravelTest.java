@@ -1,5 +1,10 @@
 package simscli;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.Test;
+
 import simscli.game.Game;
 import simscli.sims.SimType;
 
@@ -11,7 +16,8 @@ public class LocationTravelTest {
     /**
      * Tests that traveling to park changes location.
      */
-    public static void travelChangesLocation() {
+    @Test
+    public void travelChangesLocation() {
         Game g = new Game();
         g.createSim("Kai", SimType.ADULT);
         g.setActiveSim(0);
@@ -20,13 +26,8 @@ public class LocationTravelTest {
         g.travelTo("park");
         String after = g.activeSim().getLocation().key();
 
-        assert !before.equals(after);
-        assert after.equals("park");
-        System.out.println("✓ travelChangesLocation");
+        assertNotEquals(before, after);
+        assertEquals("park", after);
         g.shutdown();
-    }
-
-    public static void main(String[] args) {
-        travelChangesLocation();
     }
 }

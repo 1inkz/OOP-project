@@ -13,11 +13,16 @@ import simscli.stats.Skills;
 public class SimStatsComponent {
     private final Needs needs;
     private final Skills skills;
+    private final java.util.EnumMap<NeedType, Boolean> zeroNeedEventTriggered;
     private boolean alive = true;
 
     public SimStatsComponent() {
         this.needs = new Needs();
         this.skills = new Skills();
+        this.zeroNeedEventTriggered = new java.util.EnumMap<>(NeedType.class);
+        for (NeedType t : NeedType.values()) {
+            this.zeroNeedEventTriggered.put(t, false);
+        }
     }
 
     // Needs
@@ -39,6 +44,24 @@ public class SimStatsComponent {
 
     public boolean isCritical(NeedType type) {
         return needs.isCritical(type);
+    }
+
+    /**
+     * Returns true once when a need first reaches zero, and resets once it is above zero again.
+     */
+    public boolean consumeZeroNeedTrigger(NeedType type) {
+        int current = needs.get(type);
+        if (current > 0) {
+            zeroNeedEventTriggered.put(type, false);
+            return false;
+        }
+
+        boolean alreadyTriggered = zeroNeedEventTriggered.get(type);
+        if (!alreadyTriggered) {
+            zeroNeedEventTriggered.put(type, true);
+            return true;
+        }
+        return false;
     }
 
     // Skills
@@ -83,7 +106,8 @@ public class SimStatsComponent {
     }
 
     private void checkDeathConditions() {
-        for (NeedType t : NeedType.values()) {
+        NeedType[] lethalNeeds = new NeedType[] {NeedType.HUNGER, NeedType.ENERGY};
+        for (NeedType t : lethalNeeds) {
             if (needs.isZero(t)) {
                 alive = false;
                 return;
