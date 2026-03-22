@@ -14,6 +14,8 @@ import simscli.stats.NeedType;
  * Lethal checks remain in SimStatsComponent for Hunger and Energy only.
  */
 public final class NeedCrisisPolicy implements TimeRulePolicy {
+    private static final String GREEN = "\u001B[32m";
+    private static final String RESET = "\u001B[0m";
     private static final int HOSPITAL_FEE = 50;
     private static final int HOSPITAL_REST_HOURS = 8;
     private static final int BURNOUT_SLEEP_HOURS = 48;
@@ -44,7 +46,8 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
             return;
         }
 
-        logger.warn(sim.getName() + " collapsed from severe sickness and was moved to hospital.");
+        logger.warn(GREEN + sim.getName()
+            + " was overwhelmed by illness and rushed to hospital for urgent care." + RESET);
 
         // Hospitalization fee. If insufficient funds, all remaining cash is consumed.
         if (!sim.spendSimcoin(HOSPITAL_FEE)) {
@@ -61,7 +64,8 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
 
         if (sim.isAlive()) {
             sim.getNeeds().set(NeedType.ENERGY, Math.max(sim.getNeeds().get(NeedType.ENERGY), 65));
-            sim.getNeeds().set(NeedType.HYGIENE, Math.max(sim.getNeeds().get(NeedType.HYGIENE), 45));
+            sim.getNeeds().set(NeedType.HYGIENE, Math.max(sim.getNeeds().get(NeedType.HYGIENE), 85));
+            sim.getNeeds().set(NeedType.BLADDER, Math.max(sim.getNeeds().get(NeedType.BLADDER), 80));
         }
     }
 
@@ -72,7 +76,8 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
             return;
         }
 
-        logger.warn(sim.getName() + " entered depression/burnout and is forced into deep sleep for 2 days.");
+        logger.warn(GREEN + sim.getName()
+            + " hit a burnout wall and drifts into a 2-day recovery sleep." + RESET);
 
         // Forced deep sleep location: Home if available, otherwise Park.
         if (sim.getOwnedHouse() != null) {
@@ -87,13 +92,13 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
             }
         }
 
-        // During forced sleep, world time still passes and lethal needs can kill the Sim.
-        // The affected Sim uses a slower resting decay so this is risky but not guaranteed death.
+        // Forced recovery sleep should stabilize survival needs while time advances.
+        // This mirrors deep-sleep intent: hunger can drop, but not to immediate starvation.
         advanceBurnoutSleepHours(game, sims, sim, BURNOUT_SLEEP_HOURS);
 
         if (sim.isAlive()) {
-            sim.getNeeds().set(NeedType.SOCIAL, 30);
-            sim.getNeeds().set(NeedType.FUN, 30);
+            sim.getNeeds().set(NeedType.SOCIAL, 35);
+            sim.getNeeds().set(NeedType.FUN, 35);
         }
     }
 
@@ -102,7 +107,7 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
             return;
         }
 
-        logger.warn(sim.getName() + " had an embarrassing accident.");
+        logger.warn(GREEN + sim.getName() + " had an awkward little mishap. Deep breaths, reset, move on." + RESET);
         sim.applyEffect(Effect.none()
                 .plus(NeedType.HYGIENE, -45)
                 .plus(NeedType.SOCIAL, -45));
@@ -125,7 +130,7 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
                             .plus(NeedType.ENERGY, +4)
                             .plus(NeedType.HUNGER, +2)
                             .plus(NeedType.HYGIENE, +6)
-                            .plus(NeedType.BLADDER, -1)
+                            .plus(NeedType.BLADDER, +8)
                             .plus(NeedType.SOCIAL, -1)
                             .plus(NeedType.FUN, -1));
                 } else {
@@ -144,6 +149,10 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
     private void advanceBurnoutSleepHours(Game game, List<Sim> sims, Sim patient, int hours) {
         game.getClock().spendMinutes(hours * 60);
 
+        // Safety floor first: avoid triggering lethal checks before recovery loop starts.
+        patient.getNeeds().set(NeedType.HUNGER, Math.max(patient.getNeeds().get(NeedType.HUNGER), 30));
+        patient.getNeeds().set(NeedType.ENERGY, Math.max(patient.getNeeds().get(NeedType.ENERGY), 60));
+
         for (int i = 0; i < hours; i++) {
             for (Sim target : sims) {
                 if (!target.isAlive()) {
@@ -153,11 +162,15 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
                 if (target == patient) {
                     target.applyEffect(Effect.none()
                             .plus(NeedType.HUNGER, -1)
-                            .plus(NeedType.ENERGY, -1)
+                            .plus(NeedType.ENERGY, +4)
                             .plus(NeedType.HYGIENE, -1)
                             .plus(NeedType.BLADDER, -1)
-                            .plus(NeedType.SOCIAL, +1)
-                            .plus(NeedType.FUN, +1));
+                            .plus(NeedType.SOCIAL, 0)
+                            .plus(NeedType.FUN, 0));
+
+                    // Keep burnout recovery aligned with deep sleep behavior: no starvation spiral.
+                    target.getNeeds().set(NeedType.HUNGER, Math.max(target.getNeeds().get(NeedType.HUNGER), 30));
+                    target.getNeeds().set(NeedType.ENERGY, Math.max(target.getNeeds().get(NeedType.ENERGY), 85));
                 } else {
                     target.applyEffect(target.hourlyDecay());
                 }

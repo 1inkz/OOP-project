@@ -27,12 +27,12 @@ public class ActionRequestFlowTest {
 
         String depositMsg = g.performAction(ActionFactory.create(ActionType.DEPOSIT), new AmountActionRequest(100));
         assertTrue(depositMsg.toLowerCase().contains("deposited"));
-        assertEquals(200, sim.getSimcoin());
+        assertEquals(400, sim.getSimcoin());
         assertEquals(100, sim.getBankDeposit());
 
         String withdrawMsg = g.performAction(ActionFactory.create(ActionType.WITHDRAW), new AmountActionRequest(40));
         assertTrue(withdrawMsg.toLowerCase().contains("withdrew"));
-        assertEquals(240, sim.getSimcoin());
+        assertEquals(440, sim.getSimcoin());
         assertEquals(60, sim.getBankDeposit());
 
         g.shutdown();

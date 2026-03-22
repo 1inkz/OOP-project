@@ -5,6 +5,7 @@ package simscli.asset;
  */
 public class Car extends Asset {
 	
+    private static final int DAILY_MAINTENANCE_COST = 20;
     private double travelMultiplier;
 
     /**
@@ -30,6 +31,10 @@ public class Car extends Asset {
      */
     public double getTravelMultiplier() {
         return travelMultiplier;
+    }
+
+    public int getDailyMaintenanceCost() {
+        return DAILY_MAINTENANCE_COST;
     }
 
     public String getAssetType() {

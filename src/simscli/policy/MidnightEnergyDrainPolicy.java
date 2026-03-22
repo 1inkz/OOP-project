@@ -19,7 +19,7 @@ public final class MidnightEnergyDrainPolicy implements TimeRulePolicy {
             return;
         }
 
-        logger.warn("\n[GAME] It's Midnight - Sim's energy draining fast!");
+        logger.warn("\n[GAME] It's Midnight - Sim's energy is draining fast! Sleep now.");
         for (Sim sim : sims) {
             sim.applyEffect(Effect.none().plus(NeedType.ENERGY, -10));
         }

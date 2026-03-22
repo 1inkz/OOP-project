@@ -24,6 +24,8 @@ import simscli.stats.SkillType;
  * Follows Single Responsibility Principle by separating concerns into discrete components.
  */
 public abstract class Sim {
+    private static final int DEFAULT_STARTING_SIMCOIN = 500;
+
     private final String name;
     private final SimType type;
     private Location location;
@@ -67,7 +69,7 @@ public abstract class Sim {
         
         // Initialize components
         this.stats = new SimStatsComponent();
-        this.banking = new SimBankingComponent(300);
+        this.banking = new SimBankingComponent(DEFAULT_STARTING_SIMCOIN);
         this.employment = new SimEmploymentComponent();
         this.assets = new SimAssetsComponent();
         this.pets = new SimPetsComponent(this.name, logger);
@@ -347,6 +349,83 @@ public abstract class Sim {
 
     public int calculateDailyHotelIncome() {
         return assets.calculateDailyHotelIncome();
+    }
+
+    public int calculateDailyHotelIncome(int dayNumber) {
+        return assets.calculateDailyHotelIncome(dayNumber);
+    }
+
+    public double getTravelFatigueMultiplier() {
+        return assets.getTravelFatigueMultiplier();
+    }
+
+    public int getOwnedHotelLevel() {
+        return assets.getOwnedHotelLevel();
+    }
+
+    public int getOwnedHotelUpgradeCost() {
+        return assets.getOwnedHotelUpgradeCost();
+    }
+
+    public boolean upgradeOwnedHotel() {
+        int upgradeCost = assets.getOwnedHotelUpgradeCost();
+        if (upgradeCost <= 0) {
+            return false;
+        }
+
+        if (!spendSimcoin(upgradeCost)) {
+            return false;
+        }
+        return assets.upgradeOwnedHotel();
+    }
+
+    /**
+     * Applies day-end asset economy flow and returns summary text for UI/logs.
+     */
+    public String processDailyAssetEconomy(int dayNumber) {
+        StringBuilder summary = new StringBuilder();
+
+        int carCost = assets.getDailyCarMaintenanceCost();
+        if (carCost > 0) {
+            boolean paid = spendSimcoin(carCost);
+            if (!paid && getBankingSystem().withdraw(carCost)) {
+                earnSimcoin(carCost);
+                paid = spendSimcoin(carCost);
+            }
+            assets.setCarMaintenancePaid(paid);
+
+            if (paid) {
+                summary.append("Car maintenance paid: $").append(carCost).append(". ");
+            } else {
+                summary.append("Car maintenance overdue; travel bonus disabled today. ");
+            }
+        }
+
+        int hotelIncome = calculateDailyHotelIncome(dayNumber);
+        if (hotelIncome > 0) {
+            earnSimcoin(hotelIncome);
+            summary.append("Hotel income +$").append(hotelIncome).append(" (Lvl ")
+                    .append(getOwnedHotelLevel()).append("). ");
+        }
+
+        if (summary.length() == 0) {
+            return "";
+        }
+        return summary.toString().trim();
+    }
+
+    public void applyHouseComfortBonus() {
+        if (getOwnedHouse() == null) {
+            return;
+        }
+        if (getLocation() == null || !"home".equalsIgnoreCase(getLocation().key())) {
+            return;
+        }
+
+        applyEffect(Effect.none()
+                .plus(NeedType.ENERGY, +2)
+                .plus(NeedType.HYGIENE, +1)
+                .plus(NeedType.FUN, +1));
     }
 
     // ==================== Banking Management ====================

@@ -158,7 +158,7 @@ public class SimUIManager {
         System.out.println("Assets: Car = " + (sim.getOwnedCar() != null ? "Yes" : "No")
                 + " | House = " + (sim.getOwnedHouse() != null ? "Yes" : "No")
                 + " | Hotel = " + (sim.getOwnedHotel() != null ? "Yes" : "No")
-                + " | Assets Loan Day: Day " + sim.getLoanOverdueDays(game));
+            + " | Loan overdue days: " + sim.getLoanOverdueDays(game));
 
         System.out.println(needsOutput);
         

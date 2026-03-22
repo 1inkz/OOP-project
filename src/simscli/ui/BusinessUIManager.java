@@ -183,22 +183,26 @@ public class BusinessUIManager {
         System.out.println("Current Assets: Car = " + (activeSim.getOwnedCar() != null ? "Yes" : "No")
                 + " | House = " + (activeSim.getOwnedHouse() != null ? "Yes" : "No")
                 + " | Hotel = " + (activeSim.getOwnedHotel() != null ? "Yes" : "No"));
+        if (activeSim.getOwnedHotel() != null) {
+            System.out.println("Hotel Level: " + activeSim.getOwnedHotelLevel());
+        }
         System.out.println("Simcoin: $" + activeSim.getSimcoin() + " | Loan: $" + activeSim.getLoanAmount() + "\n");
 
-        System.out.println(uiHelper.BLUE + "1) Buy Car ($2000 - 20% down payment: $400)" + uiHelper.RESET);
+        System.out.println(uiHelper.BLUE + "1) Buy Car ($2000 - 20% down payment: $400, daily maintenance: $20, lower travel fatigue)" + uiHelper.RESET);
         System.out.println(uiHelper.BLUE + "2) Buy House ($4000 - 25% down payment: $1000)" + uiHelper.RESET);
-        System.out.println(uiHelper.BLUE + "3) Buy Hotel ($7000 - 40% down payment: $2800)" + uiHelper.RESET);
-        System.out.println(uiHelper.BLUE + "4) Sell Asset" + uiHelper.RESET);
-        System.out.println(uiHelper.BLUE + "5) Return to [" + activeSim.getName() + "] Main Menu" + uiHelper.RESET);
+        System.out.println(uiHelper.BLUE + "3) Buy Hotel ($7000 - 40% down payment: $2800, variable economy income)" + uiHelper.RESET);
+        System.out.println(uiHelper.BLUE + "4) Upgrade Hotel" + uiHelper.RESET);
+        System.out.println(uiHelper.BLUE + "5) Sell Asset" + uiHelper.RESET);
+        System.out.println(uiHelper.BLUE + "6) Return to [" + activeSim.getName() + "] Main Menu" + uiHelper.RESET);
 
-        int choice = in.intRange("\nPlease choose (1-5): ", 1, 5);
+        int choice = in.intRange("\nPlease choose (1-6): ", 1, 6);
         switch (choice) {
             case 1:
                 if (activeSim.getOwnedCar() != null) {
                     System.out.println(uiHelper.RED + "You already own a Car!" + uiHelper.RESET);
                     break;
                 }
-                Asset car = new Car(1, "White Audi", 2000, 1.0);
+                Asset car = new Car(1, "White Audi", 2000, 0.4);
                 boolean boughtCar = activeSim.buyAsset(car);
                 System.out.println(boughtCar ? uiHelper.GREEN + "Successfully bought " + car.getName() + "!" + uiHelper.RESET : uiHelper.RED + "Failed to buy Car." + uiHelper.RESET);
                 break;
@@ -221,9 +225,27 @@ public class BusinessUIManager {
                 System.out.println(boughtHotel ? uiHelper.GREEN + "Successfully bought " + hotel.getName() + "!" + uiHelper.RESET : uiHelper.RED + "Failed to buy Hotel." + uiHelper.RESET);
                 break;
             case 4:
-                showSellAssetMenu();
+                if (activeSim.getOwnedHotel() == null) {
+                    System.out.println(uiHelper.RED + "You do not own a Hotel yet!" + uiHelper.RESET);
+                    break;
+                }
+
+                int upgradeCost = activeSim.getOwnedHotelUpgradeCost();
+                if (upgradeCost <= 0) {
+                    System.out.println(uiHelper.YELLOW + "Hotel is already at max level." + uiHelper.RESET);
+                    break;
+                }
+
+                if (activeSim.upgradeOwnedHotel()) {
+                    System.out.println(uiHelper.GREEN + "Hotel upgraded to level " + activeSim.getOwnedHotelLevel() + " for $" + upgradeCost + "." + uiHelper.RESET);
+                } else {
+                    System.out.println(uiHelper.RED + "Not enough Simcoin to upgrade Hotel (need $" + upgradeCost + ")." + uiHelper.RESET);
+                }
                 break;
             case 5:
+                showSellAssetMenu();
+                break;
+            case 6:
                 System.out.println(uiHelper.BLUE + "Return to [" + activeSim.getName() + "] Main Menu" + uiHelper.RESET);
                 return;
         }

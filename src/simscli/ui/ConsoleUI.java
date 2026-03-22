@@ -60,7 +60,7 @@ public final class ConsoleUI {
             String jobless = activeSim.getJobName();
 
             uiHelper.printDynamicTitle("SIMS GAME - " + activeSim.getName() + " Main Menu", uiHelper.DARK_RED);
-            System.out.println(uiHelper.PURPLE + "Time: Day " + activeSim.getPersonalDay(game) + game.timeString() + uiHelper.RESET + "\n");
+            System.out.println(uiHelper.PURPLE + "Time: Day " + activeSim.getPersonalDay(game) + " " + game.timeString() + uiHelper.RESET + "\n");
             
             // Display critical need warnings automatically during gameplay
             List<String> warnings = uiHelper.getCriticalNeedWarnings(activeSim);

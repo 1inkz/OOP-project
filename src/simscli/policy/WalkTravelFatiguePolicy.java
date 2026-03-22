@@ -11,10 +11,12 @@ import simscli.stats.NeedType;
 public final class WalkTravelFatiguePolicy implements TravelEffectPolicy {
     @Override
     public void onTravel(Sim sim, Location from, Location to) {
-        if (sim.getOwnedCar() == null) {
-            sim.applyEffect(Effect.none()
-                    .plus(NeedType.HUNGER, -10)
-                    .plus(NeedType.ENERGY, -10));
-        }
+        double multiplier = sim.getTravelFatigueMultiplier();
+        int hungerPenalty = (int) Math.round(-10 * multiplier);
+        int energyPenalty = (int) Math.round(-10 * multiplier);
+
+        sim.applyEffect(Effect.none()
+                .plus(NeedType.HUNGER, hungerPenalty)
+                .plus(NeedType.ENERGY, energyPenalty));
     }
 }

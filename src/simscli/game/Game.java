@@ -27,6 +27,7 @@ public final class Game {
     private final ActionExecutor actionExecutor;
     private final LoanManager loanManager;
     private final GameLogger logger;
+    private final ActionFlavorService flavorService;
     private boolean isGameModified = false;
     
     private final int gameStartDay;
@@ -52,6 +53,7 @@ public final class Game {
         this.timeManager = new TimeManager(new GameClock(1, 480), logger);
         this.actionExecutor = new ActionExecutor();
         this.loanManager = new LoanManager(logger);
+        this.flavorService = new ActionFlavorService();
         
         // Initialize game state
         this.gameStartDay = timeManager.getClock().getDayNumber();
@@ -248,7 +250,7 @@ public final class Game {
         if (active == null) return "No active sim.";
 
         String result = locationManager.travelTo(active, destination);
-        return result;
+        return flavorService.decorate(result, active, timeManager.getClock());
     }
 
     /**
@@ -271,7 +273,8 @@ public final class Game {
         if (active == null) return "No active sim.";
         if (!active.isAlive()) return active.getName() + " is no longer in the simulation.";
         
-        return locationManager.performLocationAction(active, actionIndex, request);
+        String result = locationManager.performLocationAction(active, actionIndex, request);
+        return flavorService.decorate(result, active, timeManager.getClock());
     }
 
     /**
@@ -305,7 +308,7 @@ public final class Game {
         String result = actionExecutor.performAction(active, action, this, request);
         
         simManager.removeDeadSims(this);
-        return result;
+        return flavorService.decorate(result, active, timeManager.getClock());
     }
 
     /**

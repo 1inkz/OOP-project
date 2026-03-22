@@ -29,6 +29,8 @@ public class NeedCrisisPolicyTest {
         assertEquals("hospital", sim.getLocation().key());
         assertEquals(beforeMoney - 50, sim.getSimcoin());
         assertTrue(sim.getNeeds().get(NeedType.ENERGY) > 0);
+        assertTrue(sim.getNeeds().get(NeedType.HYGIENE) >= 85);
+        assertTrue(sim.getNeeds().get(NeedType.BLADDER) >= 80);
 
         game.shutdown();
     }
@@ -53,7 +55,7 @@ public class NeedCrisisPolicyTest {
     }
 
     @Test
-    public void socialAndFunZeroCanKillDuringForcedTwoDaySleep() {
+    public void socialAndFunZeroTriggersForcedRecoveryWithoutHungerDeath() {
         Game game = new Game();
         Sim sim = game.createSim("Noah", SimType.ADULT);
         game.setActiveSim(0);
@@ -65,7 +67,11 @@ public class NeedCrisisPolicyTest {
 
         game.checkTimeRules();
 
-        assertTrue(!sim.isAlive());
+        assertTrue(sim.isAlive());
+        assertTrue(sim.getNeeds().get(NeedType.HUNGER) >= 30);
+        assertTrue(sim.getNeeds().get(NeedType.ENERGY) >= 60);
+        assertTrue(sim.getNeeds().get(NeedType.SOCIAL) >= 30);
+        assertTrue(sim.getNeeds().get(NeedType.FUN) >= 30);
 
         game.shutdown();
     }

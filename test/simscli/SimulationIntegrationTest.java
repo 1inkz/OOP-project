@@ -129,7 +129,7 @@ public class SimulationIntegrationTest {
         String workResult = activeSim.work();
         assertTrue(workResult.contains("earned"));
         int afterWorkSimcoin = activeSim.getSimcoin();
-        assertEquals(600, afterWorkSimcoin);  // Initial=300 + earn300
+        assertEquals(800, afterWorkSimcoin);  // Initial=500 + earn300
 
         int depositAmount = afterWorkSimcoin;
         boolean depositSuccess = bankingSystem.deposit(depositAmount);
@@ -156,17 +156,17 @@ public class SimulationIntegrationTest {
         activeSim.earnSimcoin(1000);
         assertTrue(loanSuccess);
         assertEquals(1000, bankingSystem.getLoanAmount());
-        assertEquals(1300, activeSim.getSimcoin());  // Initial300 + Loan1000
+        assertEquals(1500, activeSim.getSimcoin());  // Initial500 + Loan1000
        
         boolean spendSuccess = activeSim.spendSimcoin(500);
         assertTrue(spendSuccess);
-        assertEquals(800, activeSim.getSimcoin());
+        assertEquals(1000, activeSim.getSimcoin());
 
         boolean repaySuccess = activeSim.spendSimcoin(800);
         bankingSystem.repayLoan(800);
         assertTrue(repaySuccess);
         assertEquals(200, bankingSystem.getLoanAmount());
-        assertEquals(0, activeSim.getSimcoin());
+        assertEquals(200, activeSim.getSimcoin());
     }
 
     @Test

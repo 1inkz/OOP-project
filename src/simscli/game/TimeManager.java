@@ -22,6 +22,7 @@ public class TimeManager {
     private final ExecutorService npcPool;
     private final GameLogger logger;
     private final List<TimeRulePolicy> timeRulePolicies;
+    private final DailySummaryService dailySummaryService;
 
     public TimeManager(GameClock clock, GameLogger logger) {
         this.clock = clock;
@@ -29,6 +30,7 @@ public class TimeManager {
         this.timeRulePolicies = new ArrayList<>();
         this.timeRulePolicies.add(new NeedCrisisPolicy());
         this.timeRulePolicies.add(new MidnightEnergyDrainPolicy());
+        this.dailySummaryService = new DailySummaryService();
         this.npcPool = Executors.newFixedThreadPool(
                 Math.max(1, Math.min(4, Runtime.getRuntime().availableProcessors()))
         );
@@ -51,19 +53,43 @@ public class TimeManager {
      * Applies decay to all sims, checks rules, and removes dead sims.
      */
     public void advanceGameTime(int minutes, List<Sim> sims, Game game) {
+        int dayBefore = clock.getDayNumber();
+        dailySummaryService.captureDayStart(dayBefore, sims);
         clock.spendMinutes(minutes);
+        int dayAfter = clock.getDayNumber();
         int hours = minutes / 60;
 
         for (Sim sim : sims) {
             if (sim.isAlive()) {
                 for (int i = 0; i < hours; i++) {
                     sim.applyEffect(sim.hourlyDecay());
+                    sim.applyHouseComfortBonus();
                     sim.updatePetsHourly();
                 }
             }
         }
 
+        if (dayAfter > dayBefore) {
+            for (int day = dayBefore + 1; day <= dayAfter; day++) {
+                dailySummaryService.logEndOfDay(day - 1, sims, logger);
+                processDailyEconomy(sims, day);
+                dailySummaryService.captureDayStart(day, sims);
+            }
+        }
+
         checkTimeRules(sims, game);
+    }
+
+    private void processDailyEconomy(List<Sim> sims, int dayNumber) {
+        for (Sim sim : sims) {
+            if (!sim.isAlive()) {
+                continue;
+            }
+            String summary = sim.processDailyAssetEconomy(dayNumber);
+            if (!summary.isEmpty()) {
+                logger.info("[Day " + dayNumber + "] " + sim.getName() + ": " + summary);
+            }
+        }
     }
 
     /**

@@ -2,6 +2,9 @@ package simscli.sims;
 
 import simscli.asset.Asset;
 import simscli.asset.Car;
+import simscli.asset.CyclicalEconomyPolicy;
+import simscli.asset.EconomyPolicy;
+import simscli.asset.EconomyState;
 import simscli.asset.House;
 import simscli.asset.Hotel;
 import simscli.game.Game;
@@ -12,9 +15,12 @@ import simscli.location.Location;
  * Encapsulates asset ownership and related rules.
  */
 public class SimAssetsComponent {
+    private static final EconomyPolicy ECONOMY_POLICY = new CyclicalEconomyPolicy();
+
     private Asset ownedCar;
     private Asset ownedHouse;
     private Asset ownedHotel;
+    private boolean carMaintenancePaid = true;
     private int loanStartDay = 0;
 
     public SimAssetsComponent() {
@@ -28,6 +34,7 @@ public class SimAssetsComponent {
 
     public void setOwnedCar(Car car) {
         this.ownedCar = car;
+        this.carMaintenancePaid = car != null;
     }
 
     // House
@@ -49,7 +56,61 @@ public class SimAssetsComponent {
     }
 
     public int calculateDailyHotelIncome() {
-        return ownedHotel != null ? 250 : 0;
+        return calculateDailyHotelIncome(1);
+    }
+
+    public int calculateDailyHotelIncome(int dayNumber) {
+        if (ownedHotel instanceof Hotel hotel) {
+            EconomyState state = ECONOMY_POLICY.stateForDay(dayNumber);
+            return hotel.calculateDailyIncome(state);
+        }
+        return 0;
+    }
+
+    public int getDailyCarMaintenanceCost() {
+        if (ownedCar instanceof Car car) {
+            return car.getDailyMaintenanceCost();
+        }
+        return 0;
+    }
+
+    public void setCarMaintenancePaid(boolean paid) {
+        this.carMaintenancePaid = paid;
+    }
+
+    public boolean isCarMaintenancePaid() {
+        return carMaintenancePaid;
+    }
+
+    public double getTravelFatigueMultiplier() {
+        if (!(ownedCar instanceof Car car)) {
+            return 1.0;
+        }
+        if (!carMaintenancePaid) {
+            return 1.0;
+        }
+        return car.getTravelMultiplier();
+    }
+
+    public int getOwnedHotelLevel() {
+        if (ownedHotel instanceof Hotel hotel) {
+            return hotel.getLevel();
+        }
+        return 0;
+    }
+
+    public int getOwnedHotelUpgradeCost() {
+        if (ownedHotel instanceof Hotel hotel) {
+            return hotel.getUpgradeCost();
+        }
+        return 0;
+    }
+
+    public boolean upgradeOwnedHotel() {
+        if (ownedHotel instanceof Hotel hotel) {
+            return hotel.upgrade();
+        }
+        return false;
     }
 
     // Loan timing
@@ -113,6 +174,7 @@ public class SimAssetsComponent {
     private void storeAsset(Asset asset) {
         if (asset.isCar()) {
             ownedCar = asset;
+            carMaintenancePaid = true;
         } else if (asset.isHouse()) {
             ownedHouse = asset;
         } else if (asset.isHotel()) {
@@ -126,6 +188,7 @@ public class SimAssetsComponent {
     public void sellAsset(Asset asset) {
         if (asset.isCar()) {
             ownedCar = null;
+            carMaintenancePaid = true;
         } else if (asset.isHouse()) {
             ownedHouse = null;
         } else if (asset.isHotel()) {
