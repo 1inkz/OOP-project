@@ -25,12 +25,6 @@ public final class ActionFlavorService {
             "[Vibe] Good reset."
     };
 
-    private static final String[] TRAVEL_FLAVORS = {
-            "[Vibe] New scene, new options.",
-            "[Vibe] Fresh place, fresh choices.",
-            "[Vibe] Positioning improved."
-    };
-
     private static final String[] COMMERCE_FLAVORS = {
             "[Vibe] Portfolio evolving.",
             "[Vibe] Long game improved.",
@@ -77,9 +71,6 @@ public final class ActionFlavorService {
         }
         if (lowerMessage.contains("bought") || lowerMessage.contains("sold")) {
             return COMMERCE_FLAVORS;
-        }
-        if (lowerMessage.contains("arrived") || lowerMessage.contains("entered") || lowerMessage.contains("travel")) {
-            return TRAVEL_FLAVORS;
         }
         return null;
     }

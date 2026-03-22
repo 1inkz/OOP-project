@@ -2,35 +2,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Maven model version. Keep as 4.0.0 for modern Maven projects. -->
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Project identity used for packaging, dependency coordinates, and CI metadata. -->
     <groupId>simscli</groupId>
     <artifactId>oop-project</artifactId>
     <version>1.0.0</version>
     <name>The Sims CLI</name>
 
+    <!-- Centralized version/tooling properties for consistent builds across machines. -->
     <properties>
+        <!-- Source encoding to avoid character issues across OS/editor environments. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Java language/toolchain level used to compile this project. -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <!-- Test framework and test runner plugin versions. -->
         <junit.jupiter.version>5.11.4</junit.jupiter.version>
         <maven.surefire.version>3.2.5</maven.surefire.version>
     </properties>
 
+    <!-- External libraries required by the project. -->
     <dependencies>
+        <!-- JUnit 5 for automated unit/integration tests. -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.jupiter.version}</version>
+            <!-- Test scope means this dependency is used only for tests, not production runtime. -->
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+    <!-- Build configuration: source layout and plugins that define compile/test/doc behavior. -->
     <build>
+        <!-- Non-default project folders intentionally used by this repository. -->
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>test</testSourceDirectory>
 
         <plugins>
+            <!-- Compiles Java sources with fixed release level for reproducible artifacts. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -41,6 +53,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Executes all automated tests (quality gate for local and CI pipelines). -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -50,6 +63,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Generates API documentation from JavaDoc comments into ./javadoc. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -65,14 +79,17 @@
         </plugins>
     </build>
 
+    <!-- Optional build profiles for specialized workflows (enabled explicitly with -P...). -->
     <profiles>
         <profile>
+            <!-- Coverage profile: collect, report, and enforce minimum code coverage. -->
             <id>coverage</id>
             <properties>
                 <jacoco.version>0.8.12</jacoco.version>
             </properties>
             <build>
                 <plugins>
+                    <!-- JaCoCo instruments tests, generates coverage report, and checks thresholds. -->
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>

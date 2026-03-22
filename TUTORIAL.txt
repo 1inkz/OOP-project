@@ -1,137 +1,180 @@
-🎮 TUTORIAL – START HERE
+# 📘 TUTORIAL – START HERE
 
-Welcome to The Sims (Terminal Edition)!
+Welcome to **The Sims (Terminal Edition)** 🎮
 
-This guide helps you survive your FIRST few days without dying instantly 💀
+This guide will help you survive your first few days and avoid costly mistakes.
 
 ---
 
-🧍 STEP 1: CREATE YOUR SIM
+## 🧱 STEP 1: CREATE & SELECT A SIM
 
 Go to:
-Sims Menu → Create New Sim
+- **Sims Menu → Create New Sim**
 
-- pick a type
-- enter a name
-- select your Sim
+Choose:
+- Sim type (Child / Adult / Elder)
+- Name
 
----
-
-📋 STEP 2: UNDERSTAND YOUR MENU
-
-Main menu controls EVERYTHING:
-
-👀 View Status → CHECK THIS OFTEN  
-✈️ Travel → move around  
-📍 Location Actions → do stuff  
-💼 Job → earn money  
-🏠 Assets → buy things  
-⏰ Pass Time → advance game  
+Then select the Sim you want to control.
 
 ---
 
-🍔 STEP 3: DO NOT DIE (NEEDS)
+## 🧭 STEP 2: UNDERSTAND THE MAIN MENU
 
-Your needs:
+Key options:
+- 👀 View Status
+- 🌍 Travel to Location
+- ⚡ View Current Location Actions
+- 💼 Job Management
+- 🏡 Asset Operations
+- ⏰ Pass Time (1 hour)
+
+💡 Tip:
+**View Status = your survival dashboard. Check it often.**
+
+---
+
+## ❤️ STEP 3: MANAGE YOUR NEEDS
+
+You must keep these above 0:
+
 - Hunger 🍔
-- Energy 😴
+- Energy ⚡
 - Hygiene 🚿
-- Social 🗣
+- Social 💬
 - Fun 🎮
 - Bladder 🚽
 
-💀 ANY = 0 → death
+⚠️ Important:
+- Hunger at 0 → 💀 instant death
+- Other needs at 0 → penalties (hospital, burnout, accidents)
 
 ---
 
-⏰ STEP 4: TIME IS YOUR ENEMY
+## ⏰ STEP 4: RESPECT TIME
 
-- actions cost time
-- travel costs time
-- needs decay over time
+- Every action consumes time
+- Travel also consumes time
+- Needs constantly decrease
 
-🌙 Night:
-20:00 → reminder  
-21:00 → warning  
-22:00 → forced sleep  
-
----
-
-💼 STEP 5: GET A JOB
-
-No job = no money = you suffer
-
-Pick:
-- Chef
-- Doctor
-- Bank Teller
-- Influencer
-
-👉 Work → earn → survive
+🌙 At night:
+- Energy drains faster
+- Midnight warnings will appear
 
 ---
 
-🏠 STEP 6: GET A HOUSE
+## 💼 STEP 5: EARN INCOME
 
-This is HUGE:
+Get a job early:
 
-Without house ❌  
-- no proper sleep  
-- no shower  
-- no toilet  
+- 👨‍🍳 Chef
+- 🩺 Doctor
+- 🏦 Bank Teller
+- 📱 Influencer
 
-👉 House = survival unlocked
-
----
-
-💳 STEP 7: LOANS (BE CAREFUL)
-
-Loans help you early…
-
-BUT:
-👉 ignore them → bad things happen
+💡 Tip:
+- Work = stable income
+- But overworking = needs collapse ⚠️
 
 ---
 
-🐶 STEP 8: PETS (ADVANCED MODE)
+## 🏠 STEP 6: BUY A HOUSE (PRIORITY)
 
-Pets are:
-- fun 🎾
-- extra responsibility 😅
+Your first major goal should be:
 
-👉 Don’t get pets too early
+👉 🏠 **Buy a house**
 
----
-
-🧠 SAFE START STRATEGY
-
-1. Get job 💼  
-2. Monitor needs 👀  
-3. Don’t waste time ⏰  
-4. Save money 💰  
-5. Buy house 🏠  
-6. THEN expand  
+Why?
+- Unlocks essential survival actions
+- Stabilises your gameplay
 
 ---
 
-❌ COMMON MISTAKES
+## 📈 Recommended Progression
 
-- ignoring needs  
-- working too much  
-- taking too many loans  
-- forgetting time  
-- buying assets too early  
+1. Get stable job 💼
+2. Buy house 🏠
+3. Buy car 🚗
+4. Expand (hotel / pets) 🐾
 
 ---
 
-🏁 FINAL TIP
+## 💳 STEP 7: USE LOANS CAREFULLY
 
-Think before every action.
+Loans are NOT free money.
+
+✔ Use only when needed
+✔ Always have a repayment plan
+
+⚠️ Ignoring loans = serious consequences
+
+---
+
+## 🎰 STEP 8: CASINO (OPTIONAL RISK)
+
+🚫 Child Sims cannot enter
+
+Available actions:
+- 🎰 Slot Machine
+- 🃏 Blackjack (21)
+- 🚽 Use Toilet
+- 🍿 Eat Snack
+
+---
+
+### 🎰 Slot Machine (Quick Guide)
+
+- 777 → **25x payout**
+- Other triple → **10x**
+- Pair → **2x**
+- No match → lose
+
+---
+
+### 🃏 Blackjack (Quick Guide)
+
+- Start with 2 cards
+- Choose: Hit / Stand / Double
+
+💡 Rules:
+- Double = 1 extra card + auto stand
+- 5-card Charlie (≤21) = instant win 🎉
+- Natural 21 = 3x
+- Normal win = 2x
+- Double win = 4x
+
+---
+
+## 🛡 SAFE START STRATEGY
+
+If you’re new, follow this:
+
+1. 👀 Check status every cycle
+2. 💼 Work, but keep needs stable
+3. 🏠 Save for house
+4. ❌ Avoid over-expansion early
+5. 🎰 Treat casino as high risk
+
+---
+
+## ⚠️ COMMON MISTAKES
+
+Avoid these:
+
+- Ignoring time ⏰
+- Letting needs stay critical too long ❤️
+- Taking loans without a plan 💳
+- Buying too many things too early 🏡
+- Treating gambling as income 🎰
+
+---
+
+## 🏆 FINAL TIP
 
 This game rewards:
-👉 planning > rushing
+- planning 🧠
+- discipline ⚖️
+- timing ⏰
 
----
-
-If stuck:
-👉 read FAQ.txt
+If you're stuck:
+👉 Check **FAQ.txt**

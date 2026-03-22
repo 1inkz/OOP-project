@@ -10,7 +10,8 @@ public enum LocationKey {
     BANK("bank"),
     RESTAURANT("restaurant"),
     HOSPITAL("hospital"),
-    PETSTORE("petstore");
+    PETSTORE("petstore"),
+    CASINO("casino");
 
     private final String key;
 

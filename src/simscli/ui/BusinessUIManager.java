@@ -62,7 +62,7 @@ public class BusinessUIManager {
 
         int choice = 0;
         // Street dont have action menu
-        if (activeSim.getLocation().name() != "Street") {
+        if (!"Street".equals(activeSim.getLocation().name())) {
             System.out.println(uiHelper.BLUE + (availableLocations.size() + 1) + ") View [" + activeSim.getLocation().name() + "] Actions Menu" + uiHelper.RESET);
             System.out.println(uiHelper.BLUE + (availableLocations.size() + 2) + ") Return to [" + activeSim.getName() + "] Main Menu" + uiHelper.RESET);
 
@@ -89,13 +89,19 @@ public class BusinessUIManager {
 
         Location selectedLoc = availableLocations.get(choice - 1);
         String travelMsg = game.travelTo(selectedLoc.key());
-        if (travelMsg.contains("arrived") || travelMsg.contains("entered")) {
+
+        // Determine success from actual location state, not message wording.
+        boolean travelSucceeded = activeSim.getLocation() != null
+                && selectedLoc.key().equalsIgnoreCase(activeSim.getLocation().key());
+
+        if (travelSucceeded) {
             System.out.println(uiHelper.GREEN + travelMsg + uiHelper.RESET);
         } else {
             System.out.println(uiHelper.RED + travelMsg + uiHelper.RESET);
             return;
         }
-        showDoLocationActionsMenu(selectedLoc);
+        // Immediately open the destination's action menu after successful travel.
+        showDoLocationActionsMenu(activeSim.getLocation());
     }
     
     public void showDoLocationActionsMenu(Location location) {

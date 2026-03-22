@@ -1,6 +1,7 @@
 package simscli.actions;
 
 import simscli.actions.banking.*;
+import simscli.actions.gambling.*;
 import simscli.actions.pet.*;
 import simscli.actions.simple.*;
 import simscli.pets.Pet;
@@ -47,6 +48,8 @@ public final class ActionFactory {
             case WITHDRAW: return new Withdraw();
             case APPLY_LOAN: return new ApplyLoan();
             case REPAY_LOAN: return new RepayLoan();
+            case PLAY_SLOTS: return new SlotMachine();
+            case PLAY_BLACKJACK: return new Blackjack();
             case BUY_PET: return new BuyPet();
             case GET_CHECKUP: return new GetCheckup();
             default: throw new IllegalArgumentException("Unknown action: " + type);

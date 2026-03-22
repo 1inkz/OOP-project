@@ -8,6 +8,7 @@ import simscli.location.Home;
 import simscli.location.Hospital;
 import simscli.location.Location;
 import simscli.location.LocationKey;
+import simscli.location.Casino;
 import simscli.actions.request.ActionRequest;
 import simscli.policy.TravelEffectPolicy;
 import simscli.policy.WalkTravelFatiguePolicy;
@@ -90,6 +91,7 @@ public class LocationManager {
         addLocation(new Restaurant());
         addLocation(new Hospital());
         addLocation(new PetStore());
+        addLocation(new Casino());
     }
 
     /**

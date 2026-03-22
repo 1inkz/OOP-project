@@ -1,6 +1,7 @@
 simscli
 simscli.actions
 simscli.actions.banking
+simscli.actions.gambling
 simscli.actions.interactive
 simscli.actions.pet
 simscli.actions.request

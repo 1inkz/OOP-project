@@ -1,141 +1,139 @@
-❓ FAQ – QUICK HELP
+# ❓ FAQ – QUICK HELP
+
+## 🧠 GENERAL
+
+**Q: What is this game?**
+A: A terminal-based life simulation where you manage Sims, their needs, money, assets, and time.
+
+**Q: Is there a fixed win condition?**
+A: Nope! 🎯 Success = survival + stability + growth.
+
+**Q: How do I lose?**
+A: If Hunger reaches 0 → 💀 instant death
+Other needs can trigger serious penalties (hospital, burnout, accidents).
 
 ---
 
-🧠 GENERAL
+## ❤️ NEEDS
 
-Q: What is this game?
-A: A life simulation where you try not to die while managing everything.
-
-Q: Is there a win?
-A: No fixed win. You survive and improve.
-
-Q: How do I lose?
-A: Any need hits 0 → 💀
-
----
-
-🍔 NEEDS
-
-Q: What needs do I have?
+**Q: What needs exist?**
 A:
-- Hunger
-- Energy
-- Hygiene
-- Social
-- Fun
-- Bladder
+- Hunger 🍔
+- Energy ⚡
+- Hygiene 🚿
+- Social 💬
+- Fun 🎮
+- Bladder 🚽
 
-Q: Why do I keep dying?
+**Q: Why am I struggling even if I’m not dead?**
+A: Critical needs trigger punishment events like:
+- Forced sleep 😴
+- Accidents 💥
+- Hospital time 🏥
+
+---
+
+## ⏰ TIME
+
+**Q: Why does the game feel fast?**
+A: Time moves constantly — actions + travel consume time while needs keep decreasing.
+
+**Q: What happens at night?**
+A: 🌙 Energy drains faster, and you’ll get a midnight warning.
+
+---
+
+## 💼 JOBS
+
+**Q: How do I earn money reliably?**
+A: Get a job and work at the correct locations.
+
+**Q: What jobs are available?**
 A:
-- ignored needs
-- ignored sleep
-- bad time management
+- 👨‍🍳 Chef
+- 🩺 Doctor
+- 🏦 Bank Teller
+- 📱 Influencer
+- 🚫 Jobless
 
 ---
 
-⏰ TIME
+## 💰 MONEY & LOANS
 
-Q: Why is time so hard?
-A: Because EVERYTHING costs time.
+**Q: Should I take loans early?**
+A: Only if you have a plan 💡 — loans help, but they can trap you.
 
-Q: What happens at night?
+**Q: What happens if I ignore loans?**
+A: Penalties escalate:
+- Interest increases 📈
+- Assets may be taken 🏚
+- Situation becomes harder to recover
+
+---
+
+## 🏡 ASSETS
+
+**Q: What should I buy first?**
+A: 🏠 A house — it unlocks essential survival actions.
+
+**Q: Why buy a car?**
+A: 🚗 Faster, less tiring travel (but requires maintenance).
+
+---
+
+## 🎰 CASINO
+
+**Q: Can every Sim enter the casino?**
+A: ❌ No — Child Sims are not allowed.
+
+---
+
+**Q: What can I do there?**
 A:
-20:00 → reminder  
-21:00 → warning  
-22:00 → forced sleep  
+- 🎰 Slot Machine
+- 🃏 Blackjack (21)
+- 🚽 Use Toilet
+- 🍿 Eat Snack
 
 ---
 
-💼 JOBS
-
-Q: How do I earn money?
-A: Get a job and work.
-
-Q: Jobs available?
+**Q: Slot machine payouts?**
 A:
-- Chef
-- Doctor
-- Bank Teller
-- Influencer
+- 🎰 777 → 25x
+- 🎰 Other triple → 10x
+- 🎰 Any pair → 2x
+- ❌ No match → lose
 
 ---
 
-💳 MONEY & LOANS
-
-Q: Should I take loans?
-A: Only if you know what you’re doing.
-
-Q: What happens if I ignore loans?
+**Q: Blackjack payout rules?**
 A:
-- repossession
-- worse consequences later
+- Normal win → 2x
+- Double-down win → 4x
+- Natural blackjack → 3x
 
 ---
 
-🏠 ASSETS
-
-Q: Best first asset?
-A: 🏠 House
-
-Q: Why?
-A: It unlocks survival actions.
+**Q: What is Double Down?**
+A: You double your bet, get **1 extra card**, then auto-stand.
 
 ---
 
-🌍 LOCATIONS
-
-Q: Why can’t I go Home?
-A: You don’t own a house yet.
-
-Q: Why do locations matter?
-A: Different actions only exist in certain places.
+**Q: What is Five-card Charlie?**
+A: If you have 5 cards and total ≤ 21 → instant win 🎉
 
 ---
 
-🐶 PETS
+## 💾 SAVE
 
-Q: Should I get pets early?
-A: ❌ No
-
-Q: Why?
-A: More responsibility → easier to fail
+**Q: Does the game save progress?**
+A: Yes — everything is saved in `savegame.txt`.
 
 ---
 
-💾 SAVE
+## 🛠 TROUBLESHOOTING
 
-Q: Does the game save?
-A: Yes → `savegame.txt`
-
----
-
-🛠 TROUBLESHOOTING
-
-Q: Game won’t run?
-A:
-Run:
+**Q: Game won’t run?**
+A: Run:
+```bash
 java simscli.Main
-
-Q: VS Code bug?
-A:
-- Clean Java workspace
-- Restart IDE
-
----
-
-🔥 QUICK TIPS
-
-- check status often 👀  
-- don’t ignore time ⏰  
-- don’t go into red zone 🔴  
-- house first 🏠  
-- don’t be greedy 💳  
-
----
-
-💬 FINAL ADVICE
-
-This game is simple to understand…
-
-But VERY easy to mess up 😄

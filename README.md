@@ -1,192 +1,174 @@
-# 🎮 THE SIMS – TERMINAL CONSOLE EDITION
+# 🎮 THE SIMS - TERMINAL CONSOLE EDITION
 
-A Java-based terminal life simulation game where you manage Sims, balance their needs, earn money, buy assets, adopt pets, and try not to accidentally ruin their lives.
+A Java-based life simulation game you play directly in the terminal.  
+Manage your Sims, survive daily life, earn money, and build your dream lifestyle!
 
 ---
 
 ## 🧠 Overview
 
-Welcome to a **SIMS survival simulator**.
+Create and manage multiple Sims, but control one at a time.
 
-In this game, you will manage:
-- 🧍 Sims and their daily lives
-- 🍔 Needs (yes… all of them)
-- 💼 Jobs and income
-- 💳 Banking and loans
-- 🏠 Assets (Car, House, Hotel)
-- 🐶 Pets (because why not make life harder)
-- ⏰ Time (your biggest enemy)
-
-👉 Goal: **Stay alive, stay stable, and don’t go broke.**
+### 🎯 Your Goal
+- ❤️ Stay alive
+- 💰 Stay financially stable
+- 🏡 Build your lifestyle (house, car, hotel, pets)
 
 ---
 
-## 🔥 Core Systems
+## ⚙️ Core Systems
 
-### 🧍 Sim System
+### 👤 Sims
 Each Sim has:
-- needs
-- job & progression
-- finances
-- assets
-- pets
-- location
-
-You can create multiple Sims, but control one at a time.
+- Needs (must stay above 0!)
+- Job and career progression
+- 💵 Cash, 🏦 bank deposits, and 💳 loans
+- 🚗 Assets (car, house, hotel)
+- 🐶 Pets
+- 📍 Current location
 
 ---
 
-### 🍔 Needs System (DO NOT IGNORE THIS)
+### ❤️ Needs System
 
-- Hunger
-- Energy
-- Hygiene
-- Social
-- Fun
-- Bladder
+Track and manage:
+- Hunger 🍔
+- Energy ⚡
+- Hygiene 🚿
+- Social 💬
+- Fun 🎮
+- Bladder 🚽
 
-💀 If ANY hits **0 → your Sim dies, so watch out!**
+#### 📊 Need Levels
+- 🟢 60+ → Good
+- 🟡 21–59 → Warning
+- 🔴 0–20 → Critical
 
-| Level | Status |
-|------|--------|
-| 60+  | 🟢 Good |
-| 21–59| 🟡 Warning |
-| 0–20 | 🔴 Critical |
+⚠️ Important:
+- Hunger / Energy at 0 = 💀 death
+- Other needs may trigger penalties (hospital, burnout, accidents)
 
 ---
 
-### ⏰ Time System (THE REAL BOSS)
-
-- Every action ≈ 1 hour
-- Travel also costs time
-- Time keeps moving → your needs keep dropping
-
-🌙 Night system:
-- 20:00 → 😴 Reminder
-- 21:00 → ⚠️ Warning
-- 22:00 → 💀 Forced sleep / faint
-
-👉 Ignore time → you lose control fast
+### ⏰ Time System
+- Most actions take **1 in-game hour**
+- Travel also consumes time and affects needs
+- 🌙 Late nights drain energy faster (midnight warning!)
 
 ---
 
 ### 💼 Jobs & Income
 
-Jobs available:
+Available jobs:
 - 👨‍🍳 Chef
-- 🏥 Doctor
+- 🩺 Doctor
 - 🏦 Bank Teller
 - 📱 Influencer
 - 🚫 Jobless
 
-💰 Work → earn money  
-📈 Work more → earn better
-
-BUT:
-👉 Work too much → your needs crash
+💡 Work to earn money and level up
+⚠️ Overworking can damage your needs
 
 ---
 
-### 💳 Banking & Loans
+### 🏦 Banking & Loans
 
-Money is split into:
-- 💵 Simcoin (on hand)
-- 🏦 Bank balance
+Money types:
+- 💵 Simcoin (cash)
+- 🏦 Bank deposit
 
-You can:
-- deposit
-- withdraw
-- take loans
-- repay loans
+Available actions:
+- Deposit
+- Withdraw
+- Apply Loan
+- Repay Loan
 
-⚠️ Loans = helpful but dangerous  
-Ignore them → repossession → death risk
-
----
-
-### 🏠 Assets
-
-Available:
-- 🚗 Car → better travel
-- 🏠 House → unlock survival actions
-- 🏨 Hotel → passive income
-
-💡 Beginner tip:
-👉 House > everything else early game
+⚠️ Loans help early game but can backfire if ignored
 
 ---
 
-### 🐶 Pets System
+### 🏡 Assets
 
-Yes… you can make life harder:
-
-- buy pets 🐾
-- feed 🍖
-- clean 🧼
-- play 🎾
-- sleep together 😴
-
-⚠️ Pets:
-- need care
-- age
-- can die
-
-👉 Don’t get pets if you’re already struggling 😅
+- 🚗 Car → reduces travel fatigue
+- 🏠 House → unlocks essential home actions
+- 🏨 Hotel → generates passive income
 
 ---
 
-### 🌍 Locations
+### 🐾 Pets
 
-- 🚶 Street
-- 🏠 Home (requires house!)
+Adopt and care for pets:
+- Feed 🍖
+- Clean 🚿
+- Play 🎾
+- Sleep 😴
+
+💡 Pets increase happiness but require upkeep
+
+---
+
+## 🌍 Locations
+
+Explore different places:
+- 🛣 Street
+- 🏠 Home (requires house)
 - 🌳 Park
 - 🏦 Bank
 - 🍽 Restaurant
 - 🏥 Hospital
-- 🐶 Pet Store
+- 🐾 Pet Store
+- 🎰 Casino
 
-Different places = different actions
+Each location offers different actions.
 
 ---
 
-## 🕹️ Menu System
+## 🎰 Casino
 
-### Start Menu
-- New Game
-- Continue Game
-- Quit
+### 🚫 Restrictions
+- Child Sims cannot enter
 
-### Sims Menu
-- Create Sim
-- Select Sim
-- Enter Game
+---
 
-### Main Menu
-- View Status 👀
-- Travel ✈️
-- Location Actions 📍
-- Job Management 💼
-- Assets 🏠
-- Pass Time ⏰
+### 🎲 Slot Machine
+
+- 🎰 777 → **25x payout**
+- 🎰 Other triples → **10x**
+- 🎰 Any pair → **2x**
+- ❌ No match → lose bet
+
+---
+
+### 🃏 Blackjack (21)
+
+- Start with 2 cards
+- Options: Hit / Stand / Double
+- Double = 1 extra card + auto stand
+
+#### 💰 Payouts
+- Natural blackjack → **3x**
+- Normal win → **2x**
+- Double-down win → **4x**
+- Five-card Charlie (≤21) → instant win 🎉
 
 ---
 
 ## 💾 Save System
 
-Game saves:
-- time ⏰
-- Sims 🧍
-- jobs 💼
-- needs 🍔
-- money 💰
-- assets 🏠
-- pets 🐶
+Your progress includes:
+- ⏰ Time
+- 👤 Sims & stats
+- 💼 Jobs
+- ❤️ Needs
+- 🏦 Banking
+- 🏡 Assets
+- 🐾 Pets
 
-📄 Saved in: `savegame.txt`
+📁 File: `savegame.txt`
 
 ---
 
-## 🚀 How to Run
+## ▶️ How to Run
 
 ```bash
 java simscli.Main

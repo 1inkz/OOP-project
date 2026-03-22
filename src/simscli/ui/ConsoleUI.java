@@ -101,7 +101,7 @@ public final class ConsoleUI {
 
             String selectedOption = menuOptions.get(optionIndex);
 
-            if (selectedOption == currentLocationOption) {
+            if (selectedOption.equals(currentLocationOption)) {
                 selectedOption = "Location Action Menu";
             } else if (selectedOption.equals("Find Job") || selectedOption.equals("Change Job")) {
                 selectedOption = "Job";

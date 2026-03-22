@@ -23,6 +23,8 @@ public enum ActionType {
     WITHDRAW,
     APPLY_LOAN,
     REPAY_LOAN,
+    PLAY_SLOTS,
+    PLAY_BLACKJACK,
     BUY_PET,
     FEED_PET,
     SHOWER_PET,
