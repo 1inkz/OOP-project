@@ -143,7 +143,8 @@ public final class FileSaveRepository implements SaveRepository {
                     sim.getNeeds().get(NeedType.BLADDER) + "|" +
                     jobLevelsStr + "|" +
                     skillLevelsStr + "|" +
-                    petsStr
+                    petsStr + "|" +
+                    sim.isCarMaintenancePaid()
                 );
                 writer.newLine();
             }
@@ -306,6 +307,11 @@ public final class FileSaveRepository implements SaveRepository {
                     }
                 } else {
                     System.out.println("[LoadGame] No pets field for Sim: " + sim.getName() + " (parts.length=" + parts.length + ")");
+                }
+
+                // Backward compatible: old saves may not include this field.
+                if (sim.getOwnedCar() != null && parts.length >= 22) {
+                    sim.setCarMaintenancePaid(Boolean.parseBoolean(parts[21]));
                 }
 
                 game.addSim(sim);

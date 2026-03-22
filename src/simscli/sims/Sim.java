@@ -8,6 +8,7 @@ import simscli.asset.Car;
 import simscli.asset.House;
 import simscli.asset.Hotel;
 import simscli.bank.BankingSystem;
+import simscli.game.ConsoleGameLogger;
 import simscli.game.Game;
 import simscli.game.GameLogger;
 import simscli.jobs.Job;
@@ -357,6 +358,14 @@ public abstract class Sim {
 
     public double getTravelFatigueMultiplier() {
         return assets.getTravelFatigueMultiplier();
+    }
+
+    public boolean isCarMaintenancePaid() {
+        return assets.isCarMaintenancePaid();
+    }
+
+    public void setCarMaintenancePaid(boolean paid) {
+        assets.setCarMaintenancePaid(paid);
     }
 
     public int getOwnedHotelLevel() {

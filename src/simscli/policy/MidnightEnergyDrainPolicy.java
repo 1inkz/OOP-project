@@ -15,12 +15,15 @@ public final class MidnightEnergyDrainPolicy implements TimeRulePolicy {
     @Override
     public void apply(GameClock clock, List<Sim> sims, GameLogger logger, Game game) {
         int currentHour = clock.getHour();
-        if (currentHour < 23 && currentHour > 7) {
+        if (currentHour >= 8 && currentHour < 23) {
             return;
         }
 
         logger.warn("\n[GAME] It's Midnight - Sim's energy is draining fast! Sleep now.");
         for (Sim sim : sims) {
+            if (!sim.isAlive()) {
+                continue;
+            }
             sim.applyEffect(Effect.none().plus(NeedType.ENERGY, -10));
         }
     }
