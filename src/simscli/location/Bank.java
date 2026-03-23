@@ -17,33 +17,24 @@ public final class Bank extends Location {
     @Override
     public List<Action> actions(Sim sim) {
         List<Action> actions = new ArrayList<>();
-
-        if (sim != null && sim.getJob().canWork() && canWorkHere(sim)) {
-            actions.add(ActionFactory.create(ActionType.WORK));
+        
+        if (sim.getSimcoin() <= 0) {
+        	actions.add(ActionFactory.create(ActionType.DEPOSIT));
         }
-
-        actions.add(ActionFactory.create(ActionType.DEPOSIT));
-
+        
         if (sim.getBankDeposit() > 0) {
             actions.add(ActionFactory.create(ActionType.WITHDRAW));
         }
 
-        actions.add(ActionFactory.create(ActionType.APPLY_LOAN));
+        if (sim.getLoanAmount() < simscli.bank.BankingSystem.getLoanLimit()) {
+        	actions.add(ActionFactory.create(ActionType.APPLY_LOAN));
+        }
 
         if (sim.getLoanAmount() > 0) {
             actions.add(ActionFactory.create(ActionType.REPAY_LOAN));
         }
 
         return actions;
-    }
-
-    private boolean canWorkHere(Sim sim) {
-        for (String location : sim.getJob().getWorkLocations()) {
-            if (this.key().equalsIgnoreCase(location)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

@@ -151,8 +151,9 @@ public final class FileSaveRepository implements SaveRepository {
                     sim.getNeeds().get(NeedType.BLADDER) + "|" +
                     jobLevelsStr + "|" +
                     skillLevelsStr + "|" +
-                    petsStr + "|" +
-                    sim.getLastInactiveDays()
+                    petsStr + "|" +                  
+                    sim.getLastInactiveDays() + "|" +   
+                    sim.isCarMaintenancePaid()
                 );
                 writer.newLine();
             }
@@ -341,6 +342,11 @@ public final class FileSaveRepository implements SaveRepository {
                 	}
                 } else {
                 	sim.setLastInactiveDays(0);
+                }
+
+                // Backward compatible: old saves may not include this field.
+                if (sim.getOwnedCar() != null && parts.length >= 24) {
+                    sim.setCarMaintenancePaid(Boolean.parseBoolean(parts[23]));
                 }
 
                 game.addSim(sim);

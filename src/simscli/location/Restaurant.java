@@ -2,10 +2,7 @@ package simscli.location;
 
 import java.util.*;
 import simscli.actions.*;
-import simscli.actions.simple.*;
-import simscli.game.GameContext;
 import simscli.sims.Sim;
-import simscli.stats.*;
 
 /**
  * Restaurant location: dining and Chef employment.
@@ -16,14 +13,16 @@ public final class Restaurant extends Location {
 
     @Override
     public List<Action> actions(Sim sim) {
-        List<Action> baseActions = new ArrayList<>(Arrays.asList(
-                new DineOut(),
-                new Socialise()
-        ));
-
+        List<Action> baseActions = new ArrayList<>(Arrays.asList());
+        
         if (sim != null && sim.getJob().canWork() && canWorkHere(sim)) {
             baseActions.add(ActionFactory.create(ActionType.WORK));
         }
+        
+        baseActions.add(ActionFactory.create(ActionType.DINE_OUT));
+        baseActions.add(ActionFactory.create(ActionType.EAT_SNACK));
+        baseActions.add(ActionFactory.create(ActionType.USE_TOILET));
+        baseActions.add(ActionFactory.create(ActionType.SOCIALISE));
 
         return baseActions;
     }
@@ -37,26 +36,5 @@ public final class Restaurant extends Location {
         return false;
     }
 
-    private static final class DineOut implements Action {
-        @Override public String name() { return "Dine Out ($25)"; }
 
-        @Override
-        public String perform(Sim sim, GameContext ctx) {
-            if (sim.getSimcoin() < 25) {
-                return sim.getName() + " can't afford to dine out. (Need $25)";
-            }
-
-            sim.spendSimcoin(25);
-
-            sim.applyEffect(Effect.none()
-                    .plus(NeedType.HUNGER, +45)
-                    .plus(NeedType.ENERGY, +30)
-                    .plus(NeedType.SOCIAL, +15)
-                    .plus(NeedType.FUN, +10)
-                    .plus(NeedType.HYGIENE, -2)
-                    .plus(NeedType.BLADDER, -4));
-
-            return sim.getName() + " dined out. Fancy food, fancy bill.";
-        }
-    }
 }

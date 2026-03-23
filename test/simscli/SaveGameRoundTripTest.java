@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import simscli.game.Game;
+import simscli.asset.Car;
 import simscli.location.LocationKey;
 import simscli.pets.PetFactory;
 import simscli.pets.PetType;
@@ -75,5 +76,32 @@ public class SaveGameRoundTripTest {
     public void emptySaveFileIsNotValidData() {
         SaveGame.clearSaveFile();
         assertFalse(SaveGame.hasValidSaveData());
+    }
+
+    @Test
+    public void saveAndLoadShouldPreserveCarMaintenancePaidState() {
+        Game source = new Game();
+        Sim ava = source.createSim("Ava", SimType.ADULT);
+        source.setActiveSim(0);
+
+        ava.setOwnedCar(new Car(1, "Starter Car", 2000, 0.6));
+        ava.setCarMaintenancePaid(false);
+
+        SaveGame.saveGame(source);
+
+        Game loadedGame = new Game();
+        boolean loaded = SaveGame.loadGame(loadedGame);
+
+        assertTrue(loaded);
+        Sim loadedAva = loadedGame.sims().stream()
+                .filter(s -> s.getName().equals("Ava"))
+                .findFirst()
+                .orElseThrow();
+
+        assertTrue(loadedAva.getOwnedCar() != null);
+        assertFalse(loadedAva.isCarMaintenancePaid());
+
+        source.shutdown();
+        loadedGame.shutdown();
     }
 }

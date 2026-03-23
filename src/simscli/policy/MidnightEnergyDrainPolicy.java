@@ -15,7 +15,8 @@ public final class MidnightEnergyDrainPolicy implements TimeRulePolicy {
     @Override
     public void apply(GameClock clock, List<Sim> sims, GameLogger logger, Game game) {
         int currentHour = clock.getHour();
-        if (currentHour >=8 && currentHour < 23) {
+        
+        if (currentHour >= 8 && currentHour < 23) {
             return;
         }
 
@@ -25,6 +26,7 @@ public final class MidnightEnergyDrainPolicy implements TimeRulePolicy {
         	if (!sim.isAlive()) {
         		continue;
         	}
+
             sim.applyEffect(Effect.none().plus(NeedType.ENERGY, -10));
         }
     }
