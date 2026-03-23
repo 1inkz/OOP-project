@@ -7,8 +7,8 @@ public enum JobType {
     JOBLESS("Jobless"),
     CHEF("Chef"),
     DOCTOR("Doctor"),
-    BANK_TELLER("Bank Teller"),
-    INFLUENCER("Influencer");
+    WAITER("Waiter"),
+    CLEANER("Cleaner");
 
     private final String displayName;
 
@@ -34,10 +34,10 @@ public enum JobType {
                 return CHEF;
             case "doctor":
                 return DOCTOR;
-            case "bank teller":
-                return BANK_TELLER;
-            case "influencer":
-                return INFLUENCER;
+            case "waiter":
+                return WAITER;
+            case "cleaner":
+                return CLEANER;
             default:
                 throw new IllegalArgumentException("Unknown job: " + raw);
         }

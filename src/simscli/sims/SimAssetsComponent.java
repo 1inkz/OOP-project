@@ -8,7 +8,6 @@ import simscli.asset.EconomyState;
 import simscli.asset.House;
 import simscli.asset.Hotel;
 import simscli.game.Game;
-import simscli.location.Location;
 
 /**
  * Manages Sim assets: cars, houses, hotels and repossession logic.
@@ -137,20 +136,9 @@ public class SimAssetsComponent {
      * Returns purchase result with message and amount financed.
      */
     public PurchaseResult buyAsset(Asset asset, int currentSimcoin, int loanLimit) {
-        if (asset.isCar() && ownedCar != null) {
-            return new PurchaseResult(false, "You already own a car!");
-        }
-
-        if (asset.isHouse() && ownedHouse != null) {
-            return new PurchaseResult(false, "You already own a house!");
-        }
-
-        if (asset.isHotel() && ownedHotel != null) {
-            return new PurchaseResult(false, "You already own a hotel!");
-        }
 
         int totalCost = asset.getValue();
-        int downPayment = asset.isCar() ? 400 : 1500;
+        int downPayment = asset.isCar() ? 400 : asset.isHouse() ? 1000 : 2800;
         int loanAmount = totalCost - downPayment;
         if (loanAmount < 0) loanAmount = 0;
 
@@ -200,28 +188,55 @@ public class SimAssetsComponent {
      * Repossesses assets due to loan default.
      * Returns repossession message and marks loan as cleared.
      */
-    public String repossessAsset(int loanAmount, String simName, Location currentLocation, Game game) {
+    public String repossessAsset(int loanAmount, Sim sim) {
         String repossessMsg = "";
-
-        if (loanAmount > 2000) {
-            if (ownedHouse != null) {
-                repossessMsg = simName + "'s house was repossessed due to overdue loan";
+        int leftLoan = 0;
+ 
+        // RULE 1: Loan > 4500 
+        if (loanAmount > 4500) {
+            if (ownedHotel != null) {
+                repossessMsg = sim.getName() + "'s hotel was repossessed due to overdue loan";
+                ownedHotel = null;
+            } else if (ownedHouse != null) {
+                repossessMsg = sim.getName() + "'s house was repossessed due to overdue loan";
                 ownedHouse = null;
-
-                if (game != null && currentLocation.key().equalsIgnoreCase("home")) {
-                    currentLocation = game.location().get("street");
-                }
-            } else if (ownedCar != null) {
-                repossessMsg = simName + "'s car was repossessed due to overdue loan";
+                leftLoan = loanAmount - 4500;
+            } else {
+                repossessMsg = sim.getName() + "'s car was repossessed due to overdue loan";
                 ownedCar = null;
-            }
-        } else {
-            if (ownedCar != null) {
-                repossessMsg = simName + "'s car was repossessed due to overdue loan";
-                ownedCar = null;
+                leftLoan = loanAmount - 1200;
             }
         }
 
+        // RULE 2: Loan > 1200 AND <= 4500 
+        else if (loanAmount > 1200) {
+            if (ownedHotel != null) {
+                repossessMsg = sim.getName() + "'s hotel was repossessed due to overdue loan";
+                ownedHotel = null;
+            } else if (ownedHouse != null) {
+                repossessMsg = sim.getName() + "'s house was repossessed due to overdue loan";
+                ownedHouse = null;
+            } else {
+                repossessMsg = sim.getName() + "'s car was repossessed due to overdue loan";
+                ownedCar = null;
+                leftLoan = loanAmount - 1200;
+            }
+        }
+
+        else {
+            if (ownedHotel != null) {
+                repossessMsg = sim.getName() + "'s hotel was repossessed due to overdue loan";
+                ownedHotel = null;
+            } else if (ownedHouse != null) {
+                repossessMsg = sim.getName() + "'s house was repossessed due to overdue loan";
+                ownedHouse = null;
+            } else {
+                repossessMsg = sim.getName() + "'s car was repossessed due to overdue loan";
+                ownedCar = null;
+            }
+        }
+        
+        sim.getBankingComponent().repayLoan(loanAmount-leftLoan);
         loanStartDay = 0;
         return "\u001B[31m[Loan Overdue] \u001B[0m" + repossessMsg;
     }

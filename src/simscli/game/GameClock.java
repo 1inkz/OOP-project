@@ -40,6 +40,7 @@ public final class GameClock {
         this.minuteOfDay = clamp(startMinuteOfDay, 0, MINUTES_PER_DAY - 1);
         this.minuteRemainder = 0.0;
     }
+  
 
     // Time to flow automatically.
     // deltaSeconds is how many real seconds passed since last update.
@@ -158,7 +159,9 @@ public final class GameClock {
      * Typically used when a Sim faints and is sent to the hospital.
      */
     public void resetToNextDayMorning() {
-        dayNumber++;
+    	if (getHour() >= 8) {
+            dayNumber++;
+    	}
         minuteOfDay = 480; // 8:00 AM
     }
     
@@ -169,5 +172,6 @@ public final class GameClock {
         dayNumber = 1;
         minuteOfDay = 480; // 8:00 AM
     }
+
 
 }

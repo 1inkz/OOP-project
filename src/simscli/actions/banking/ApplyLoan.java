@@ -37,11 +37,6 @@ public final class ApplyLoan implements Action {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
 
         int maxLoan = simscli.bank.BankingSystem.getLoanLimit() - sim.getLoanAmount();
-        if (maxLoan <= 0) {
-            return "Loan limit reached. You have already withdrawn the maximum amount of $" +
-                simscli.bank.BankingSystem.getLoanLimit() + ".";
-        }
-
         int loanAmt = ui.intRange(
             "Enter loan amount (Max: $" + maxLoan + ") or press '0' to cancel: $",
                 0,
@@ -56,17 +51,7 @@ public final class ApplyLoan implements Action {
             return perform(sim, ctx);
         }
 
-        int maxLoan = simscli.bank.BankingSystem.getLoanLimit() - sim.getLoanAmount();
-        if (maxLoan <= 0) {
-            return "Loan limit reached. You have already withdrawn the maximum amount of $" +
-                    simscli.bank.BankingSystem.getLoanLimit() + ".";
-        }
-
         int loanAmt = amountRequest.amount();
-
-        if (loanAmt < 0 || loanAmt > maxLoan) {
-            return "Invalid loan amount. Remaining loan capacity: $" + maxLoan + ".";
-        }
 
         if (loanAmt == 0) {
             return GREEN + "Transaction Cancelled" + RESET;

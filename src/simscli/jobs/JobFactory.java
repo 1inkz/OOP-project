@@ -22,10 +22,10 @@ public final class JobFactory {
                 return new ChefJob();
             case DOCTOR:
                 return new DoctorJob();
-            case BANK_TELLER:
-                return new BankTellerJob();
-            case INFLUENCER:
-                return new InfluencerJob();
+            case WAITER:
+                return new WaiterJob();
+            case CLEANER:
+                return new CleanerJob();
             default:
                 throw new IllegalArgumentException("Unknown job type: " + type);
         }

@@ -60,19 +60,35 @@ public class SimManager {
      * @throws IllegalArgumentException if index is out of bounds
      */
     public void setActiveSim(int index) {
-        if (index < 0 || index >= sims.size()) {
+    	if (index == -1) {
+    		activeIndex = -1;
+    	}
+    	else if (index < 0 || index >= sims.size()) {
             throw new IllegalArgumentException("Bad index: " + index);
         }
-        activeIndex = index;
-        
-        Sim activeSim = sims.get(activeIndex);
-        List<String> pendingMessages = activeSim.getAndClearPendingLoanMessages();
-        if (!pendingMessages.isEmpty()) {
-            logger.warn("\n[Sims Reminder] You have switched to " + activeSim.getName() + ", below is unread message");
-            for (String msg : pendingMessages) {
-                logger.info(msg + "\n");
+    	else {
+            activeIndex = index;
+            
+            Sim activeSim = sims.get(activeIndex);
+            List<String> pendingMessages = activeSim.getAndClearPendingLoanMessages();
+            if (!pendingMessages.isEmpty()) {
+                logger.warn("\n[Sims Reminder] You have switched to " + activeSim.getName() + ", below is unread message");
+                for (String msg : pendingMessages) {
+                    logger.info(msg + "\n");
+                }
             }
-        }
+    	}
+
+//        List<Sim> deadSims = new ArrayList<>();
+//        for (Sim sim : sims) {
+//            if (sim.isAlive() && sim.shouldDieFromInactivity()) {
+//                sim.setAlive(false);
+//                deadSims.add(sim);
+//                logger.error("\u001B[31m[Inactivity Death] \u001B[0m" + sim.getName() + "  was elimated because got neglected for " + sim.getInactiveDays() + " days!");
+//            }
+//        }
+//        
+//        sims.removeAll(deadSims);
     }
 
     /**
@@ -136,23 +152,27 @@ public class SimManager {
      */
     public void removeDeadSims(Game game) {
         Iterator<Sim> it = sims.iterator();
+        String reason = "";
 
         while (it.hasNext()) {
             Sim sim = it.next();
 
             if (!sim.isAlive()) {
-                String reason = getZeroNeedReason(sim);
-                logger.error(sim.getName() + " was eliminated because " + reason + " reached 0!");
-
+            	if (sim.shouldDieFromInactivity()) {
+            		reason = "[GAME] " + sim.getName() + " died from being neglected for " + (game.getClock().getDayNumber() - sim.getLastInactiveDays()) + " days!";
+            	}
+            	else if (sim.getLoanOverdueDays(game) >= 80 && sim.getBankingComponent().isInsolvent(sim.getLoanAmount())) {
+            		reason = "[GAME] " + sim.getName() + " died from bankruptcy";
+            		sim.clearPendingLoanMessages();
+            	}
+            	else {
+            		reason = "[GAME] " + sim.getName() + " was eliminated because " + getZeroNeedReason(sim) + " reached 0!";
+            	}
+                logger.error(reason);
                 it.remove();
+                SaveGame.saveGame(game);
                 continue;
             }
-        }
-
-        if (sims.isEmpty()) {
-            activeIndex = -1;
-            SaveGame.saveGame(game);
-            return;
         }
     }
 

@@ -6,7 +6,6 @@ import simscli.ExitGuard;
 import simscli.SaveGame;
 import simscli.game.Game;
 import simscli.game.GameLogger;
-import simscli.game.SimManager;
 import simscli.sims.Sim;
 
 /**
@@ -19,7 +18,6 @@ public final class ConsoleUI {
     private final Input in = new Input();
     private UIHelper uiHelper;
     GameLogger gameLogger;
-    private SimManager simManager;
     private SimUIManager simUIManager;
     private MenuUIManager menuUIManager;
     private BusinessUIManager businessUIManager;
@@ -32,7 +30,6 @@ public final class ConsoleUI {
         this.uiHelper = new UIHelper(in);
         this.menuUIManager = new MenuUIManager(game, in, uiHelper);
         this.simUIManager = new SimUIManager(game, in, uiHelper, menuUIManager);
-        this.simManager = game.getSimManager();
         this.businessUIManager = new BusinessUIManager(game, in, uiHelper);
     }
 
@@ -52,8 +49,13 @@ public final class ConsoleUI {
 
             // Auto-advance time (GameClock's design)
             game.autoAdvanceRealTime(deltaSeconds);
+            game.advanceTimeForAction();
+            
+            // set game to modified
+            game.markGameModified();
 
             Sim activeSim = game.activeSim();
+            activeSim.setLastInactiveDays(game.getClock().getDayNumber());
 
             String currentLocation = activeSim.getLocation().name();
             String currentLocationOption = "View [" + currentLocation + "] Actions Menu";
@@ -131,7 +133,7 @@ public final class ConsoleUI {
                     break;
                 case "Quit Game":
 
-                    String confirm = in.line("Save current progress before quitting? (y/n): ");
+                    String confirm = in.stringOptions("Save current progress before quitting? (y/n): ", "y", "n");
 
                     if (confirm.equalsIgnoreCase("y")) {
                         SaveGame.saveGame(game);
@@ -144,27 +146,43 @@ public final class ConsoleUI {
                     return;
             }
             
-            if (activeSim == null || !activeSim.isAlive()) {
-                boolean anyAlive = false;
-                for (Sim sim : game.sims()) {
-                    if (sim.isAlive()) {
-                        anyAlive = true;
-                        break;
+            // Dead sim rules
+            List<Sim> deadSims = new ArrayList<>();
+            boolean anyAlive = false;
+            for (Sim sim : game.sims()) {
+                if (!sim.isAlive()) {
+                	sim.setAlive(false);
+                	deadSims.add(sim);
+                } else {
+                	anyAlive = true;
+                } 
+            }
+            
+            if (!deadSims.isEmpty()) {
+                for (Sim deadSim : deadSims) {                    
+                    if (deadSim == activeSim) {
+                        activeSim = null;
                     }
                 }
-                
-                simManager.removeDeadSims(game);
-                
+                game.cleanupDeadSims();
+            }
+            
+            if (activeSim == null || !activeSim.isAlive()) {
                 if (anyAlive) {
-                	simUIManager.selectExistingSim();
+                    game.setActiveSim(-1);
+                    simUIManager.selectExistingSim();
+                    activeSim = game.activeSim();
                 } else {
                     System.out.println("All Sims are gone. Game restarted! Create a new Sim.");
                     game.resetGame();
                     SaveGame.clearSaveFile();
                     menuUIManager.showSimManagementMenu();
-                }         				
-                continue;
+                }
+            } else if (!deadSims.isEmpty()) {
+            	game.setActiveSim(activeSim.getActiveSimIndex() - 1);
             }
+            continue;
         }
     }
+    
 }

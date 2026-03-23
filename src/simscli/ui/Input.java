@@ -41,4 +41,21 @@ public final class Input {
             }
         }
     }
+    
+    /**
+     * Reads a string input and validates it against two case-insensitive options.
+     * @param prompt message to display
+     * @param option1 first valid choice
+     * @param option2 second valid choice
+     * @return the validated string input
+     */
+    public String stringOptions(String prompt, String option1, String option2) {
+        while (true) {
+            String s = line(prompt).trim();
+            if (s.equalsIgnoreCase(option1) || s.equalsIgnoreCase(option2)) {
+                return s;
+            }
+            System.out.println("Please enter '" + option1 + "' or '" + option2 + "'.");
+        }
+    }
 }

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import simscli.asset.Car;
+import simscli.asset.Hotel;
 import simscli.asset.House;
 import simscli.game.Game;
 import simscli.game.GameClock;
@@ -67,6 +68,7 @@ public final class FileSaveRepository implements SaveRepository {
             int originalActiveIndex = game.getActiveSimIndex();
             int savedActiveIndex = -1;
             int savedIndexCounter = 0;
+            //int activeIndex = game.getActiveSimIndex();
 
             for (int i = 0; i < sims.size(); i++) {
                 Sim sim = sims.get(i);
@@ -76,6 +78,7 @@ public final class FileSaveRepository implements SaveRepository {
                     savedActiveIndex = savedIndexCounter;
                 }
                 savedIndexCounter++;
+
             }
 
             GameClock clock = game.getClock();
@@ -108,10 +111,10 @@ public final class FileSaveRepository implements SaveRepository {
                 for (Pet pet : sim.getPets()) {
                     if (petsStr.length() > 0) petsStr.append(",");
                     petsStr.append(pet.serialize());
-                    System.out.println("[SaveGame] Saving pet: " + pet.getName() + " for Sim: " + sim.getName());
+                    //System.out.println("[SaveGame] Saving pet: " + pet.getName() + " for Sim: " + sim.getName());
                 }
                 if (petsStr.length() == 0) {
-                    System.out.println("[SaveGame] No pets to save for Sim: " + sim.getName());
+                    //System.out.println("[SaveGame] No pets to save for Sim: " + sim.getName());
                 }
 
                 writer.write(
@@ -135,6 +138,11 @@ public final class FileSaveRepository implements SaveRepository {
                           sim.getOwnedHouse().getName().replace("|", "").replace("-", "_") + "-" +
                           sim.getOwnedHouse().getValue()
                         : "null") + "|" +
+                    (sim.getOwnedHotel() != null
+                        ? sim.getOwnedHotel().getId() + "-" +
+                          sim.getOwnedHotel().getName().replace("|", "").replace("-", "_") + "-" +
+                          sim.getOwnedHotel().getValue()
+                        : "null") + "|" +
                     sim.getNeeds().get(NeedType.HUNGER) + "|" +
                     sim.getNeeds().get(NeedType.ENERGY) + "|" +
                     sim.getNeeds().get(NeedType.HYGIENE) + "|" +
@@ -143,7 +151,8 @@ public final class FileSaveRepository implements SaveRepository {
                     sim.getNeeds().get(NeedType.BLADDER) + "|" +
                     jobLevelsStr + "|" +
                     skillLevelsStr + "|" +
-                    petsStr
+                    petsStr + "|" +
+                    sim.getLastInactiveDays()
                 );
                 writer.newLine();
             }
@@ -234,23 +243,38 @@ public final class FileSaveRepository implements SaveRepository {
                 } else {
                     sim.setOwnedHouse(null);
                 }
+                
+                String hotelData = parts[12];
+                if (!hotelData.equals("null")) {
+                    String[] hotelParts = hotelData.split("-");
+                    if (hotelParts.length == 3) {
+                        int hotelId = Integer.parseInt(hotelParts[0]);
+                        String hotelName = hotelParts[1].replace("_", "-");
+                        int hotelValue = Integer.parseInt(hotelParts[2]);
+                        sim.setOwnedHotel(new Hotel(hotelId, hotelName, hotelValue));
+                    } else {
+                        sim.setOwnedHotel(null);
+                    }
+                } else {
+                    sim.setOwnedHotel(null);
+                }
 
                 sim.getNeeds().add(NeedType.HUNGER,
-                    Integer.parseInt(parts[12]) - sim.getNeeds().get(NeedType.HUNGER));
+                    Integer.parseInt(parts[13]) - sim.getNeeds().get(NeedType.HUNGER));
                 sim.getNeeds().add(NeedType.ENERGY,
-                    Integer.parseInt(parts[13]) - sim.getNeeds().get(NeedType.ENERGY));
+                    Integer.parseInt(parts[14]) - sim.getNeeds().get(NeedType.ENERGY));
                 sim.getNeeds().add(NeedType.HYGIENE,
-                    Integer.parseInt(parts[14]) - sim.getNeeds().get(NeedType.HYGIENE));
+                    Integer.parseInt(parts[15]) - sim.getNeeds().get(NeedType.HYGIENE));
                 sim.getNeeds().add(NeedType.SOCIAL,
-                    Integer.parseInt(parts[15]) - sim.getNeeds().get(NeedType.SOCIAL));
+                    Integer.parseInt(parts[16]) - sim.getNeeds().get(NeedType.SOCIAL));
                 sim.getNeeds().add(NeedType.FUN,
-                    Integer.parseInt(parts[16]) - sim.getNeeds().get(NeedType.FUN));
+                    Integer.parseInt(parts[17]) - sim.getNeeds().get(NeedType.FUN));
                 sim.getNeeds().add(NeedType.BLADDER,
-                    Integer.parseInt(parts[17]) - sim.getNeeds().get(NeedType.BLADDER));
+                    Integer.parseInt(parts[18]) - sim.getNeeds().get(NeedType.BLADDER));
 
                 Map<String, Integer> jobLevelsMap = new HashMap<>();
-                if (parts.length >= 19) {
-                    String jobLevelsRaw = parts[18];
+                if (parts.length >= 20) {
+                    String jobLevelsRaw = parts[19];
                     if (jobLevelsRaw != null && !jobLevelsRaw.trim().isEmpty()) {
                         String[] jobLevelPairs = jobLevelsRaw.split(",");
                         for (String pair : jobLevelPairs) {
@@ -270,8 +294,8 @@ public final class FileSaveRepository implements SaveRepository {
                 sim.setAllJobLevels(jobLevelsMap);
 
                 Map<SkillType, Integer> skillLevelsMap = new EnumMap<>(SkillType.class);
-                if (parts.length >= 20) {
-                    String skillsRaw = parts[19];
+                if (parts.length >= 21) {
+                    String skillsRaw = parts[20];
                     if (skillsRaw != null && !skillsRaw.trim().isEmpty()) {
                         String[] skillPairs = skillsRaw.split(",");
                         for (String pair : skillPairs) {
@@ -287,29 +311,45 @@ public final class FileSaveRepository implements SaveRepository {
                 sim.setAllSkillLevels(skillLevelsMap);
 
                 // Deserialize pets
-                if (parts.length >= 21) {
-                    String petsRaw = parts[20];
+                if (parts.length >= 22) {
+                    String petsRaw = parts[21];
                     if (petsRaw != null && !petsRaw.trim().isEmpty()) {
                         String[] petDatas = petsRaw.split(",");
-                        System.out.println("[LoadGame] Loading " + petDatas.length + " pets for Sim: " + sim.getName());
+                        //System.out.println("[LoadGame] Loading " + petDatas.length + " pets for Sim: " + sim.getName());
                         for (String petData : petDatas) {
                             Pet pet = Pet.deserialize(petData);
                             if (pet != null) {
                                 sim.adoptPet(pet);
-                                System.out.println("[LoadGame] Loaded pet: " + pet.getName() + " for Sim: " + sim.getName());
+                                //System.out.println("[LoadGame] Loaded pet: " + pet.getName() + " for Sim: " + sim.getName());
                             } else {
-                                System.err.println("[LoadGame] Failed to deserialize pet: " + petData);
+                                //System.err.println("[LoadGame] Failed to deserialize pet: " + petData);
                             }
                         }
                     } else {
-                        System.out.println("[LoadGame] No pets saved for Sim: " + sim.getName());
+                        //System.out.println("[LoadGame] No pets saved for Sim: " + sim.getName());
                     }
                 } else {
-                    System.out.println("[LoadGame] No pets field for Sim: " + sim.getName() + " (parts.length=" + parts.length + ")");
+                    //System.out.println("[LoadGame] No pets field for Sim: " + sim.getName() + " (parts.length=" + parts.length + ")");
+                }
+                
+                if (parts.length >= 23) {
+                	try {
+                		int inactiveDays = Integer.parseInt(parts[22]);
+                		sim.setLastInactiveDays(inactiveDays);
+                	} catch (NumberFormatException e) {
+                		sim.setLastInactiveDays(0);
+                	}
+                } else {
+                	sim.setLastInactiveDays(0);
                 }
 
                 game.addSim(sim);
+                
+                if (sim.isAlive() && sim.shouldDieFromInactivity()) {
+                    sim.setAlive(false);
+                }
             }
+            game.cleanupDeadSims();
 
             if (!game.sims().isEmpty()) {
                 if (activeSimIndex >= 0 && activeSimIndex < game.sims().size()) {

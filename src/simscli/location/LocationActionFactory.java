@@ -14,7 +14,7 @@ import simscli.actions.pet.BuyPet;
 public final class LocationActionFactory {
     public enum LocationActionType {
         // Simple actions
-        SLEEP, EAT_SNACK, EAT_MEAL, USE_TOILET, SHOWER, EXERCISE, NAP,
+        SLEEP, EAT_SNACK, EAT_MEAL, DINE_OUT, USE_TOILET, SHOWER, EXERCISE, NAP,
         WATCH_TV, READ_BOOK, PLAY_GAME, SOCIALISE, BRUSH_TEETH, CLEANING,
         WORK, DEPOSIT, WITHDRAW, APPLY_LOAN, REPAY_LOAN,
         
@@ -40,6 +40,7 @@ public final class LocationActionFactory {
             case SLEEP: return new Sleep();
             case EAT_SNACK: return new EatSnack();
             case EAT_MEAL: return new EatMeal();
+            case DINE_OUT: return new DineOut();
             case USE_TOILET: return new UseToilet();
             case SHOWER: return new Shower();
             case EXERCISE: return new Exercise();

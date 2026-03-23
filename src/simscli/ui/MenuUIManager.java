@@ -75,7 +75,7 @@ public class MenuUIManager {
                     break;
 
                 case "Continue Game":
-                    if (hasValidSave) {
+                    if (hasValidSave && !game.isGameModified()) {
                     	SaveGame.loadGame(game);
                     	System.out.println(uiHelper.GREEN + "Successfully loaded last game!\n" + uiHelper.RESET);
                     }
@@ -164,10 +164,16 @@ public class MenuUIManager {
                 case "Enter Action Menu":
                     if (activeSim != null) {
                     	game.markGameModified();
+                        List<String> pendingMessages = activeSim.getAndClearPendingLoanMessages();
+                        if (!pendingMessages.isEmpty()) {
+                            System.out.println("\n=== Pending Messages for " + activeSim.getName() + " ===");
+                            pendingMessages.forEach(msg -> System.out.println(msg));
+                        }
                         simMenuRunning = false;
                     }
                     break;
                 case "Return to Start Menu":
+                	if (activeSim != null) { simMenuRunning = false; }
                     showInitialMenu();
                     break;
                 case "Quit Game":

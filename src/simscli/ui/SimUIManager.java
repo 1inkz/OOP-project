@@ -78,7 +78,6 @@ public class SimUIManager {
         SimType type = (t == 1) ? SimType.CHILD : (t == 2) ? SimType.ADULT : SimType.ELDER;
 
         game.createSim(name, type);
-        game.markGameModified();
         // Show tutorial once when new sims created
         if (!tutorialShown) {
             showTutorial();
@@ -92,7 +91,7 @@ public class SimUIManager {
                 game.setActiveSim(i);
             }
         }
-
+        game.markGameModified();
         System.out.println(uiHelper.GREEN + "Created new Sim: " + name + " (" + type + ")" + uiHelper.RESET);
     }
     
@@ -122,9 +121,12 @@ public class SimUIManager {
         }
 
         int simIndex = choice - 1;
-        game.setActiveSim(simIndex);
-        game.markGameModified();
-        System.out.println(uiHelper.GREEN + "Active Sims changed to: " + game.activeSim().getName() + uiHelper.RESET);
+        
+        if (simIndex != sims.size()) {
+            game.setActiveSim(simIndex);
+            game.markGameModified();
+            System.out.println(uiHelper.GREEN + "Active Sims changed to: " + game.activeSim().getName() + uiHelper.RESET);
+        }
     }
     
     public void printSimStatus(Sim sim) {

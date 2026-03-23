@@ -32,6 +32,7 @@ public final class ActionFactory {
         switch (type) {
             case EAT_SNACK: return new EatSnack();
             case EAT_MEAL: return new EatMeal();
+            case DINE_OUT: return new DineOut();
             case SLEEP: return new Sleep();
             case NAP: return new Nap();
             case SHOWER: return new Shower();

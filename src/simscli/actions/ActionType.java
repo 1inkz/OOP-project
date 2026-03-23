@@ -7,6 +7,7 @@ package simscli.actions;
 public enum ActionType {
     EAT_SNACK,
     EAT_MEAL,
+    DINE_OUT,
     SLEEP,
     NAP,
     SHOWER,

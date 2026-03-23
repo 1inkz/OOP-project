@@ -37,10 +37,6 @@ public final class Withdraw implements Action {
     public String perform(Sim sim, GameContext ctx) {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
 
-        if (sim.getBankDeposit() <= 0) {
-            return RED + "No money available to withdraw!" + RESET;
-        }
-
         int withdrawAmt = ui.intRange("Enter withdraw amount or press '0' to cancel: $", 0, sim.getBankDeposit());
         return perform(sim, ctx, new AmountActionRequest(withdrawAmt));
     }
@@ -52,9 +48,6 @@ public final class Withdraw implements Action {
         }
 
         int withdrawAmt = amountRequest.amount();
-        if (withdrawAmt < 0 || withdrawAmt > sim.getBankDeposit()) {
-            return RED + "Invalid withdrawal amount." + RESET;
-        }
 
         if (withdrawAmt == 0) {
             return GREEN + "Transaction Cancelled" + RESET;

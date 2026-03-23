@@ -17,7 +17,7 @@ public final class Work implements Action {
     private static final String GREEN = "\u001B[32m";
     private static final String RESET = "\u001B[0m";
 
-    private static final int ENERGY_COST = 30;
+    private static final int ENERGY_COST = 15;
     private static final int HYGIENE_COST = 15;
     private static final int FUN_COST = 10;
 

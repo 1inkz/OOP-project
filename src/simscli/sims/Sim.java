@@ -31,6 +31,7 @@ public abstract class Sim {
     private Location location;
     private int startDay;
     private Game game;
+    private int lastInactiveDay;
     
     // Components managing specific concerns
     private final SimStatsComponent stats;
@@ -66,6 +67,7 @@ public abstract class Sim {
         this.game = game;
         this.logger = logger;
         this.startDay = game.getClock().getDayNumber();
+        this.lastInactiveDay = game.getClock().getDayNumber();;
         
         // Initialize components
         this.stats = new SimStatsComponent();
@@ -106,6 +108,8 @@ public abstract class Sim {
      * @return Effect representing hourly need degradation
      */
     public abstract Effect hourlyDecay();
+    
+    public int getActiveSimIndex() { return game.getActiveSimIndex(); }
     
     // ==================== Time Management ====================
     /**
@@ -152,6 +156,22 @@ public abstract class Sim {
      */
     public void setLoanStartDay(int loanStartDay) {
         assets.setLoanStartDay(loanStartDay);
+    }
+    
+    // For inactive sims dying rules      
+    public int getLastInactiveDays() {
+    	if (game.activeSim() == this) {
+    		this.lastInactiveDay = game.getClock().getDayNumber();
+    	}
+    	return lastInactiveDay;
+    }
+    
+    public void setLastInactiveDays(int day) {
+    	this.lastInactiveDay = day;
+    }
+    
+    public boolean shouldDieFromInactivity() {
+    	return game.getClock().getDayNumber() - lastInactiveDay > 2;
     }
     
     // ==================== Stats/Needs Management ====================
@@ -319,6 +339,15 @@ public abstract class Sim {
         return name + " sold " + asset.getName() + " for $" + sellValue + " (Profit after loan: $" + (sellValue - loanToRepay) + ")";
     }
     
+    public boolean haveAsset() {
+    	boolean haveAssets = false;
+    	
+    	if (assets.getOwnedCar() != null || assets.getOwnedHouse() != null || assets.getOwnedHotel() != null) {
+    		haveAssets = true;
+    	}
+    	return haveAssets;
+    }
+    
     public boolean hasAssetLoan() {
         return banking.getLoanAmount() > 0 && assets.getLoanStartDay() > 0;
     }
@@ -329,8 +358,7 @@ public abstract class Sim {
     
     public String repossessAsset() {
         int loanAmount = banking.getLoanAmount();
-        String repossessMsg = assets.repossessAsset(loanAmount, name, location, game);
-        banking.repayLoan(loanAmount);
+        String repossessMsg = assets.repossessAsset(loanAmount, this);
         return repossessMsg;
     }
     
@@ -435,6 +463,10 @@ public abstract class Sim {
      */
     public BankingSystem getBankingSystem() { 
         return banking.getBankingSystem(); 
+    }
+    
+    public SimBankingComponent getBankingComponent() {
+        return this.banking;
     }
     
     /**

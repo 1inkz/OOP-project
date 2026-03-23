@@ -39,9 +39,6 @@ public final class RepayLoan implements Action {
 
         int maxRepay = Math.min(sim.getSimcoin(), sim.getLoanAmount());
 
-        if (sim.getLoanAmount() <= 0) {
-            return RED + "No loan to repay." + RESET;
-        }
         if (maxRepay <= 0) {
             return RED + "You do not have enough Simcoin to repay the loan." + RESET;
         }
@@ -56,12 +53,7 @@ public final class RepayLoan implements Action {
             return perform(sim, ctx);
         }
 
-        int maxRepay = Math.min(sim.getSimcoin(), sim.getLoanAmount());
         int repayAmt = amountRequest.amount();
-
-        if (repayAmt < 0 || repayAmt > maxRepay) {
-            return RED + "Invalid repayment amount." + RESET;
-        }
 
         if (repayAmt == 0) {
             return GREEN + "Transaction Cancelled" + RESET;

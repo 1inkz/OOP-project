@@ -27,11 +27,20 @@ public final class DefaultLoanRulePolicy implements LoanRulePolicy {
                     sim.addPendingLoanMessage(repossessionMsg);
                 }
             }
+            
+            if (overdueDays >= 80 && (sim.getBankingComponent().isInsolvent(sim.getLoanAmount()))) {
+            	if (sim.haveAsset()) {
+                    String repossessionMsg = sim.repossessAsset();
 
-            if (overdueDays >= 80 && sim.isInsolvent()) {
-                sim.setAlive(false);
-                logger.error("\u001B[31m[Insolvent]\u001B[0m " + sim.getName() + " died from bankruptcy");
-                sim.clearPendingLoanMessages();
+                    if (sim == activeSim) {
+                        logger.error(repossessionMsg);
+                    } else {
+                        sim.addPendingLoanMessage(repossessionMsg);
+                    }
+            	} else {
+                    sim.setAlive(false);
+                    sim.clearPendingLoanMessages();
+            	}
             }
         }
     }

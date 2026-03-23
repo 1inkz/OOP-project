@@ -37,10 +37,6 @@ public final class Deposit implements Action {
     public String perform(Sim sim, GameContext ctx) {
         ActionUIAdapter ui = ctx;  // GameContext implements ActionUIAdapter
 
-        if (sim.getSimcoin() <= 0) {
-            return RED + "You have no Simcoin to deposit!" + RESET;
-        }
-
         int depositAmt = ui.intRange("Enter deposit amount or press '0' to cancel: $", 0, sim.getSimcoin());
         return perform(sim, ctx, new AmountActionRequest(depositAmt));
     }
@@ -52,13 +48,11 @@ public final class Deposit implements Action {
         }
 
         int depositAmt = amountRequest.amount();
-        if (depositAmt < 0 || depositAmt > sim.getSimcoin()) {
-            return RED + "Invalid deposit amount." + RESET;
-        }
-
+        
         if (depositAmt == 0) {
             return GREEN + "Transaction Cancelled" + RESET;
         }
+
 
         if (sim.getBankingSystem().deposit(depositAmt)) {
             sim.spendSimcoin(depositAmt);
