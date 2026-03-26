@@ -57,6 +57,8 @@ public final class NeedCrisisPolicy implements TimeRulePolicy {
         Location hospital = game.location().get("hospital");
         if (hospital != null) {
             sim.setLocation(hospital);
+            sim.addPendingLoanMessage("[GAME] Emergency transfer: " + sim.getName()
+                    + " was moved to Hospital due to critical hygiene. Fee charged: $" + HOSPITAL_FEE + ".");
         }
 
         // Faint/rest period with hospital care (less punishing, still costs time).

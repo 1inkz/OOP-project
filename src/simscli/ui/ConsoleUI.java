@@ -69,6 +69,14 @@ public final class ConsoleUI {
             }
             activeSim.setLastInactiveDays(game.getClock().getDayNumber());
 
+            List<String> pendingMessages = activeSim.getAndClearPendingLoanMessages();
+            if (!pendingMessages.isEmpty()) {
+                for (String message : pendingMessages) {
+                    System.out.println(uiHelper.YELLOW + message + uiHelper.RESET);
+                }
+                System.out.println();
+            }
+
             String currentLocation = activeSim.getLocation().name();
             String currentLocationOption = "View [" + currentLocation + "] Actions Menu";
             String jobless = activeSim.getJobName();

@@ -20,7 +20,6 @@ public final class Restaurant extends Location {
         }
         
         baseActions.add(ActionFactory.create(ActionType.DINE_OUT));
-        baseActions.add(ActionFactory.create(ActionType.EAT_SNACK));
         baseActions.add(ActionFactory.create(ActionType.USE_TOILET));
         baseActions.add(ActionFactory.create(ActionType.SOCIALISE));
 
