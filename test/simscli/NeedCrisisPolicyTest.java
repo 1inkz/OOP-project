@@ -120,18 +120,17 @@ public class NeedCrisisPolicyTest {
         game.setActiveSim(0);
         game.travelTo(LocationKey.CASINO);
 
+        sim.getNeeds().set(NeedType.BLADDER, 0);
         int socialBefore = sim.getNeeds().get(NeedType.SOCIAL);
         int hygieneBefore = sim.getNeeds().get(NeedType.HYGIENE);
 
-        // Casino action order: 0 slots, 1 blackjack, 2 toilet, 3 eat snack.
-        for (int i = 0; i < 30; i++) {
-            game.performLocationAction(3);
-        }
+        game.checkTimeRules();
 
-        // Bladder crisis should resolve immediate loop and apply penalties.
+        // Bladder crisis should apply immediate penalties and reset to 20.
         assertEquals(20, sim.getNeeds().get(NeedType.BLADDER));
         assertTrue(sim.getNeeds().get(NeedType.SOCIAL) < socialBefore);
         assertTrue(sim.getNeeds().get(NeedType.HYGIENE) < hygieneBefore);
+        assertTrue(sim.isAlive());
 
         game.shutdown();
     }

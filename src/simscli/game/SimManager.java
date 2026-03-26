@@ -153,11 +153,19 @@ public class SimManager {
     public void removeDeadSims(Game game) {
         Iterator<Sim> it = sims.iterator();
         String reason = "";
+        int index = 0;
+        boolean activeRemoved = false;
 
         while (it.hasNext()) {
             Sim sim = it.next();
 
             if (!sim.isAlive()) {
+	            if (index == activeIndex) {
+	                activeRemoved = true;
+	            } else if (index < activeIndex) {
+	                activeIndex--;
+	            }
+
             	if (sim.shouldDieFromInactivity()) {
             		reason = "[GAME] " + sim.getName() + " died from being neglected for " + (game.getClock().getDayNumber() - sim.getLastInactiveDays()) + " days!";
             	}
@@ -173,6 +181,22 @@ public class SimManager {
                 SaveGame.saveGame(game);
                 continue;
             }
+
+            index++;
+        }
+
+        if (sims.isEmpty()) {
+            activeIndex = -1;
+            return;
+        }
+
+        if (activeRemoved) {
+            activeIndex = Math.min(activeIndex, sims.size() - 1);
+            if (activeIndex < 0) {
+                activeIndex = 0;
+            }
+        } else if (activeIndex >= sims.size()) {
+            activeIndex = sims.size() - 1;
         }
     }
 

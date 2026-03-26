@@ -39,7 +39,6 @@ public final class Park extends Location {
         if (sim != null && !sim.getPets().isEmpty()) {
             List<Action> petActions = new ArrayList<>(Arrays.asList(
                     new FeedPetMenu(),
-                    new ShowerPetMenu(),
                     new PlayWithPetMenu()
             ));
 
@@ -47,11 +46,6 @@ public final class Park extends Location {
                 petActions.add(new SleepWithPetMenu());
             }
             actions.addAll(petActions);
-        }
-
-        // Add pet menu if Sim has pets
-        if (sim != null && !sim.getPets().isEmpty()) {
-            actions.add(new PlayWithPetMenu());
         }
       
         actions.removeIf(Objects::isNull);

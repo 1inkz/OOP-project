@@ -52,9 +52,18 @@ public final class ApplyLoan implements Action {
         }
 
         int loanAmt = amountRequest.amount();
+        int maxLoan = simscli.bank.BankingSystem.getLoanLimit() - sim.getLoanAmount();
+
+        if (maxLoan <= 0) {
+            return "Loan limit reached ($" + simscli.bank.BankingSystem.getLoanLimit() + ").";
+        }
 
         if (loanAmt == 0) {
             return GREEN + "Transaction Cancelled" + RESET;
+        }
+
+        if (loanAmt < 0 || loanAmt > maxLoan) {
+            return "Loan limit reached ($" + simscli.bank.BankingSystem.getLoanLimit() + ").";
         }
 
         if (sim.getBankingSystem().applyLoan(loanAmt)) {
