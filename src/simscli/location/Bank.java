@@ -18,7 +18,7 @@ public final class Bank extends Location {
     public List<Action> actions(Sim sim) {
         List<Action> actions = new ArrayList<>();
         
-        if (sim.getSimcoin() <= 0) {
+    if (sim.getSimcoin() > 0) {
         	actions.add(ActionFactory.create(ActionType.DEPOSIT));
         }
         
