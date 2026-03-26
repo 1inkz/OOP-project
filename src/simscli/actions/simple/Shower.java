@@ -16,6 +16,7 @@ public final class Shower implements Action {
     public String perform(Sim sim, GameContext ctx) {
         sim.applyEffect(Effect.none()
                 .plus(NeedType.HYGIENE, +40)
+                .plus(NeedType.BLADDER, +30)
                 .plus(NeedType.ENERGY, -3)
                 .plus(NeedType.SOCIAL, +2));
         return sim.getName() + " showered and feels fresh.";
