@@ -9,7 +9,7 @@ import simscli.actions.ActionType;
 import simscli.sims.Sim;
 
 /**
- * Hospital location: health checkups and Doctor employment.
+ * Hospital location: emergency care services and Doctor employment.
  */
 public final class Hospital extends Location {
     @Override

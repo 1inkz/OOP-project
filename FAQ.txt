@@ -137,3 +137,12 @@ A: Yes — everything is saved in `savegame.txt`.
 A: Run:
 ```bash
 java simscli.Main
+
+Another option after seeing an error like
+"ActionRequest cannot be resolved to a type
+        The method performLocationAction(int, ActionRequest) from the type Game refers to the missing type ActionRequest
+        ActionRequest cannot be resolved to a type
+        ActionFlavorService cannot be resolved to a type"
+
+Type in terminal:
+java -cp target/classes simscli.Main
