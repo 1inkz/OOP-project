@@ -55,6 +55,19 @@ public final class ConsoleUI {
             game.markGameModified();
 
             Sim activeSim = game.activeSim();
+            if (activeSim == null) {
+                if (game.sims().isEmpty()) {
+                    System.out.println("All Sims are gone. Game restarted! Create a new Sim.");
+                    game.resetGame();
+                    SaveGame.clearSaveFile();
+                    menuUIManager.showSimManagementMenu();
+                } else {
+                    System.out.println("[GAME] Your active Sim is no longer available. Please select another Sim.");
+                    game.setActiveSim(-1);
+                    simUIManager.selectExistingSim();
+                }
+                continue;
+            }
             activeSim.setLastInactiveDays(game.getClock().getDayNumber());
 
             String currentLocation = activeSim.getLocation().name();
