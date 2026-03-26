@@ -165,13 +165,14 @@ public class SimUIManager {
         System.out.println(needsOutput);
         
         // Display critical need warnings in RED
-        List<String> warnings = uiHelper.getCriticalNeedWarnings(sim);
-        if (!warnings.isEmpty()) {
-            System.out.println();
-            for (String warning : warnings) {
-                System.out.println(uiHelper.RED + warning + uiHelper.RESET);
-            }
-        }
+//        List<String> warnings = uiHelper.getCriticalNeedWarnings(sim);
+//        if (!warnings.isEmpty()) {
+//            System.out.println();
+//            for (String warning : warnings) {
+//                System.out.println(uiHelper.RED + warning + uiHelper.RESET);
+//            }
+//        }
+        
         
         uiHelper.printDynamicTitle(" ".repeat(skillsWidth) + "Skill Progression" + " ".repeat(skillsWidth), uiHelper.CYAN);
         System.out.println(skillsOutput);

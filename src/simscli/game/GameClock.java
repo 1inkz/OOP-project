@@ -153,6 +153,13 @@ public final class GameClock {
     private static int clamp(int value, int min, int max) {
         return Math.max(min, Math.min(max, value));
     }
+    
+    /**
+     * Use to push the time for auto hourly decay
+     */
+    public void setAccumulatedMinutes(int min) {
+    	this.accumulatedMinutes += min;
+    }
 
     /**
      * Resets clock to the next day at 8:00 AM.

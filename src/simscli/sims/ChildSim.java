@@ -21,11 +21,11 @@ public final class ChildSim extends Sim {
 	public Effect hourlyDecay() {
         // Kids lose energy slower, lose fun slower, but bladder fills faster and more hungry
         return Effect.none()
-                .plus(NeedType.HUNGER,  -4)
-                .plus(NeedType.ENERGY,  -2)
+                .plus(NeedType.HUNGER,  -3)
+                .plus(NeedType.ENERGY,  -1)
                 .plus(NeedType.HYGIENE, -3)
                 .plus(NeedType.SOCIAL,  -2)
-                .plus(NeedType.FUN,     -2)
-                .plus(NeedType.BLADDER, -4);
+                .plus(NeedType.FUN,     -1)
+                .plus(NeedType.BLADDER, -3);
     }
 }

@@ -80,6 +80,10 @@ public class TimeManager {
         checkTimeRules(sims, game);
     }
 
+    /**
+     * Print status of day summary
+     * 
+     */
     private void processDailyEconomy(List<Sim> sims, int dayNumber) {
         for (Sim sim : sims) {
             if (!sim.isAlive()) {
@@ -124,13 +128,21 @@ public class TimeManager {
      */
     public void autoAdvanceRealTime(double deltaSeconds, List<Sim> sims, Game game) {
         clock.advanceByRealTime(deltaSeconds);
+
+        clock.setAccumulatedMinutes(5); 
+
         int hoursPassed = clock.getHoursPassedFromAccumulator();
 
         if (hoursPassed > 0) {
-            advanceGameTime(hoursPassed * 60, sims, game);
+            for (Sim sim : sims) {
+                if (sim.isAlive()) {
+                    sim.applyEffect(sim.hourlyDecay());
+                }
+            }
+            game.getSimManager().removeDeadSims(game);
         }
     }
-
+    
     /**
      * Sims energy drops faster after 11pm
      */
