@@ -33,6 +33,10 @@ public class BusinessUIManager {
      */
     public void showTravelToLocationMenu() {
     	Sim activeSim = game.activeSim();
+        if (activeSim == null || !activeSim.isAlive() || activeSim.getLocation() == null) {
+            System.out.println(uiHelper.RED + "No active Sim available for travel." + uiHelper.RESET);
+            return;
+        }
         uiHelper.printDynamicTitle("SIMS GAME - Location Menu", uiHelper.DARK_RED);
         System.out.println("Current Location: " + activeSim.getLocation().name() + "\n");
 
@@ -90,9 +94,14 @@ public class BusinessUIManager {
         Location selectedLoc = availableLocations.get(choice - 1);
         String travelMsg = game.travelTo(selectedLoc.key());
 
+        Sim currentActive = game.activeSim();
+        if (currentActive == null || !currentActive.isAlive() || currentActive.getLocation() == null) {
+            System.out.println(uiHelper.RED + "Your Sim is no longer available after traveling. Please select another Sim." + uiHelper.RESET);
+            return;
+        }
+
         // Determine success from actual location state, not message wording.
-        boolean travelSucceeded = activeSim.getLocation() != null
-                && selectedLoc.key().equalsIgnoreCase(activeSim.getLocation().key());
+        boolean travelSucceeded = selectedLoc.key().equalsIgnoreCase(currentActive.getLocation().key());
 
         if (travelSucceeded) {
             System.out.println(uiHelper.GREEN + travelMsg + uiHelper.RESET);
@@ -101,11 +110,19 @@ public class BusinessUIManager {
             return;
         }
         // Immediately open the destination's action menu after successful travel.
-        showDoLocationActionsMenu(activeSim.getLocation());
+        showDoLocationActionsMenu(currentActive.getLocation());
     }
     
     public void showDoLocationActionsMenu(Location location) {
     	Sim activeSim = game.activeSim();
+        if (activeSim == null || !activeSim.isAlive() || activeSim.getLocation() == null) {
+            System.out.println(uiHelper.RED + "No active Sim available." + uiHelper.RESET);
+            return;
+        }
+        if (location == null) {
+            System.out.println(uiHelper.RED + "Invalid location." + uiHelper.RESET);
+            return;
+        }
     	uiHelper.printDynamicTitle("SIMS GAME - [" + location.name() + "] Action Menu", uiHelper.DARK_RED);
 
         List<Action> actions = location.actions(activeSim);
