@@ -49,7 +49,6 @@ public final class ConsoleUI {
 
             // Auto-advance time (GameClock's design)
             game.autoAdvanceRealTime(deltaSeconds);
-            game.advanceTimeForAction();
             
             // set game to modified
             game.markGameModified();
