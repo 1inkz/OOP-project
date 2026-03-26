@@ -174,6 +174,13 @@ public class BusinessUIManager {
 
         String selectedJob = availableJobs.get(choice - 1);
         String jobMsg = game.changeJob(selectedJob);
+        boolean isInterviewJob = !"Jobless".equalsIgnoreCase(selectedJob);
+        boolean changedSuccessfully = jobMsg.contains("is now a");
+
+        if (isInterviewJob && changedSuccessfully) {
+            // Interview flow: selecting a real job consumes one in-game hour.
+            game.advanceTimeForAction();
+        }
 
         if (jobMsg.contains("is now a")) {
             System.out.println(uiHelper.GREEN + jobMsg + uiHelper.RESET);
@@ -217,16 +224,28 @@ public class BusinessUIManager {
             case "Buy Car ($2000 - 20% down payment: $400, daily maintenance: $20, lower travel fatigue)":
                 Asset car = new Car(1, "White Audi", 2000, 0.4);
                 boolean boughtCar = activeSim.buyAsset(car);
+                if (boughtCar) {
+                    // Showroom flow: successful purchase consumes one in-game hour.
+                    game.advanceTimeForAction();
+                }
                 System.out.println(boughtCar ? uiHelper.GREEN + "Successfully bought " + car.getName() + "!" + uiHelper.RESET : uiHelper.RED + "Failed to buy Car." + uiHelper.RESET);
                 break;
             case "Buy House ($4000 - 25% down payment: $1000)":
                 Asset house = new House(1, "Condominium", 4000);
                 boolean boughtHouse = activeSim.buyAsset(house);
+                if (boughtHouse) {
+                    // Showroom flow: successful purchase consumes one in-game hour.
+                    game.advanceTimeForAction();
+                }
                 System.out.println(boughtHouse ? uiHelper.GREEN + "Successfully bought " + house.getName() + "!" + uiHelper.RESET : uiHelper.RED + "Failed to buy House." + uiHelper.RESET);
                 break;
             case "Buy Hotel ($7000 - 40% down payment: $2800, variable economy income)":
                 Asset hotel = new Hotel(1, "Intercontinental Hotel", 7000);
                 boolean boughtHotel = activeSim.buyAsset(hotel);
+                if (boughtHotel) {
+                    // Showroom flow: successful purchase consumes one in-game hour.
+                    game.advanceTimeForAction();
+                }
                 System.out.println(boughtHotel ? uiHelper.GREEN + "Successfully bought " + hotel.getName() + "!" + uiHelper.RESET : uiHelper.RED + "Failed to buy Hotel." + uiHelper.RESET);
                 break;
             case "Upgrade Hotel":

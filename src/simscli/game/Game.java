@@ -249,7 +249,15 @@ public final class Game {
         Sim active = simManager.getActiveSim();
         if (active == null) return "No active sim.";
 
+        Location origin = active.getLocation();
         String result = locationManager.travelTo(active, destination);
+
+        // Traveling to a different location consumes 1 in-game hour.
+        if (origin != null && active.getLocation() != null
+                && !origin.key().equalsIgnoreCase(active.getLocation().key())) {
+            advanceTimeForAction();
+        }
+
         return flavorService.decorate(result, active, timeManager.getClock());
     }
 

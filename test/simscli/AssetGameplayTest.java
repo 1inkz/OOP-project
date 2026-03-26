@@ -64,8 +64,12 @@ public class AssetGameplayTest {
         sim.getNeeds().set(NeedType.ENERGY, 100);
         game.travelTo("park");
 
-        assertEquals(90, sim.getNeeds().get(NeedType.HUNGER));
-        assertEquals(90, sim.getNeeds().get(NeedType.ENERGY));
+        // Travel now consumes one hour. With unpaid maintenance, no car bonus applies,
+        // so total drop includes travel fatigue plus hourly decay (range due to fatigue variance).
+        int hungerAfterTravel = sim.getNeeds().get(NeedType.HUNGER);
+        int energyAfterTravel = sim.getNeeds().get(NeedType.ENERGY);
+        assertTrue(hungerAfterTravel >= 77 && hungerAfterTravel <= 87);
+        assertTrue(energyAfterTravel >= 77 && energyAfterTravel <= 87);
 
         game.shutdown();
     }

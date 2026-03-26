@@ -10,6 +10,8 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import simscli.actions.ActionFactory;
+import simscli.actions.ActionType;
 import simscli.bank.BankingSystem;
 import simscli.game.ConsoleGameLogger;
 import simscli.game.Game;
@@ -176,13 +178,20 @@ public class SimulationIntegrationTest {
         
         game.travelTo("park");
 
-        game.performLocationAction(5); // clean in public
-        assertTrue(activeSim.getNeeds().get(NeedType.HYGIENE) > initialHygiene);
-        
-        game.performLocationAction(2); // eat snack
-        assertTrue(activeSim.getNeeds().get(NeedType.HUNGER) > initialHunger);  // hunger level increase after eat
+        int postTravelHunger = activeSim.getNeeds().get(NeedType.HUNGER);
+        int postTravelHygiene = activeSim.getNeeds().get(NeedType.HYGIENE);
 
-        game.performLocationAction(4); // sleep       
+        // Travel now consumes 1 hour, so needs can decay before actions.
+        assertTrue(postTravelHunger <= initialHunger);
+        assertTrue(postTravelHygiene <= initialHygiene);
+
+        game.performAction(ActionFactory.create(ActionType.CLEAN_PUBLIC));
+        assertTrue(activeSim.getNeeds().get(NeedType.HYGIENE) > postTravelHygiene);
+        
+        game.performAction(ActionFactory.create(ActionType.EAT_SNACK));
+        assertTrue(activeSim.getNeeds().get(NeedType.HUNGER) > postTravelHunger);  // hunger level increase after eat
+
+        game.performAction(ActionFactory.create(ActionType.SLEEP));
         assertEquals(90, activeSim.getNeeds().get(NeedType.ENERGY)); // sleep will increase energy till 90
     }
 
