@@ -29,6 +29,21 @@ Each Sim has:
 
 ---
 
+## 🧭: UNDERSTAND THE MAIN MENU
+
+Key options:
+- 👀 View Status
+- 🌍 Travel to Location
+- ⚡ View Current Location Actions
+- 💼 Job Management
+- 🏡 Asset Operations
+- ⏰ Pass Time (1 hour)
+
+💡 Tip:
+**View Status = your survival dashboard. Check it often.**
+
+---
+
 ### ❤️ Needs System
 
 Track and manage:
@@ -92,6 +107,17 @@ Available actions:
 - 🚗 Car → reduces travel fatigue
 - 🏠 House → unlocks essential home actions
 - 🏨 Hotel → generates passive income
+
+---
+
+## 💳 STEP 7: USE LOANS CAREFULLY
+
+Loans are NOT free money.
+
+✔ Use only when needed
+✔ Always have a repayment plan
+
+⚠️ Ignoring loans = serious consequences
 
 ---
 
@@ -168,7 +194,40 @@ Your progress includes:
 
 ---
 
+## 🛡 SAFE START STRATEGY
+
+If you’re new, follow this:
+
+1. 👀 Check status every cycle
+2. 💼 Work, but keep needs stable
+3. 🏠 Save for house
+4. ❌ Avoid over-expansion early
+5. 🎰 Treat casino as high risk
+
+---
+
+## ⚠️ COMMON MISTAKES
+
+Avoid these:
+
+- Ignoring time ⏰
+- Letting needs stay critical too long ❤️
+- Taking loans without a plan 💳
+- Buying too many things too early 🏡
+- Treating gambling as income 🎰
+
+---
+
+## 🏆 FINAL TIP
+
+This game rewards:
+- planning 🧠
+- discipline ⚖️
+- timing ⏰
+
 ## ▶️ How to Run
 
 ```bash
 java simscli.Main
+
+Have Fun!
