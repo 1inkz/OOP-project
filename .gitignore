@@ -29,6 +29,7 @@ bin/
 ### Java ###
 *.class
 *.jar
+!lib/*.jar
 *.war
 target/
 sources.txt
