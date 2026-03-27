@@ -228,7 +228,15 @@ This game rewards:
 ## ▶️ How to Run
 
 ```bash
-java simscli.Main
+For Windows (in Command Prompt):
+To Run The Game:        run-game.cmd
+To Run The Test Files:  run-tests.cmd
+
+For Mac (in Bash):
+To Run The Game:        bash run-game.sh
+To Run The Test Files:  bash run-tests.sh
+
+---
 
 # ❓ FAQ – QUICK HELP
 
@@ -362,21 +370,3 @@ A: If you have 5 cards and total ≤ 21 → instant win 🎉
 A: Yes — everything is saved in `savegame.txt`.
 
 ---
-
-## 🛠 TROUBLESHOOTING
-
-**Q: Game won’t run?**
-A: Run:
-```bash
-java simscli.Main
-
-Another option after seeing an error like
-"ActionRequest cannot be resolved to a type
-        The method performLocationAction(int, ActionRequest) from the type Game refers to the missing type ActionRequest
-        ActionRequest cannot be resolved to a type
-        ActionFlavorService cannot be resolved to a type"
-
-Type in terminal:
-java -cp target/classes simscli.Main
-
-Have Fun!
