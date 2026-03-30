@@ -12,12 +12,12 @@ public final class Needs {
 
     public Needs() {
         // start "okay-ish"
-        stats.put(NeedType.HUNGER,  new BoundedStat(70));
-        stats.put(NeedType.ENERGY,  new BoundedStat(70));
-        stats.put(NeedType.HYGIENE, new BoundedStat(70));
-        stats.put(NeedType.SOCIAL,  new BoundedStat(65));
-        stats.put(NeedType.FUN,     new BoundedStat(60));
-        stats.put(NeedType.BLADDER, new BoundedStat(60));
+        stats.put(NeedType.HUNGER,  new BoundedStat(100));
+        stats.put(NeedType.ENERGY,  new BoundedStat(100));
+        stats.put(NeedType.HYGIENE, new BoundedStat(100));
+        stats.put(NeedType.SOCIAL,  new BoundedStat(100));
+        stats.put(NeedType.FUN,     new BoundedStat(100));
+        stats.put(NeedType.BLADDER, new BoundedStat(100));
     }
 
     /**
